@@ -2,7 +2,7 @@
 
 This repository is a reusable template for creating Next.js sites with Supabase, configured via JSON in a Supabase `site_configs` table.
 
-## Initial Setup
+## Initial Setup d
 1. 
   
   (1.1) Create New Repository in Git
