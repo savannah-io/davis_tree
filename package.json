@@ -1,7 +1,7 @@
 {
-  "name": "auto_template",
+  "name": "davis_tree",
   "version": "1.0.0",
-  "description": "AutoSite Template Site",
+  "description": "Davis Tree Template Site",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
