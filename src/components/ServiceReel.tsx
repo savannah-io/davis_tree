@@ -16,6 +16,7 @@ import {
   ScaleIcon,
   ClipboardDocumentCheckIcon
 } from '@heroicons/react/24/outline'
+import { useConfig } from '../context/ConfigContext'
 
 const services = [
   {
@@ -83,6 +84,9 @@ const services = [
 export default function ServiceReel() {
   const [currentChunk, setCurrentChunk] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const config = useConfig();
+  const home = config?.pages?.Home || {};
+  const servicesConfig = home.servicesSection || {};
 
   // Check if we're on mobile
   useEffect(() => {
@@ -121,14 +125,32 @@ export default function ServiceReel() {
       <div className="relative max-w-[120rem] mx-auto">
         {/* Left gradient */}
         <div className="hidden md:block absolute left-0 top-0 bottom-0 w-[35rem] z-10">
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent translate-x-[20%]"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white to-transparent"
+            style={{ 
+              background: `linear-gradient(to right, ${servicesConfig.serviceReelGradientFromColor || '#ffffff'}, ${servicesConfig.serviceReelGradientFromColor || '#ffffff'}99, transparent)` 
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/80 to-transparent translate-x-[20%]"
+            style={{ 
+              background: `linear-gradient(to right, ${servicesConfig.serviceReelGradientFromColor || '#ffffff'}, ${servicesConfig.serviceReelGradientFromColor || '#ffffff'}80, transparent)`,
+              transform: 'translateX(20%)'
+            }}
+          ></div>
         </div>
         
         {/* Right gradient */}
         <div className="hidden md:block absolute right-0 top-0 bottom-0 w-[35rem] z-10">
-          <div className="absolute inset-0 bg-gradient-to-l from-white via-white to-transparent"></div>
-          <div className="absolute inset-0 bg-gradient-to-l from-white via-white/80 to-transparent translate-x-[-20%]"></div>
+          <div className="absolute inset-0 bg-gradient-to-l from-white via-white to-transparent"
+            style={{ 
+              background: `linear-gradient(to left, ${servicesConfig.serviceReelGradientToColor || '#ffffff'}, ${servicesConfig.serviceReelGradientToColor || '#ffffff'}99, transparent)` 
+            }}
+          ></div>
+          <div className="absolute inset-0 bg-gradient-to-l from-white via-white/80 to-transparent translate-x-[-20%]"
+            style={{ 
+              background: `linear-gradient(to left, ${servicesConfig.serviceReelGradientToColor || '#ffffff'}, ${servicesConfig.serviceReelGradientToColor || '#ffffff'}80, transparent)`,
+              transform: 'translateX(-20%)'
+            }}
+          ></div>
         </div>
         
         <div className="overflow-hidden md:mx-[18rem] px-4 md:px-0">
@@ -145,18 +167,37 @@ export default function ServiceReel() {
               >
                 <motion.div
                   key={currentChunk}
-                  className="w-[280px] aspect-square bg-white backdrop-blur-sm p-4 rounded-2xl hover:shadow-md transition-all duration-300 border border-gray-100/80 group shrink-0 flex flex-col items-center text-center justify-center"
+                  className="w-[280px] aspect-square backdrop-blur-sm p-4 rounded-2xl hover:shadow-md transition-all duration-300 group shrink-0 flex flex-col items-center text-center justify-center"
+                  style={{
+                    backgroundColor: servicesConfig.serviceReelCardBgColor || '#ffffff',
+                    borderColor: servicesConfig.serviceReelCardBorderColor || '#f3f4f680',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    boxShadow: `0 4px 6px ${servicesConfig.serviceReelCardHoverShadowColor || 'rgba(0, 0, 0, 0.08)'}`
+                  }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <div className="text-primary-500 mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center">
+                  <div className="mb-4 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center"
+                    style={{ 
+                      color: servicesConfig.serviceReelIconColor || '#dc7070'
+                    }}
+                  >
                     {React.cloneElement(services[currentChunk].icon, { className: "w-12 h-12" })}
                   </div>
-                  <h3 className="font-display font-bold mb-2 text-lg text-primary-600 group-hover:text-primary-700 transition-colors duration-300">
+                  <h3 className="font-display font-bold mb-2 text-lg transition-colors duration-300"
+                    style={{ 
+                      color: servicesConfig.serviceReelTitleColor || '#111827'
+                    }}
+                  >
                     {services[currentChunk].title}
                   </h3>
-                  <p className="text-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300 max-w-[85%]">
+                  <p className="text-sm transition-colors duration-300 max-w-[85%]"
+                    style={{ 
+                      color: servicesConfig.serviceReelDescriptionColor || '#6b7280'
+                    }}
+                  >
                     {services[currentChunk].description}
                   </p>
                 </motion.div>
@@ -169,9 +210,14 @@ export default function ServiceReel() {
                   key={index}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     index === currentChunk 
-                      ? 'w-6 bg-primary-500' 
-                      : 'w-1.5 bg-gray-300'
+                      ? 'w-6' 
+                      : 'w-1.5'
                   }`}
+                  style={{
+                    backgroundColor: index === currentChunk 
+                      ? servicesConfig.serviceReelMobileIndicatorColor || '#dc7070'
+                      : servicesConfig.serviceReelMobileInactiveColor || '#e0e0e0'
+                  }}
                 />
               ))}
             </div>
@@ -190,18 +236,37 @@ export default function ServiceReel() {
                 {services.map((service, index) => (
                   <motion.div
                     key={index}
-                    className="w-[18rem] aspect-square bg-white backdrop-blur-sm p-7 rounded-3xl hover:shadow-md transition-all duration-300 border border-gray-100/80 group shrink-0 flex flex-col items-center text-center justify-center"
+                    className="w-[18rem] aspect-square backdrop-blur-sm p-7 rounded-3xl hover:shadow-md transition-all duration-300 group shrink-0 flex flex-col items-center text-center justify-center"
+                    style={{
+                      backgroundColor: servicesConfig.serviceReelCardBgColor || '#ffffff',
+                      borderColor: servicesConfig.serviceReelCardBorderColor || '#f3f4f680',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      boxShadow: `0 4px 6px ${servicesConfig.serviceReelCardHoverShadowColor || 'rgba(0, 0, 0, 0.08)'}`
+                    }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="text-primary-500 mb-6 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center">
+                    <div className="mb-6 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center"
+                      style={{ 
+                        color: servicesConfig.serviceReelIconColor || '#dc7070'
+                      }}
+                    >
                       {React.cloneElement(service.icon, { className: "w-16 h-16" })}
                     </div>
-                    <h3 className="font-display font-bold mb-4 text-xl text-primary-600 group-hover:text-primary-700 transition-colors duration-300">
+                    <h3 className="font-display font-bold mb-4 text-xl transition-colors duration-300"
+                      style={{ 
+                        color: servicesConfig.serviceReelTitleColor || '#111827'
+                      }}
+                    >
                       {service.title}
                     </h3>
-                    <p className="text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 max-w-[85%]">
+                    <p className="text-base transition-colors duration-300 max-w-[85%]"
+                      style={{ 
+                        color: servicesConfig.serviceReelDescriptionColor || '#6b7280'
+                      }}
+                    >
                       {service.description}
                     </p>
                   </motion.div>
@@ -212,18 +277,37 @@ export default function ServiceReel() {
                 {services.map((service, index) => (
                   <motion.div
                     key={`duplicate-${index}`}
-                    className="w-[18rem] aspect-square bg-white backdrop-blur-sm p-7 rounded-3xl hover:shadow-md transition-all duration-300 border border-gray-100/80 group shrink-0 flex flex-col items-center text-center justify-center"
+                    className="w-[18rem] aspect-square backdrop-blur-sm p-7 rounded-3xl hover:shadow-md transition-all duration-300 group shrink-0 flex flex-col items-center text-center justify-center"
+                    style={{
+                      backgroundColor: servicesConfig.serviceReelCardBgColor || '#ffffff',
+                      borderColor: servicesConfig.serviceReelCardBorderColor || '#f3f4f680',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      boxShadow: `0 4px 6px ${servicesConfig.serviceReelCardHoverShadowColor || 'rgba(0, 0, 0, 0.08)'}`
+                    }}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1 }}
                   >
-                    <div className="text-primary-500 mb-6 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center">
+                    <div className="mb-6 transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 flex justify-center"
+                      style={{ 
+                        color: servicesConfig.serviceReelIconColor || '#dc7070'
+                      }}
+                    >
                       {React.cloneElement(service.icon, { className: "w-16 h-16" })}
                     </div>
-                    <h3 className="font-display font-bold mb-4 text-xl text-primary-600 group-hover:text-primary-700 transition-colors duration-300">
+                    <h3 className="font-display font-bold mb-4 text-xl transition-colors duration-300"
+                      style={{ 
+                        color: servicesConfig.serviceReelTitleColor || '#111827'
+                      }}
+                    >
                       {service.title}
                     </h3>
-                    <p className="text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 max-w-[85%]">
+                    <p className="text-base transition-colors duration-300 max-w-[85%]"
+                      style={{ 
+                        color: servicesConfig.serviceReelDescriptionColor || '#6b7280'
+                      }}
+                    >
                       {service.description}
                     </p>
                   </motion.div>

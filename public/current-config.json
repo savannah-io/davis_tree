@@ -91,8 +91,17 @@
       "heroBox3IconColor": "#fff",
       "scheduleSection": {
         "badge": "BOOK YOUR SERVICE",
-        "title": "Schedule Your",
-        "highlight": "Auto Estimate",
+        "scheduleSectionTitle": "OUR SCHEDULE",
+        "scheduleSectionTitleColor": "#4f46e5",
+        "scheduleSectionBadgeColor": "#e0e7ff",
+        "scheduleSectionBadgeTextColor": "#4f46e5",
+        "bookingTitleColor": "#6b7280",
+        "scheduleTitlePart1": "Schedule Your",
+        "scheduleTitlePart1Color": "#333333",
+        "scheduleTitlePart2": "Auto Estimate",
+        "scheduleTitlePart2Color": "#fbbf24",
+        "scheduleIconBgColor": "#2563eb",
+        "scheduleIconColor": "#ffffff",
         "subtitle": "Book your appointment with our expert technicians. We'll get your vehicle back to its best condition.",
         "address": "2785 Buford Hwy STE 101, Duluth, GA 30096",
         "iconBgColor": "#2564eb67",
@@ -100,7 +109,6 @@
         "titleColor": "#333333",
         "subtitleColor": "#666666",
         "badgeColor": "#d72660",
-        "highlightColor": "#fbbf24",
         "calendarRippleStartColor": "#f3f4f6",
         "calendarRippleEndColor": "#e0e7ef",
         "calendarRippleOpacity": 0.7,
@@ -123,6 +131,53 @@
         "textColor": "#333333",
         "gradientTop": "#f9fafb",
         "gradientBottom": "#f3f4f6",
+        "guaranteeTitle": "Our Guarantee",
+        "guaranteeTitleColor": "#dc7070", 
+        "guaranteeBadgeColor": "#f5d6d636",
+        "guaranteeBadgeTextColor": "#dc7070",
+        
+        "guaranteeIcon1": "access.png",
+        "guaranteeTitle1": "Lifetime Warranty",
+        "guaranteeSubtitle1": "On All Services",
+        "guaranteeIconBgColor1": "#ffffff",
+        "guaranteeIconBorderColor1": "#e0e7ff",
+        "guaranteeTitleTextColor1": "#111827",
+        "guaranteeSubtitleTextColor1": "#6b7280",
+        
+        "guaranteeIcon2": "free.png",
+        "guaranteeTitle2": "Free Estimates",
+        "guaranteeSubtitle2": "Quick & Accurate",
+        "guaranteeIconBgColor2": "#ffffff",
+        "guaranteeIconBorderColor2": "#e0e7ff",
+        "guaranteeTitleTextColor2": "#111827",
+        "guaranteeSubtitleTextColor2": "#6b7280",
+        
+        "guaranteeCenterLogo": "PPG.png",
+        "guaranteeCenterBgColor": "#ffffff",
+        "guaranteeCenterBorderColor": "#e0e7ff",
+        
+        "guaranteeIcon4": "calculator.png",
+        "guaranteeTitle4": "Insurance Approved",
+        "guaranteeSubtitle4": "All Major & Minor Companies",
+        "guaranteeIconBgColor4": "#ffffff",
+        "guaranteeIconBorderColor4": "#e0e7ff",
+        "guaranteeTitleTextColor4": "#111827",
+        "guaranteeSubtitleTextColor4": "#6b7280",
+        
+        "guaranteeIcon5": "shipping.png",
+        "guaranteeTitle5": "Towing Service",
+        "guaranteeSubtitle5": "24/7 Available",
+        "guaranteeIconBgColor5": "#ffffff",
+        "guaranteeIconBorderColor5": "#e0e7ff",
+        "guaranteeTitleTextColor5": "#111827",
+        "guaranteeSubtitleTextColor5": "#6b7280",
+        
+        "guaranteeIconBgColor": "#ffffff",
+        "guaranteeIconBorderColor": "#e0e7ff",
+        "guaranteeTitleTextColor": "#111827",
+        "guaranteeSubtitleTextColor": "#6b7280",
+        "guaranteeBgGradientTop": "#ffffff",
+        "guaranteeBgGradientBottom": "#f0f9ff",
         "cards": [
           {
             "title": "100% Satisfaction",
@@ -240,6 +295,27 @@
         {
           "text": "Had a door out of alignment and Max fixed it in just a few minutes. No appointment. Just rolled in off the street. Great place.",
           "author": "Rob G.",
+          "rating": 5
+        }
+      ],
+      "reviewsBgStartColor": "#4f46e5",
+      "reviewsBgMiddleColor": "#4338ca",
+      "reviewsBgEndColor": "#3730a3",
+      
+      "defaultReviews": [
+        {
+          "text": "Absolutely phenomenal work! My car looks even better than before the accident. The attention to detail and craftsmanship is top-notch. I highly recommend their services.",
+          "author": "Jennifer R.",
+          "rating": 5
+        },
+        {
+          "text": "Fast, professional service from start to finish. They handled my insurance claim seamlessly and kept me updated throughout the entire repair process. Couldn't be happier with the results!",
+          "author": "Michael S.",
+          "rating": 5
+        },
+        {
+          "text": "The team truly went above and beyond my expectations. Not only was my car repaired perfectly, but they also detailed it before returning it to me. Excellent customer service and quality work.",
+          "author": "David W.",
           "rating": 5
         }
       ]
@@ -362,7 +438,23 @@
       "ctaDescription": "Schedule your appointment today and experience the difference expert auto body repair makes.",
       "scheduleButtonText": "Schedule Now",
       "callButtonText": "Call Us Now",
-      "heroImage": "/images/hero-services.jpg"
+      "heroImage": "/images/hero-services.jpg",
+      "servicesSection": {
+        "servicesBgColor": "#ffffff",
+        
+        "serviceReelCardBgColor": "#ffffff",
+        "serviceReelCardBorderColor": "#f3f4f680",
+        "serviceReelCardHoverShadowColor": "rgba(0, 0, 0, 0.08)",
+        "serviceReelIconColor": "#dc7070",
+        "serviceReelTitleColor": "#111827",
+        "serviceReelTitleHoverColor": "#dc7070",
+        "serviceReelDescriptionColor": "#6b7280",
+        "serviceReelDescriptionHoverColor": "#374151",
+        "serviceReelMobileIndicatorColor": "#dc7070",
+        "serviceReelMobileInactiveColor": "#e0e0e0",
+        "serviceReelGradientFromColor": "#ffffff",
+        "serviceReelGradientToColor": "#ffffff"
+      }
     }
   },
   "theme": {

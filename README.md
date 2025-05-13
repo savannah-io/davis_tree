@@ -44,51 +44,9 @@ This repository is a reusable template for creating Next.js sites with Supabase,
   (2.3) Run Supabase SQL
         [ ] *RUN THE BELOW SQL IN THE SQL EDITOR*
 
-    create table public.site_configs (
-  id uuid not null default gen_random_uuid (),
-  site_key text not null,
-  config jsonb not null,
-  constraint site_configs_pkey primary key (id),
-  constraint site_configs_site_key_key unique (site_key)
-) TABLESPACE pg_default;    
-
-        [ ] **RUN THE ABOVE SQL IN THE SQL EDITOR**
-
-  (2.4) Run Supabase SQL
-        [ ] *RUN THE BELOW SQL IN THE SQL EDITOR*
-
-    insert into site_configs (site_key, config) values (
-  '[NEW-PROJECT-NAME]',
-  '{
-    "siteTitle": "My Site",
-    "description": "A description",
-    "logo": "",
-    "address": "",
-    "phone": "",
-    "email": "",
-    "navLinks": [],
-    "footerLinks": [],
-    "socialLinks": { "instagram": "", "facebook": "", "linkedin": "", "twitter": "" },
-    "theme": { "primary600": "", "primary700": "" },
-    "schedulingButtonText": "",
-    "pages": {
-      "Home": { "title": "", "heroImage": "", "content": "" },
-      "Services": { "title": "", "heroImage": "", "content": "", "services": [] },
-      "Reviews": { "title": "", "heroImage": "", "content": "" },
-      "Contact": { "title": "", "heroImage": "", "content": "" }
-    },
-    "policies": { "privacy": "", "terms": "" }
-  }'::jsonb
-);   
-
-        [ ] *RUN THE ABOVE SQL IN THE SQL EDITOR*
-
-  (2.5) Insert
-        [ ] Change the name:        "name": "templatesoite",
-        [ ] Change the description: "description": "AutoSite Template Site",
-        [ ] IN TERMINAL, Run: rm -rf node_modules package-lock.json
-        [ ] ->                npm install
-        [ ] ->                npm run dev
-        [ ] *GO TO: localhost:3000 to test running*
+   
         
         
+## CTRL+F LOCALCONFIG.TS
+
+N

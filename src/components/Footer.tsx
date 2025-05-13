@@ -6,8 +6,8 @@ import { motion } from 'framer-motion'
 import { MapPinIcon, PhoneIcon, EnvelopeIcon, ClockIcon, UserGroupIcon } from '@heroicons/react/24/outline'
 import { usePrivacyPolicy, useTermsOfService } from './PolicyModals'
 import Image from 'next/image'
-import localConfig, { LocalConfig } from '@/config/localConfig'
-import { FooterStyle, SocialLinks, getFooterStyle, getSocialLinks, normalizeConfig } from '@/config/configFixTypes'
+import localConfig from '../config/localConfig'
+import { FooterStyle, SocialLinks, getFooterStyle, getSocialLinks, normalizeConfig, SiteConfig } from '../config/configFixTypes'
 import { useConfig } from '@/context/ConfigContext'
 
 // Define interfaces for the configuration objects
@@ -20,6 +20,12 @@ interface ContactInfo {
 interface Hours {
   weekday?: string;
   weekend?: string;
+}
+
+// Add type for footerLink items
+interface FooterLink {
+  label: string;
+  path: string;
 }
 
 // Add social icons imports
@@ -87,7 +93,7 @@ export default function Footer() {
   const configFromContext = useConfig();
   
   // Use state to manage config to ensure it's reactive and fresh
-  const [currentConfig, setCurrentConfig] = useState<LocalConfig>({...configFromContext})
+  const [currentConfig, setCurrentConfig] = useState<SiteConfig>({...configFromContext})
   
   // Force refresh from context config whenever it changes
   useEffect(() => {
@@ -364,9 +370,9 @@ export default function Footer() {
               ></span>
             </motion.h3>
             <ul className="space-y-3">
-              {footerLinks.map(({ label, path }, index) => (
+              {footerLinks.map((link: { label: string; path: string }, index: number) => (
                 <motion.li 
-                  key={label}
+                  key={link.label}
                   initial={{ opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -374,11 +380,11 @@ export default function Footer() {
                   className="transform hover:-translate-y-0.5 transition-transform duration-200"
                 >
                   <ShimmerLink 
-                    href={path}
+                    href={link.path}
                     textColor={colors.link}
                     hoverColor={colors.linkHover}
                   >
-                    {label}
+                    {link.label}
                   </ShimmerLink>
                 </motion.li>
               ))}

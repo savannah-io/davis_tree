@@ -37,6 +37,37 @@ declare global {
   }
 }
 
+// Helper function to convert hex color to hue-rotate value
+const getHueRotate = (hexColor: string): string => {
+  // Remove the hash if it exists
+  const hex = hexColor.replace('#', '');
+  
+  // Convert hex to RGB
+  const r = parseInt(hex.substring(0, 2), 16) / 255;
+  const g = parseInt(hex.substring(2, 4), 16) / 255;
+  const b = parseInt(hex.substring(4, 6), 16) / 255;
+  
+  // Find the hue
+  let max = Math.max(r, g, b);
+  let min = Math.min(r, g, b);
+  let h = 0;
+  
+  if (max !== min) {
+    if (max === r) {
+      h = 60 * ((g - b) / (max - min));
+    } else if (max === g) {
+      h = 60 * (2 + (b - r) / (max - min));
+    } else {
+      h = 60 * (4 + (r - g) / (max - min));
+    }
+  }
+  
+  if (h < 0) h += 360;
+  
+  // Return hue-rotate value (primary red is approximately at 0deg)
+  return `${h}deg`;
+};
+
 // Define interfaces for service category and services
 interface ServiceItem {
   title: string;
@@ -96,12 +127,67 @@ interface ServicesConfig {
   serviceCategories?: ServiceCategory[];
   expertiseTitle?: string;
   expertiseDescription?: string;
-  expertiseCards?: ExpertiseCard[];
+  expertiseCards?: {
+    title: string;
+    description: string;
+  }[];
   ctaTitle?: string;
   ctaDescription?: string;
   scheduleButtonText?: string;
   callButtonText?: string;
   heroImage?: string;
+  card1Title?: string;
+  card1Value?: string;
+  card2Title?: string;
+  card2Value?: string;
+  heroBgGradientFrom?: string;
+  heroBgGradientVia?: string;
+  heroBgGradientTo?: string;
+  heroBadgeBgColor?: string;
+  heroBadgeTextColor?: string;
+  heroBadgeIconColor?: string;
+  heroTitleColor?: string;
+  heroSubtitleColor?: string;
+  heroStatsCardBgColor?: string;
+  heroStatsCardIconColor?: string;
+  heroStatsCardValueColor?: string;
+  heroStatsCardTextColor?: string;
+  expertiseBgGradientFrom?: string;
+  expertiseBgGradientVia?: string;
+  expertiseBgGradientTo?: string;
+  expertiseAnimatedOrbsColor1?: string;
+  expertiseAnimatedOrbsColor2?: string;
+  expertiseAnimatedOrbsColor3?: string;
+  expertiseTitleColor?: string;
+  expertiseDescriptionColor?: string;
+  expertiseCardBgColor?: string;
+  expertiseCardShadow?: string;
+  expertiseCardHoverGradient?: string;
+  expertiseCardIconBgColor?: string;
+  expertiseCardIconColor?: string;
+  expertiseCardTitleColor?: string;
+  expertiseCardTextColor?: string;
+  ctaBgGradientFrom?: string;
+  ctaBgGradientVia?: string;
+  ctaBgGradientTo?: string;
+  ctaBgPatternColor?: string;
+  ctaCardBgColor?: string;
+  ctaCardBorderColor?: string;
+  ctaTitleColor?: string;
+  ctaDescriptionColor?: string;
+  scheduleButtonBgColor?: string;
+  scheduleButtonTextColor?: string;
+  callButtonBgColor?: string;
+  callButtonTextColor?: string;
+  serviceCategoryCardGradientFrom?: string;
+  serviceCategoryCardGradientTo?: string;
+  serviceCategoriesBgColorFrom?: string;
+  serviceCategoriesBgColorTo?: string;
+  heroBlurredCircle1Color?: string;
+  heroBlurredCircle2Color?: string;
+  heroPatternColor?: string;
+  heroLightBeam1Color?: string;
+  heroLightBeam2Color?: string;
 }
 
 // Add type for the icon prop
@@ -133,6 +219,7 @@ const Section: React.FC<SectionProps> = ({ icon: Icon, title, children }) => (
 
 function ServicesContent() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  
   // Get config data from localConfig
   const servicesConfig: ServicesConfig = (localConfig.pages as any)?.Services || {
     serviceCategories: []
@@ -159,7 +246,32 @@ function ServicesContent() {
     };
   }, [selectedCategory]);
 
-  const serviceCategories: ServiceCategory[] = servicesConfig.serviceCategories || [
+  // Map the icon strings from config to actual React components
+  const getIconComponent = (iconName: string) => {
+    const iconMap: {[key: string]: React.ReactNode} = {
+      "ExclamationTriangleIcon": <ExclamationTriangleIcon className="w-full h-full" />,
+      "SparklesIcon": <SparklesIcon className="w-full h-full" />,
+      "PaintBrushIcon": <PaintBrushIcon className="w-full h-full" />,
+      "WrenchIcon": <WrenchIcon className="w-full h-full" />,
+      "CogIcon": <CogIcon className="w-full h-full" />,
+      "BeakerIcon": <BeakerIcon className="w-full h-full" />,
+      "CheckIcon": <CheckIcon className="w-full h-full" />,
+      "ArrowRightIcon": <ArrowRightIcon className="w-full h-full" />,
+      "XMarkIcon": <XMarkIcon className="w-full h-full" />,
+      "ShieldCheckIcon": <ShieldCheckIcon className="w-full h-full" />,
+      "TruckIcon": <TruckIcon className="w-full h-full" />,
+      "DocumentCheckIcon": <DocumentCheckIcon className="w-full h-full" />,
+      "WrenchScrewdriverIcon": <WrenchScrewdriverIcon className="w-full h-full" />,
+      "SparklesOutlineIcon": <SparklesIcon className="w-full h-full" />,
+      "WrenchScrewdriverOutlineIcon": <WrenchScrewdriverIcon className="w-full h-full" />,
+      "CogOutlineIcon": <CogIcon className="w-full h-full" />
+    };
+    
+    return iconMap[iconName] || <WrenchScrewdriverIcon className="w-full h-full" />;
+  };
+
+  // Use the serviceCategories from the config if available, otherwise use fallback
+  const fallbackCategories: ServiceCategory[] = [
     {
       id: "collision",
       title: "Collision Services",
@@ -217,8 +329,8 @@ function ServicesContent() {
     {
       id: "cosmetic",
       title: "Cosmetic Services",
-      icon: <SparklesOutlineIcon className="w-full h-full" />,
-      description: "Premium cosmetic services to enhance and protect your vehicle&apos;s appearance",
+      icon: <SparklesIcon className="w-full h-full" />,
+      description: "Premium cosmetic services to enhance and protect your vehicle's appearance",
       bgImage: "/images/back5.png",
       color: "from-primary-500 to-primary-600",
       iconColor: "#ffffff",
@@ -249,7 +361,7 @@ function ServicesContent() {
         {
           title: "Classic Restoration",
           description: "Expert restoration of vintage vehicles",
-          icon: <WrenchScrewdriverOutlineIcon className="w-6 h-6" />,
+          icon: <WrenchScrewdriverIcon className="w-6 h-6" />,
           iconColor: "#3b82f6",
           titleColor: "#111827",
           descriptionColor: "#6b7280",
@@ -259,7 +371,7 @@ function ServicesContent() {
         {
           title: "Wheel & Rim Services",
           description: "Professional wheel repair and restoration",
-          icon: <CogOutlineIcon className="w-6 h-6" />,
+          icon: <CogIcon className="w-6 h-6" />,
           iconColor: "#3b82f6",
           titleColor: "#111827",
           descriptionColor: "#6b7280",
@@ -324,6 +436,32 @@ function ServicesContent() {
     }
   ];
 
+  // Process categories from config or use fallback
+  const processCategories = (categories: ServiceCategory[]) => {
+    return categories.map(category => {
+      // Process category icon
+      const categoryIcon = typeof category.icon === 'string' 
+        ? getIconComponent(category.icon) 
+        : category.icon;
+      
+      // Process service icons
+      const processedServices = category.services.map(service => {
+        const serviceIcon = typeof service.icon === 'string'
+          ? getIconComponent(service.icon)
+          : service.icon;
+        
+        return {...service, icon: serviceIcon};
+      });
+      
+      return {...category, icon: categoryIcon, services: processedServices};
+    });
+  };
+
+  // Use config categories if available, otherwise use fallback
+  const serviceCategories = servicesConfig.serviceCategories 
+    ? processCategories(servicesConfig.serviceCategories as any)
+    : fallbackCategories;
+
   const selectedCategoryData = serviceCategories.find(c => c.id === selectedCategory);
 
   return (
@@ -331,36 +469,80 @@ function ServicesContent() {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative pt-24 md:pt-32 pb-16 overflow-hidden bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600">
+      <section className="relative pt-24 md:pt-32 pb-16 overflow-hidden bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600" 
+        style={{ 
+          background: `linear-gradient(to bottom right, ${servicesConfig.heroBgGradientFrom || '#dc7070'}, ${servicesConfig.heroBgGradientVia || '#e69999'}, ${servicesConfig.heroBgGradientTo || '#e69999'})` 
+        }}
+      >
         {/* Animated background elements */}
         <div className="absolute inset-0 overflow-hidden">
           {/* Large blurred circles */}
-          <div className="absolute w-[500px] h-[500px] -top-48 -left-48 bg-primary-400/20 rounded-full blur-3xl animate-blob"></div>
-          <div className="absolute w-[400px] h-[400px] -bottom-48 -right-48 bg-primary-300/20 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+          <div 
+            className="absolute w-[500px] h-[500px] -top-48 -left-48 rounded-full blur-3xl animate-blob" 
+            style={{ 
+              backgroundColor: `${servicesConfig.heroBlurredCircle1Color || 'rgba(220, 112, 112, 0.2)'}` 
+            }}
+          ></div>
+          <div 
+            className="absolute w-[400px] h-[400px] -bottom-48 -right-48 rounded-full blur-3xl animate-blob animation-delay-2000" 
+            style={{ 
+              backgroundColor: `${servicesConfig.heroBlurredCircle2Color || 'rgba(230, 153, 153, 0.2)'}` 
+            }}
+          ></div>
           
           {/* Decorative patterns */}
           <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)', backgroundSize: '32px 32px' }}></div>
+            <div 
+              className="absolute inset-0" 
+              style={{ 
+                backgroundImage: `radial-gradient(circle at 2px 2px, ${servicesConfig.heroPatternColor || 'rgba(255,255,255,0.15)'} 1px, transparent 0)`, 
+                backgroundSize: '32px 32px' 
+              }}
+            ></div>
           </div>
           
           {/* Subtle light beams */}
-          <div className="absolute -top-24 left-1/4 w-96 h-96 bg-gradient-to-b from-primary-400/30 to-transparent rotate-12 transform-gpu"></div>
-          <div className="absolute -bottom-24 right-1/4 w-96 h-96 bg-gradient-to-t from-primary-400/30 to-transparent -rotate-12 transform-gpu"></div>
+          <div 
+            className="absolute -top-24 left-1/4 w-96 h-96 rotate-12 transform-gpu" 
+            style={{ 
+              background: `linear-gradient(to bottom, ${servicesConfig.heroLightBeam1Color || 'rgba(220, 112, 112, 0.3)'}, transparent)` 
+            }}
+          ></div>
+          <div 
+            className="absolute -bottom-24 right-1/4 w-96 h-96 -rotate-12 transform-gpu" 
+            style={{ 
+              background: `linear-gradient(to top, ${servicesConfig.heroLightBeam2Color || 'rgba(220, 112, 112, 0.3)'}, transparent)` 
+            }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-block mb-4">
-              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
-                <Image 
-                  src="/medal.svg" 
-                  alt="Certified Auto Body Shop" 
-                  width={24} 
-                  height={24}
-                  className="w-6 h-6"
-                />
-                <span className="text-sm font-medium text-white">{servicesConfig.badge || "Certified Auto Body Shop"}</span>
-                <svg className="w-5 h-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+              <div className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20"
+                style={{ 
+                  backgroundColor: servicesConfig.heroBadgeBgColor || 'rgba(255, 255, 255, 0.1)' 
+                }}
+              >
+                <div className="w-6 h-6" style={{ filter: `brightness(0) invert(1) sepia(1) saturate(3) hue-rotate(${servicesConfig.heroBadgeIconColor ? getHueRotate(servicesConfig.heroBadgeIconColor) : '0deg'})` }}>
+                  <Image 
+                    src="/medal.svg" 
+                    alt="Certified Auto Body Shop" 
+                    width={24} 
+                    height={24}
+                    className="w-6 h-6"
+                  />
+                </div>
+                <span className="text-sm font-medium text-white" 
+                  style={{ color: servicesConfig.heroBadgeTextColor || '#ffffff' }}
+                >
+                  {servicesConfig.badge || "Certified Auto Body Shop"}
+                </span>
+                <svg className="w-5 h-5 text-blue-400" 
+                  viewBox="0 0 20 20" 
+                  fill="currentColor"
+                  style={{ color: servicesConfig.heroBadgeIconColor || '#dc7070' }}
+                >
                   <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                 </svg>
               </div>
@@ -371,42 +553,87 @@ function ServicesContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <span className="text-white">{servicesConfig.title || "Our Auto Body "}</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-100">Services</span>
+              <span className="text-white" style={{ color: servicesConfig.heroTitleColor || '#ffffff' }}>
+                {servicesConfig.title || "Our Auto Body Services"}
+              </span>
             </motion.h1>
             <motion.p 
               className="text-lg md:text-xl text-blue-50 leading-relaxed max-w-2xl mx-auto mb-8"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
+              style={{ 
+                color: servicesConfig.heroSubtitleColor || '#ffffff',
+                opacity: 1,
+                display: 'block',
+                fontWeight: 400
+              }}
             >
-              {servicesConfig.subtitle || "Expert collision repair and auto body services in Duluth, GA. Quality work guaranteed."}
+              {servicesConfig.subtitle || "Expert collision repair and auto body services. Quality work guaranteed."}
             </motion.p>
 
             <div className="flex justify-center gap-8">
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-500 rounded-xl blur-xl opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
-                <div className="relative px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/30 transition-all duration-200">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-blue-500 rounded-xl blur-xl opacity-25 group-hover:opacity-40 transition-opacity duration-300"
+                  style={{ 
+                    background: `linear-gradient(to right, ${servicesConfig.heroBgGradientFrom || '#dc7070'}, ${servicesConfig.heroBgGradientTo || '#e69999'})` 
+                  }}
+                ></div>
+                <div className="relative px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/30 transition-all duration-200"
+                  style={{ 
+                    backgroundColor: servicesConfig.heroStatsCardBgColor || 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                  }}
+                >
                   <div className="flex items-center justify-center mb-2">
-                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                      style={{ color: servicesConfig.heroStatsCardIconColor || '#dc7070' }}
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                   </div>
-                  <div className="text-3xl font-bold text-white mb-1 font-display">{servicesConfig.yearsExperience || "15+"}</div>
-                  <div className="text-sm text-blue-100 font-medium">Years Experience</div>
+                  <div className="text-3xl font-bold text-white mb-1 font-display"
+                    style={{ color: servicesConfig.heroStatsCardValueColor || '#ffffff' }}
+                  >
+                    {servicesConfig.card1Value || "15+"}
+                  </div>
+                  <div className="text-sm text-blue-100 font-medium"
+                    style={{ color: servicesConfig.heroStatsCardTextColor || '#ffffff' }}
+                  >
+                    {servicesConfig.card1Title || "Years Experience"}
+                  </div>
                 </div>
               </div>
 
               <div className="group relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-primary-500 rounded-xl blur-xl opacity-25 group-hover:opacity-40 transition-opacity duration-300"></div>
-                <div className="relative px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/30 transition-all duration-200">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-primary-500 rounded-xl blur-xl opacity-25 group-hover:opacity-40 transition-opacity duration-300"
+                  style={{ 
+                    background: `linear-gradient(to right, ${servicesConfig.heroBgGradientTo || '#e69999'}, ${servicesConfig.heroBgGradientFrom || '#dc7070'})` 
+                  }}  
+                ></div>
+                <div className="relative px-6 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 hover:border-white/30 transition-all duration-200"
+                  style={{ 
+                    backgroundColor: servicesConfig.heroStatsCardBgColor || 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                  }}
+                >
                   <div className="flex items-center justify-center mb-2">
-                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                      style={{ color: servicesConfig.heroStatsCardIconColor || '#dc7070' }}
+                    >
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
                     </svg>
                   </div>
-                  <div className="text-3xl font-bold text-white mb-1 font-display">{servicesConfig.carsRepaired || "5000+"}</div>
-                  <div className="text-sm text-blue-100 font-medium">Cars Repaired</div>
+                  <div className="text-3xl font-bold text-white mb-1 font-display"
+                    style={{ color: servicesConfig.heroStatsCardValueColor || '#ffffff' }}
+                  >
+                    {servicesConfig.card2Value || "5000+"}
+                  </div>
+                  <div className="text-sm text-blue-100 font-medium"
+                    style={{ color: servicesConfig.heroStatsCardTextColor || '#ffffff' }}
+                  >
+                    {servicesConfig.card2Title || "Cars Repaired"}
+                  </div>
                 </div>
               </div>
             </div>
@@ -415,7 +642,12 @@ function ServicesContent() {
       </section>
 
       {/* Service Categories */}
-      <section className="py-20 overflow-hidden relative">
+      <section 
+        className="py-20 overflow-hidden relative bg-gradient-to-b from-gray-50 to-gray-100" 
+        style={{ 
+          background: `linear-gradient(to bottom, ${servicesConfig.serviceCategoriesBgColorFrom || '#f9fafb'}, ${servicesConfig.serviceCategoriesBgColorTo || '#f3f4f6'})`
+        }}
+      >
         <MouseFollowGradient variant="light" opacity={0.6} />
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
@@ -437,7 +669,12 @@ function ServicesContent() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                   <div className="relative h-full p-6 flex flex-col justify-end">
-                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} text-white flex items-center justify-center p-4 mb-4 transform transition-transform duration-300 group-hover:scale-110`} style={{ color: category.iconColor || '#ffffff' }}>
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} text-white flex items-center justify-center p-4 mb-4 transform transition-transform duration-300 group-hover:scale-110`} 
+                      style={{ 
+                        color: category.iconColor || '#ffffff',
+                        background: `linear-gradient(to bottom right, ${servicesConfig.serviceCategoryCardGradientFrom || '#dc7070'}, ${servicesConfig.serviceCategoryCardGradientTo || '#e69999'})` 
+                      }}
+                    >
                       {category.icon}
                     </div>
                     <h2 className="text-2xl font-display font-bold mb-2" style={{ color: category.titleColor || '#ffffff' }}>
@@ -530,7 +767,10 @@ function ServicesContent() {
                       >
                         <div className="flex items-start gap-3 md:gap-4">
                           <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br ${selectedCategoryData.color} flex items-center justify-center p-2 md:p-3 shrink-0`} 
-                               style={{ color: service.iconColor || '#ffffff' }}>
+                            style={{ 
+                              color: service.iconColor || '#ffffff',
+                              background: `linear-gradient(to bottom right, ${servicesConfig.serviceCategoryCardGradientFrom || '#dc7070'}, ${servicesConfig.serviceCategoryCardGradientTo || '#e69999'})` 
+                            }}>
                             {service.icon}
                           </div>
                           <div>
@@ -554,121 +794,37 @@ function ServicesContent() {
         )}
       </AnimatePresence>
 
-      {/* Why Expertise Matters Section */}
-      <section className="py-20 relative overflow-hidden">
-        {/* Dynamic Background Elements */}
-        <div className="absolute inset-0 bg-gradient-to-b from-gray-50 via-white to-gray-50">
-          {/* Animated gradient orbs */}
-          <div className="absolute top-0 left-0 w-[800px] h-[800px] bg-gradient-to-br from-blue-100/40 via-primary-200/30 to-transparent rounded-full blur-3xl animate-float-slow transform -translate-x-1/2 -translate-y-1/2"></div>
-          <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-gradient-to-tl from-primary-100/30 via-blue-200/20 to-transparent rounded-full blur-3xl animate-float transform translate-x-1/4 translate-y-1/4"></div>
-          
-          {/* Floating particles */}
-          <div className="absolute inset-0 opacity-30">
-            <div className="absolute h-32 w-32 rounded-full bg-gradient-to-br from-primary-300/40 to-blue-200/40 blur-2xl animate-float top-1/4 left-1/4"></div>
-            <div className="absolute h-24 w-24 rounded-full bg-gradient-to-br from-blue-200/40 to-primary-300/40 blur-2xl animate-float-slow top-3/4 right-1/3 animation-delay-2000"></div>
-            <div className="absolute h-16 w-16 rounded-full bg-gradient-to-br from-primary-200/40 to-blue-300/40 blur-2xl animate-float-slower bottom-1/4 left-1/3 animation-delay-4000"></div>
-          </div>
-
-          {/* Light beams */}
-          <div className="absolute top-0 left-1/3 w-full h-full bg-gradient-to-b from-primary-100/20 via-transparent to-transparent transform -rotate-45 animate-pulse"></div>
-          <div className="absolute bottom-0 right-1/3 w-full h-full bg-gradient-to-t from-blue-100/20 via-transparent to-transparent transform rotate-45 animate-pulse animation-delay-2000"></div>
-        </div>
-
-        <style jsx>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-20px) translateX(10px); }
-          }
-          @keyframes float-slow {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-30px) translateX(-15px); }
-          }
-          @keyframes float-slower {
-            0%, 100% { transform: translateY(0) translateX(0); }
-            50% { transform: translateY(-15px) translateX(20px); }
-          }
-          .animate-float {
-            animation: float 8s ease-in-out infinite;
-          }
-          .animate-float-slow {
-            animation: float-slow 12s ease-in-out infinite;
-          }
-          .animate-float-slower {
-            animation: float-slower 15s ease-in-out infinite;
-          }
-          .animation-delay-2000 {
-            animation-delay: 2s;
-          }
-          .animation-delay-4000 {
-            animation-delay: 4s;
-          }
-        `}</style>
-
-        <div className="container mx-auto px-4 relative">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-            >
-              <h2 className="text-4xl md:text-5xl font-display font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-primary-900">
-                {servicesConfig.expertiseTitle || "Why Expert Auto Body Repair Matters"}
-              </h2>
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                {servicesConfig.expertiseDescription || "Modern vehicles are complex machines requiring specialized knowledge and equipment for proper repairs. Choosing the right auto body shop can make all the difference in your vehicle's safety and longevity."}
-              </p>
-            </motion.div>
-          </div>
-          
-          <div className="max-w-6xl mx-auto relative space-y-6">
-            {(servicesConfig.expertiseCards || []).map((card: ExpertiseCard, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="group"
-              >
-                <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 relative overflow-hidden flex items-center">
-                  <div className={`absolute inset-0 bg-gradient-to-${index % 2 === 0 ? 'r' : 'l'} from-primary-50/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-                  <div className="w-16 h-16 bg-primary-100 rounded-xl flex items-center justify-center shrink-0 mr-8 group-hover:scale-110 transition-transform duration-300 relative">
-                    <svg className="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div className="relative flex-1">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-3">{card.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">
-                      {card.description}
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Call to Action Section */}
       <section className="relative py-20">
         {/* Diagonal stripes background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary-800 via-primary-700 to-primary-600"
+          style={{ 
+            background: `linear-gradient(to bottom right, ${servicesConfig.ctaBgGradientFrom || '#dc7070'}, ${servicesConfig.ctaBgGradientVia || '#e69999'}, ${servicesConfig.ctaBgGradientTo || '#e69999'})` 
+          }}
+        >
           <div className="absolute inset-0" style={{ 
-            backgroundImage: `repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 40px)`,
+            backgroundImage: `repeating-linear-gradient(45deg, ${servicesConfig.ctaBgPatternColor || 'rgba(255,255,255,0.05)'} 0px, ${servicesConfig.ctaBgPatternColor || 'rgba(255,255,255,0.05)'} 1px, transparent 1px, transparent 40px)`,
             backgroundSize: '40px 40px'
           }}></div>
         </div>
 
         <div className="container mx-auto px-4 relative">
           <div className="max-w-6xl mx-auto">
-            <div className="bg-white/5 backdrop-blur-[2px] rounded-xl py-8 px-12">
+            <div className="bg-white/5 backdrop-blur-[2px] rounded-xl py-8 px-12"
+              style={{ 
+                backgroundColor: servicesConfig.ctaCardBgColor || 'rgba(255, 255, 255, 0.05)',
+                borderColor: servicesConfig.ctaCardBorderColor || 'rgba(255, 255, 255, 0.1)'
+              }}
+            >
               <div className="text-center">
-                <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3">
+                <h2 className="text-3xl md:text-4xl font-display font-bold text-white mb-3"
+                  style={{ color: servicesConfig.ctaTitleColor || '#ffffff' }}
+                >
                   {servicesConfig.ctaTitle || "Ready to Get Your Car Back to Perfect?"}
                 </h2>
-                <p className="text-xl text-blue-50 mb-6">
+                <p className="text-xl text-blue-50 mb-6"
+                  style={{ color: servicesConfig.ctaDescriptionColor || '#ffffff' }}
+                >
                   {servicesConfig.ctaDescription || "Schedule your appointment today and experience the difference expert auto body repair makes."}
                 </p>
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
@@ -679,6 +835,10 @@ function ServicesContent() {
                       window.location.href = '/#schedule';
                     }}
                     className="inline-flex items-center justify-center px-8 py-3 bg-white hover:bg-gray-100 text-primary-600 font-semibold rounded-lg transition-colors duration-200"
+                    style={{ 
+                      backgroundColor: servicesConfig.scheduleButtonBgColor || '#ffffff',
+                      color: servicesConfig.scheduleButtonTextColor || '#dc7070'
+                    }}
                   >
                     {servicesConfig.scheduleButtonText || "Schedule Now"}
                     <ArrowRightIcon className="w-5 h-5 ml-2" />
@@ -686,6 +846,10 @@ function ServicesContent() {
                   <a
                     href="tel:+17704950050"
                     className="inline-flex items-center justify-center px-8 py-3 bg-primary-600 hover:bg-primary-700 text-white font-semibold rounded-lg transition-colors duration-200"
+                    style={{ 
+                      backgroundColor: servicesConfig.callButtonBgColor || '#dc7070',
+                      color: servicesConfig.callButtonTextColor || '#ffffff'
+                    }}
                   >
                     {servicesConfig.callButtonText || "Call Us Now"}
                     <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

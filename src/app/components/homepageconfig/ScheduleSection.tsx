@@ -3,7 +3,18 @@ import ColorSelectorInput from '../ColorSelectorInput';
 
 interface ScheduleSectionProps {
   scheduleSection: {
-    title: string;
+    scheduleTitlePart1: string;
+    scheduleTitlePart1Color: string;
+    scheduleTitlePart2: string;
+    scheduleTitlePart2Color: string;
+    bookingTitle: string;
+    bookingTitleColor: string;
+    scheduleIconBgColor: string;
+    scheduleIconColor: string;
+    scheduleSectionTitle: string;
+    scheduleSectionTitleColor: string;
+    scheduleSectionBadgeColor: string;
+    scheduleSectionBadgeTextColor: string;
     subtitle: string;
     backgroundColor: string;
     textColor: string;
@@ -72,13 +83,113 @@ const ScheduleSection: React.FC<ScheduleSectionProps> = ({ scheduleSection, onCh
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Title
+                Section Header Title
               </label>
               <input
                 type="text"
-                value={scheduleSection.title}
-                onChange={(e) => handleChange('title', e.target.value)}
+                value={scheduleSection.scheduleSectionTitle}
+                onChange={(e) => handleChange('scheduleSectionTitle', e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Section Header Text Color"
+                value={scheduleSection.scheduleSectionTitleColor}
+                onChange={(value) => handleChange('scheduleSectionTitleColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Section Badge Background"
+                value={scheduleSection.scheduleSectionBadgeColor}
+                onChange={(value) => handleChange('scheduleSectionBadgeColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Section Badge Text Color"
+                value={scheduleSection.scheduleSectionBadgeTextColor}
+                onChange={(value) => handleChange('scheduleSectionBadgeTextColor', value)}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Title Part 1
+              </label>
+              <input
+                type="text"
+                value={scheduleSection.scheduleTitlePart1}
+                onChange={(e) => handleChange('scheduleTitlePart1', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Title Part 1 Color"
+                value={scheduleSection.scheduleTitlePart1Color}
+                onChange={(value) => handleChange('scheduleTitlePart1Color', value)}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Title Part 2
+              </label>
+              <input
+                type="text"
+                value={scheduleSection.scheduleTitlePart2}
+                onChange={(e) => handleChange('scheduleTitlePart2', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Title Part 2 Color"
+                value={scheduleSection.scheduleTitlePart2Color}
+                onChange={(value) => handleChange('scheduleTitlePart2Color', value)}
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Booking Title
+              </label>
+              <input
+                type="text"
+                value={scheduleSection.bookingTitle}
+                onChange={(e) => handleChange('bookingTitle', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Booking Title Color"
+                value={scheduleSection.bookingTitleColor}
+                onChange={(value) => handleChange('bookingTitleColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Icon Background Color"
+                value={scheduleSection.scheduleIconBgColor}
+                onChange={(value) => handleChange('scheduleIconBgColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Icon Color"
+                value={scheduleSection.scheduleIconColor}
+                onChange={(value) => handleChange('scheduleIconColor', value)}
               />
             </div>
 

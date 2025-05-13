@@ -21,6 +21,18 @@ interface ServicePageConfigProps {
     ctaText: string;
     ctaButtonText: string;
     ctaButtonColor: string;
+    heroBadgeIconColor: string;
+    // Hero background element colors
+    heroBlurredCircle1Color: string;
+    heroBlurredCircle2Color: string;
+    heroPatternColor: string;
+    heroLightBeam1Color: string;
+    heroLightBeam2Color: string;
+    // Service categories gradient fields
+    serviceCategoriesBgColorFrom: string;
+    serviceCategoriesBgColorTo: string;
+    serviceCategoryCardGradientFrom: string;
+    serviceCategoryCardGradientTo: string;
   };
   onChange: (newConfig: any) => void;
 }
@@ -140,6 +152,89 @@ const ServicePageConfig: React.FC<ServicePageConfigProps> = ({ servicePage, onCh
                 value={servicePage.textColor}
                 onChange={(value) => handleChange('textColor', value)}
               />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Hero Badge Icon Color"
+                value={servicePage.heroBadgeIconColor}
+                onChange={(value) => handleChange('heroBadgeIconColor', value)}
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <h4 className="font-medium text-gray-800 mb-3 border-b pb-2">Hero Background Elements</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <ColorSelectorInput
+                    label="Left Blurred Circle Color"
+                    value={servicePage.heroBlurredCircle1Color}
+                    onChange={(value) => handleChange('heroBlurredCircle1Color', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Right Blurred Circle Color"
+                    value={servicePage.heroBlurredCircle2Color}
+                    onChange={(value) => handleChange('heroBlurredCircle2Color', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Pattern Dot Color"
+                    value={servicePage.heroPatternColor}
+                    onChange={(value) => handleChange('heroPatternColor', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Top Light Beam Color"
+                    value={servicePage.heroLightBeam1Color}
+                    onChange={(value) => handleChange('heroLightBeam1Color', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Bottom Light Beam Color"
+                    value={servicePage.heroLightBeam2Color}
+                    onChange={(value) => handleChange('heroLightBeam2Color', value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="md:col-span-2">
+              <h4 className="font-medium text-gray-800 mb-3 border-b pb-2">Service Categories Section Gradients</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                  <ColorSelectorInput
+                    label="Service Categories Gradient From"
+                    value={servicePage.serviceCategoriesBgColorFrom}
+                    onChange={(value) => handleChange('serviceCategoriesBgColorFrom', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Service Categories Gradient To"
+                    value={servicePage.serviceCategoriesBgColorTo}
+                    onChange={(value) => handleChange('serviceCategoriesBgColorTo', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Service Card Gradient From"
+                    value={servicePage.serviceCategoryCardGradientFrom}
+                    onChange={(value) => handleChange('serviceCategoryCardGradientFrom', value)}
+                  />
+                </div>
+                <div>
+                  <ColorSelectorInput
+                    label="Service Card Gradient To"
+                    value={servicePage.serviceCategoryCardGradientTo}
+                    onChange={(value) => handleChange('serviceCategoryCardGradientTo', value)}
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="md:col-span-2">

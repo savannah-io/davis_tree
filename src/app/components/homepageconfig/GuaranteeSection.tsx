@@ -3,6 +3,54 @@ import ColorSelectorInput from '../ColorSelectorInput';
 
 interface GuaranteeSectionProps {
   guaranteeSection: {
+    // Section Header
+    guaranteeTitle: string;
+    guaranteeTitleColor: string;
+    guaranteeBadgeColor: string;
+    guaranteeBadgeTextColor: string;
+    
+    // Item 1
+    guaranteeIcon1: string;
+    guaranteeTitle1: string;
+    guaranteeSubtitle1: string;
+    guaranteeIconBgColor1: string;
+    guaranteeIconBorderColor1: string;
+    guaranteeTitleTextColor1: string;
+    guaranteeSubtitleTextColor1: string;
+    
+    // Item 2
+    guaranteeIcon2: string;
+    guaranteeTitle2: string;
+    guaranteeSubtitle2: string;
+    guaranteeIconBgColor2: string;
+    guaranteeIconBorderColor2: string;
+    guaranteeTitleTextColor2: string;
+    guaranteeSubtitleTextColor2: string;
+    
+    // Center Logo
+    guaranteeCenterLogo: string;
+    guaranteeCenterBgColor: string;
+    guaranteeCenterBorderColor: string;
+    
+    // Item 4
+    guaranteeIcon4: string;
+    guaranteeTitle4: string;
+    guaranteeSubtitle4: string;
+    guaranteeIconBgColor4: string;
+    guaranteeIconBorderColor4: string;
+    guaranteeTitleTextColor4: string;
+    guaranteeSubtitleTextColor4: string;
+    
+    // Item 5
+    guaranteeIcon5: string;
+    guaranteeTitle5: string;
+    guaranteeSubtitle5: string;
+    guaranteeIconBgColor5: string;
+    guaranteeIconBorderColor5: string;
+    guaranteeTitleTextColor5: string;
+    guaranteeSubtitleTextColor5: string;
+    
+    // Legacy properties
     title: string;
     subtitle: string;
     backgroundColor: string;
@@ -15,6 +63,8 @@ interface GuaranteeSectionProps {
       title: string;
       description: string;
     }[];
+    guaranteeBgGradientTop: string;
+    guaranteeBgGradientBottom: string;
   };
   onChange: (newConfig: any) => void;
 }
@@ -74,6 +124,131 @@ const GuaranteeSection: React.FC<GuaranteeSectionProps> = ({ guaranteeSection, o
       {expanded && (
         <div className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h3 className="text-lg font-medium text-gray-900 col-span-2 mb-2">Section Header</h3>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Badge Title
+              </label>
+              <input
+                type="text"
+                value={guaranteeSection.guaranteeTitle}
+                onChange={(e) => handleChange('guaranteeTitle', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Badge Title Color"
+                value={guaranteeSection.guaranteeTitleColor}
+                onChange={(value) => handleChange('guaranteeTitleColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Badge Background Color"
+                value={guaranteeSection.guaranteeBadgeColor}
+                onChange={(value) => handleChange('guaranteeBadgeColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Badge Text Color"
+                value={guaranteeSection.guaranteeBadgeTextColor}
+                onChange={(value) => handleChange('guaranteeBadgeTextColor', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Top Gradient Color"
+                value={guaranteeSection.guaranteeBgGradientTop}
+                onChange={(value) => handleChange('guaranteeBgGradientTop', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Bottom Gradient Color"
+                value={guaranteeSection.guaranteeBgGradientBottom}
+                onChange={(value) => handleChange('guaranteeBgGradientBottom', value)}
+              />
+            </div>
+
+            <h3 className="text-lg font-medium text-gray-900 col-span-2 mt-4 mb-2">Lifetime Warranty Item</h3>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Icon
+              </label>
+              <input
+                type="text"
+                value={guaranteeSection.guaranteeIcon1}
+                onChange={(e) => handleChange('guaranteeIcon1', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Title
+              </label>
+              <input
+                type="text"
+                value={guaranteeSection.guaranteeTitle1}
+                onChange={(e) => handleChange('guaranteeTitle1', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Subtitle
+              </label>
+              <input
+                type="text"
+                value={guaranteeSection.guaranteeSubtitle1}
+                onChange={(e) => handleChange('guaranteeSubtitle1', e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Icon Background Color"
+                value={guaranteeSection.guaranteeIconBgColor1}
+                onChange={(value) => handleChange('guaranteeIconBgColor1', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Icon Border Color"
+                value={guaranteeSection.guaranteeIconBorderColor1}
+                onChange={(value) => handleChange('guaranteeIconBorderColor1', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Title Text Color"
+                value={guaranteeSection.guaranteeTitleTextColor1}
+                onChange={(value) => handleChange('guaranteeTitleTextColor1', value)}
+              />
+            </div>
+
+            <div>
+              <ColorSelectorInput
+                label="Subtitle Text Color"
+                value={guaranteeSection.guaranteeSubtitleTextColor1}
+                onChange={(value) => handleChange('guaranteeSubtitleTextColor1', value)}
+              />
+            </div>
+
+            <h3 className="text-lg font-medium text-gray-900 col-span-2 mt-4 mb-2">Legacy Properties</h3>
+            
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Title

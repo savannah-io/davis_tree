@@ -1,171 +1,172 @@
-// src/config/configTypes.ts
-// These types are used throughout the application and are NOT auto-generated
-// Do NOT modify this file when publishing changes to the site configuration
+// This file defines the type structure for the site configuration
 
-export interface InfoBar {
-  backgroundColor: string;
-  phone: string;
-  address: string;
-  hours: string;
-  textColor: string;
+/**
+ * Main configuration interface for the site
+ */
+export interface SiteConfig {
+  showLogo?: boolean;
+  infoBar?: InfoBarConfig;
+  navBar?: NavBarConfig;
+  pages?: Record<string, PageConfig>;
+  theme?: ThemeConfig;
+  navLinks?: NavLink[];
+  policies?: PolicyConfig;
+  description?: string;
+  contactInfo?: ContactInfo;
+  hours?: Hours;
+  footerLinks?: NavLink[];
+  socialLinks?: SocialLinks;
+  showJoinTeamButton?: boolean;
+  joinTeamText?: string;
+  joinTeamLink?: string;
+  copyright?: string;
+  footerStyle?: FooterStyle;
+  schedulingButtonText?: string;
+  themeColor?: string;
+  _timestamp?: string;
+  _lastUpdated?: string;
+  themeLink?: string;
+  companyName?: string;
+  guaranteeItems?: GuaranteeItem[];
+  services?: ServicesConfig;
+  [key: string]: any; // Allow for additional properties
+}
+
+export interface InfoBarConfig {
+  backgroundColor?: string;
+  textColor?: string;
+  phone?: string;
+  address?: string;
+  hours?: string;
   message?: string;
 }
 
-export interface NavBar {
-  backgroundColor: string;
-  textColor: string;
-  logo: string;
-  siteTitle: string;
-  siteTitleGradientFrom: string;
-  siteTitleGradientTo: string;
-  scheduleButtonText: string;
-  scheduleButtonColor: string;
-  activeTabColor: string;
-  navLinks: { path: string; label: string }[];
+export interface NavBarConfig {
+  backgroundColor?: string;
+  textColor?: string;
+  logo?: string;
+  siteTitle?: string;
+  siteTitleGradientFrom?: string;
+  siteTitleGradientTo?: string;
+  navLinks?: NavLink[];
+  scheduleButtonText?: string;
+  scheduleButtonColor?: string;
+  activeTabColor?: string;
 }
 
-export interface HomePage {
-  badge: string;
-  title: string;
-  location: string;
-  content: string;
-  subtitle2: string;
-  heroImage: string;
-  heroGradientColor: string;
-  heroRadialColor: string;
-  heroGradientTop: string;
-  heroGradientMiddle: string;
-  heroGradientBottom: string;
-  heroGradientLeft: string;
-  heroBadgeColor: string;
-  heroBadgeTitleColor: string;
-  heroTitleColor: string;
-  heroLocationColor: string;
-  heroSubtitleColor: string;
-  heroContentColor: string;
-  heroScheduleButtonColor: string;
-  heroScheduleButtonTextColor: string;
-  heroContactButtonColor: string;
-  heroContactButtonTextColor: string;
-  heroContactButtonBorderColor: string;
-  heroContactButtonHoverBgColor: string;
-  heroContactButtonHoverTextColor: string;
-  heroContactButtonHoverBorderColor: string;
-  heroBox1BgColor: string;
-  heroBox1TextColor: string;
-  heroBox1BorderColor: string;
-  heroBox1HoverBgColor: string;
-  heroBox1HoverTextColor: string;
-  heroBox1HoverBorderColor: string;
-  heroBox1IconBgColor: string;
-  heroBox1IconColor: string;
-  heroBox2BgColor: string;
-  heroBox2TextColor: string;
-  heroBox2BorderColor: string;
-  heroBox2HoverBgColor: string;
-  heroBox2HoverTextColor: string;
-  heroBox2HoverBorderColor: string;
-  heroBox2IconBgColor: string;
-  heroBox2IconColor: string;
-  heroBox3BgColor: string;
-  heroBox3TextColor: string;
-  heroBox3BorderColor: string;
-  heroBox3HoverBgColor: string;
-  heroBox3HoverTextColor: string;
-  heroBox3HoverBorderColor: string;
-  heroBox3IconBgColor: string;
-  heroBox3IconColor: string;
-  heroCard1Text: string;
-  heroCard2Text: string;
-  heroCard3Text: string;
-  contactButtonText: string;
-  scheduleSection?: any;
-  guaranteeSection?: any;
-  [key: string]: any;
+export interface NavLink {
+  path: string;
+  label: string;
 }
 
-export interface FooterStyle {
-  backgroundColor: string;
-  gradientFromColor: string;
-  gradientToColor: string;
-  titleColor: string;
-  textColor: string;
-  linkColor: string;
-  linkHoverColor: string;
-  socialIconColor: string;
-  dividerColor: string;
-  quickLinksTitleColor: string;
-  contactInfoTitleColor: string;
-  infoTitleColor: string;
-  joinButtonBgColor: string;
-  joinButtonTextColor: string;
-  joinButtonHoverBgColor: string;
-  hoursCardBgColor: string;
-  hoursCardTextColor: string;
-  hoursCardValueColor: string;
-  copyrightTextColor: string;
-  policyLinkColor: string;
-  policyLinkHoverColor: string;
+export interface PageConfig {
+  title?: string;
+  content?: string;
+  heroImage?: string;
+  badge?: string;
+  location?: string;
+  subtitle?: string;
+  subtitle2?: string;
+  heroGradientTop?: string;
+  heroGradientBottom?: string;
+  heroTitleColor?: string;
+  heroLocationColor?: string;
+  heroContentColor?: string;
+  heroSubtitleColor?: string;
+  heroBadgeColor?: string;
+  heroBadgeTitleColor?: string;
+  heroScheduleButtonColor?: string;
+  heroScheduleButtonTextColor?: string;
+  heroContactButtonColor?: string;
+  heroContactButtonTextColor?: string;
+  heroContactButtonBorderColor?: string;
+  heroBox1BgColor?: string;
+  heroBox1TextColor?: string;
+  heroBox1BorderColor?: string;
+  heroBox1IconBgColor?: string;
+  heroBox1IconColor?: string;
+  heroBox2BgColor?: string;
+  heroBox2TextColor?: string;
+  heroBox2BorderColor?: string;
+  heroBox2IconBgColor?: string;
+  heroBox2IconColor?: string;
+  heroBox3BgColor?: string;
+  heroBox3TextColor?: string;
+  heroBox3BorderColor?: string;
+  heroBox3IconBgColor?: string;
+  heroBox3IconColor?: string;
+  [key: string]: any; // Allow for additional properties
+}
+
+export interface ThemeConfig {
+  primary600?: string;
+  primary700?: string;
+}
+
+export interface PolicyConfig {
+  terms?: string;
+  privacy?: string;
+}
+
+export interface ContactInfo {
+  address?: string;
+  phone?: string;
+  email?: string;
+}
+
+export interface Hours {
+  weekday?: string;
+  weekend?: string;
 }
 
 export interface SocialLinks {
-  twitter: string;
-  facebook: string;
-  linkedin: string;
-  instagram: string;
-  [key: string]: string;
+  twitter?: string;
+  facebook?: string;
+  linkedin?: string;
+  instagram?: string;
 }
 
-// The complete site configuration interface
-export interface SiteConfig {
-  showLogo: boolean;
-  infoBar: InfoBar;
-  navBar: NavBar;
-  pages: {
-    Home: HomePage;
-    Contact?: any;
-    Reviews?: any;
-    Services?: any;
-    [key: string]: any;
-  };
-  services?: any;
-  guaranteeItems?: any[];
+export interface FooterStyle {
+  backgroundColor?: string;
+  gradientFromColor?: string;
+  gradientToColor?: string;
+  titleColor?: string;
+  textColor?: string;
+  linkColor?: string;
+  linkHoverColor?: string;
+  socialIconColor?: string;
+  dividerColor?: string;
+  quickLinksTitleColor?: string;
+  contactInfoTitleColor?: string;
+  infoTitleColor?: string;
+  joinButtonBgColor?: string;
+  joinButtonTextColor?: string;
+  joinButtonHoverBgColor?: string;
+  hoursCardBgColor?: string;
+  hoursCardTextColor?: string;
+  hoursCardValueColor?: string;
+  copyrightTextColor?: string;
+  policyLinkColor?: string;
+  policyLinkHoverColor?: string;
+}
+
+export interface GuaranteeItem {
+  id: string;
+  title: string;
   description: string;
-  contactInfo: {
-    address: string;
-    phone: string;
-    email: string;
-  };
-  hours: {
-    weekday: string;
-    weekend: string;
-  };
-  footerLinks: {
-    path: string;
-    label: string;
-  }[];
-  socialLinks: SocialLinks;
-  schedulingButtonText: string;
-  servicePages?: any;
-  _lastUpdated?: string;
-  footerStyle: FooterStyle;
-  companyName: string;
-  showJoinTeamButton: boolean;
-  joinTeamText: string;
-  joinTeamLink: string;
-  copyright: string;
-  theme: {
-    primary600: string;
-    primary700: string;
-    [key: string]: string;
-  };
-  navLinks: { path: string; label: string }[];
-  policies: {
-    terms: string;
-    privacy: string;
-    [key: string]: string;
-  };
-  themeColor: string;
-  themeLink: string;
-  _timestamp?: string;
+  icon: string;
+}
+
+export interface ServicesConfig {
+  title: string;
+  description: string;
+  items: ServiceItem[];
+}
+
+export interface ServiceItem {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  link: string;
 } 
