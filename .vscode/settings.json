@@ -28,5 +28,6 @@
   },
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
-} 
+  },
+  "cSpell.words": ["headlessui", "supabase", "sendgrid", "tsdav"]
+}
