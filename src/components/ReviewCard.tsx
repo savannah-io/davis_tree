@@ -1,64 +1,82 @@
-'use client'
+"use client";
 
-import React, { useState, useRef } from 'react'
-import { StarIcon } from '@heroicons/react/20/solid'
-import { Database } from '../lib/database.types'
-import { motion } from 'framer-motion'
+import React, { useState, useRef } from "react";
+import { StarIcon } from "@heroicons/react/20/solid";
+import { Database } from "../lib/database.types";
+import { motion } from "framer-motion";
 
-type Review = Database['public']['Tables']['reviews']['Row']
+type Review = Database["public"]["Tables"]["reviews"]["Row"];
 
 interface ReviewCardProps {
-  review: Review
+  review: Review;
+  config: any; // Added config prop
 }
 
 const getInitial = (name: string) => {
-  return name.charAt(0).toUpperCase()
-}
+  return name.charAt(0).toUpperCase();
+};
 
-const getBackgroundColor = (initial: string) => {
-  // Generate a consistent color based on the initial
-  const colors = [
-    'bg-blue-500',
-    'bg-green-500',
-    'bg-yellow-500',
-    'bg-red-500',
-    'bg-purple-500',
-    'bg-pink-500',
-    'bg-indigo-500',
-    'bg-teal-500'
-  ]
-  const index = initial.charCodeAt(0) % colors.length
-  return colors[index]
-}
+const getBackgroundColor = (initial: string, colors: string[]) => {
+  // Generate a consistent color based on the initial using the provided colors
+  const index = initial.charCodeAt(0) % colors.length;
+  return colors[index];
+};
 
-export default function ReviewCard({ review }: ReviewCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
-  const cardRef = useRef<HTMLDivElement>(null)
+export default function ReviewCard({ review, config }: ReviewCardProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const cardRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (cardRef.current) {
-      const rect = cardRef.current.getBoundingClientRect()
+      const rect = cardRef.current.getBoundingClientRect();
       setMousePosition({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
-      })
+      });
     }
-  }
+  };
 
   const truncateText = (text: string, maxLength: number = 150) => {
-    if (text.length <= maxLength) return text
-    return text.slice(0, maxLength) + '...'
-  }
+    if (text.length <= maxLength) return text;
+    return text.slice(0, maxLength) + "...";
+  };
 
-  const initial = getInitial(review.author_name)
-  const bgColor = getBackgroundColor(initial)
+  const initial = getInitial(review.author_name);
+  const bgColor = getBackgroundColor(initial, config.reviewAvatarColors);
+
+  // Determine shadow based on hover state
+  const getShadow = () => {
+    if (isHovered) {
+      switch (config.reviewCardHoverShadow) {
+        case "sm":
+          return "0 1px 2px 0 rgba(0, 0, 0, 0.05)";
+        case "md":
+          return "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)";
+        case "lg":
+          return "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
+        case "xl":
+          return "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)";
+        case "2xl":
+          return "0 25px 50px -12px rgba(0, 0, 0, 0.25)";
+        default:
+          return "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)";
+      }
+    } else {
+      return "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)";
+    }
+  };
 
   return (
     <motion.div
       ref={cardRef}
-      className="relative bg-white rounded-lg p-6 transition-all duration-200 hover:shadow-lg"
+      className="relative rounded-lg p-6 transition-all duration-200"
+      style={{
+        backgroundColor: config.reviewCardBgColor,
+        borderColor: config.reviewCardBorderColor,
+        boxShadow: getShadow(),
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseMove={handleMouseMove}
@@ -68,8 +86,8 @@ export default function ReviewCard({ review }: ReviewCardProps) {
         className="absolute inset-0 rounded-lg pointer-events-none"
         animate={{
           background: isHovered
-            ? `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(14, 165, 233, 0.1), rgba(56, 189, 248, 0.05) 40%, transparent 80%)`
-            : 'none',
+            ? `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, ${config.reviewCardGradientColor}10, ${config.reviewCardGradientColor}05 40%, transparent 80%)`
+            : "none",
         }}
         transition={{ duration: 0.2, ease: "easeOut" }}
       />
@@ -82,43 +100,76 @@ export default function ReviewCard({ review }: ReviewCardProps) {
             {[...Array(5)].map((_, i) => (
               <StarIcon
                 key={i}
-                className={`h-5 w-5 ${
-                  i < review.rating ? 'text-yellow-400' : 'text-gray-300'
-                }`}
+                className="h-5 w-5"
+                style={{
+                  color:
+                    i < review.rating
+                      ? config.reviewCardStarColor
+                      : config.reviewCardStarEmptyColor,
+                }}
               />
             ))}
           </div>
-          <span className="text-sm text-gray-500">
+          <span
+            className="text-sm"
+            style={{ color: config.reviewCardSourceColor }}
+          >
             {review.relative_time_description}
           </span>
         </div>
 
         {/* Review Text */}
         <div className="mb-4">
-          <p className="text-gray-700">
+          <p style={{ color: config.reviewCardTextColor }}>
             {isExpanded ? review.text : truncateText(review.text)}
           </p>
           {review.text.length > 150 && (
             <button
               onClick={() => setIsExpanded(!isExpanded)}
-              className="text-primary-600 hover:text-primary-700 text-sm mt-2"
+              className="text-sm mt-2 hover:underline"
+              style={{
+                color: config.reviewCardShowMoreColor,
+              }}
+              onMouseOver={(e) => {
+                e.currentTarget.style.color =
+                  config.reviewCardShowMoreHoverColor;
+              }}
+              onMouseOut={(e) => {
+                e.currentTarget.style.color = config.reviewCardShowMoreColor;
+              }}
             >
-              {isExpanded ? 'Show less' : 'Show more'}
+              {isExpanded ? "Show less" : "Show more"}
             </button>
           )}
         </div>
 
         {/* Author */}
         <div className="flex items-center gap-3">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-semibold ${bgColor}`}>
+          <div
+            className="w-10 h-10 rounded-full flex items-center justify-center font-semibold"
+            style={{
+              backgroundColor: bgColor,
+              color: config.reviewAvatarTextColor || "#ffffff",
+            }}
+          >
             {initial}
           </div>
           <div>
-            <p className="font-medium text-gray-900">{review.author_name}</p>
-            <p className="text-sm text-gray-500">Google Review</p>
+            <p
+              className="font-medium"
+              style={{ color: config.reviewCardAuthorNameColor }}
+            >
+              {review.author_name}
+            </p>
+            <p
+              className="text-sm"
+              style={{ color: config.reviewCardSourceColor }}
+            >
+              Google Review
+            </p>
           </div>
         </div>
       </div>
     </motion.div>
-  )
-} 
+  );
+}

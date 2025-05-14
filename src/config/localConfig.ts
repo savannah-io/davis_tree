@@ -22,8 +22,35 @@ const localConfig: LocalConfig = {
     textColor: "#000000",
     message: "",
   },
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   /*=============================================
-  =                  NAVIGATION                 =
+  =                  NAVIGATION BAR                 =
   =============================================*/
   // Nav Bar
   navBar: {
@@ -57,17 +84,77 @@ const localConfig: LocalConfig = {
         path: "/contact",
         label: "Contact",
       },
+      {
+        path: "/careers",
+        label: "Careers",
+      },
     ],
   },
   /*=============================================
   =                    PAGES                    =
   =============================================*/
+
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+
   pages: {
-    /*=============================================
-    =                 HOME PAGE                  =
-    =============================================*/
+    /*=======================================================================================================================================
+    =                 HOME PAGE                  =                  HOME PAGE                     =                  HOME PAGE
+    =======================================================================================================================================*/
     Home: {
-      // Hero Section
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Hero Section            =                  Hero Section
+        ==========================================================================================*/
 
       // Badge
       badge: "Tree Removal Service",
@@ -132,7 +219,36 @@ const localConfig: LocalConfig = {
       heroBox3IconBgColor: "#7fd1b6",
       heroBox3IconColor: "#000000",
 
-      /*----------  Schedule Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Schedule Section            =                  Schedule Section
+        ==========================================================================================*/
+
       scheduleSection: {
         // Section Header
         scheduleSectionTitle: "REQUEST A FREE ESTIMATE BELOW",
@@ -177,7 +293,36 @@ const localConfig: LocalConfig = {
         scheduleGradientBottom: "#ffffff",
       },
 
-      /*----------  Guarantee Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Guarantee Section            =                  Guarantee Section
+        ==========================================================================================*/
+
       guaranteeSection: {
         // Section Header
         guaranteeTitle: "Our Guarantee",
@@ -237,7 +382,36 @@ const localConfig: LocalConfig = {
         guaranteeBgGradientBottom: "#f0f9ff",
       },
 
-      /*----------  Services Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Services Section            =                  Services Section
+        ==========================================================================================*/
+
       servicesSection: {
         // Section Header
         // Badge
@@ -285,7 +459,35 @@ const localConfig: LocalConfig = {
         serviceReelGradientToColor: "#ffffff",
       },
 
-      /*----------  Reviews Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Reviews Section            =                  Reviews Section
+        ==========================================================================================*/
       reviewsSection: {
         // Section Header
         // Badge
@@ -344,11 +546,91 @@ const localConfig: LocalConfig = {
       },
     },
 
-    /*=============================================
-    =              Services Page       =
-    =============================================*/
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    //
+    /*=======================================================================================================================================
+    =                 Services Page                  =                  Services Page                     =                  Services Page
+    =======================================================================================================================================*/
     Services: {
-      /*----------  Hero Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Title Section            =                  Title Section
+        ==========================================================================================*/
       // Content
 
       //Title
@@ -370,48 +652,92 @@ const localConfig: LocalConfig = {
 
       // Hero Statistics Cards
       card1Title: "Years Experience",
-      card1Value: "15+",
-      card2Title: "Cars Repaired",
-      card2Value: "5000+",
+      card1Value: "20",
+      card2Title: "Trees Removed",
+      card2Value: "***",
 
-      heroStatsCardBgColor: "#242424",
+      heroStatsCardBgColor: "#10500a4f",
       heroStatsCardTextColor: "#ffffff",
       heroStatsCardValueColor: "#ffffff",
-      heroStatsCardIconColor: "#60a5fa",
+      heroStatsCardIconColor: "#60fa7a",
 
       // Hero Image & Colors
       heroImage: "/images/service-hero.jpg",
-      heroBgGradientFrom: "🎨#1e40af",
-      heroBgGradientVia: "🎨#3b82f6",
-      heroBgGradientTo: "🎨#60a5fa",
-      heroBlurredCircle1Color: "#60a5fa",
-      heroBlurredCircle2Color: "#60a5fa",
-      heroPatternColor: "#60a5fa",
-      heroLightBeam1Color: "#60a5fa",
-      heroLightBeam2Color: "#60a5fa",
+      heroBgGradientFrom: "#a7ff03", //Left
+      heroBgGradientVia: "#ff0000", //Middle
+      heroBgGradientTo: "#00ffddff", //Right
+      //Blurred Circle
+      heroBlurredCircle1Color: "#fa6060",
+      heroBlurredCircle2Color: "#fa6060",
+      heroPatternColor: "#fa6060",
+      //Light Beam
+      heroLightBeam1Color: "#60fa74",
+      heroLightBeam2Color: "#fa6060",
 
-      /*----------  Service Categories Section  ----------*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Service Categories            =             Service Categories
+        ==========================================================================================*/
       // Section Background
-      serviceCategoriesBgColor: "from-gray-50 to-gray-100",
-      serviceCategoriesGradientOpacity: 0.6,
-      serviceCategoriesBgColorFrom: "#ffffff",
-      serviceCategoriesBgColorTo: "#f3f4f6",
-      serviceCategoryCardGradientFrom: "#1e40af",
-      serviceCategoryCardGradientTo: "#3b82f6",
+      serviceCategoriesBgColor: "#66bf9b", // Legacy property maintained for backward compatibility
+      serviceCategoriesGradientOpacity: 0.7,
+      serviceCategoriesBgColorFrom: "#e0f2eb",
+      serviceCategoriesBgColorTo: "#c1e5d7",
 
+      // Card Elements
+      serviceCategoryCardTitleColor: "#4e0d0d",
+      serviceCategoryCardDescriptionColor: "#0342c2",
+
+      // Card Border
+      serviceCategoryCardBorderColor: "#e5e7eb",
+
+      // Card Button
+      serviceCategoryCardButtonColor: "#ffffff",
+      serviceCategoryCardButtonBgColor: "rgba(255, 255, 255, 0.1)",
+      serviceCategoryCardButtonHoverBgColor: "#2ba99f",
+      serviceCategoryCardButtonHoverColor: "#ffffff",
+
+      // Service Categories Cards
       serviceCategories: [
         {
-          // Category 1
+          // Exterior Card 1
           id: "collision",
           title: "Collision Services",
+          titleColor: "#f50000",
+
           description:
             "Complete collision repair services to restore your vehicle to pre-accident condition",
+          descriptionColor: "#0055ff",
+
           bgImage: "/images/back1.png",
-          color: "from-primary-500 to-primary-600",
-          iconColor: "#ffffff",
-          titleColor: "#ffffff",
-          descriptionColor: "#f3f4f6",
-          borderColor: "#e5e7eb",
+          color: "#ff3030-#0055ff",
+          iconColor: "#ca6eff",
+          borderColor: "#0055ff",
           icon: "ExclamationTriangleIcon",
 
           // Services in Category 1
@@ -421,10 +747,10 @@ const localConfig: LocalConfig = {
               description: "Expert repair of vehicle damage from accidents",
               icon: "WrenchScrewdriverIcon",
               iconColor: "#3b82f6",
-              titleColor: "#111827",
-              descriptionColor: "#6b7280",
-              bgColor: "#f9fafb",
-              borderColor: "#e5e7eb",
+              titleColor: "#6c35a0",
+              descriptionColor: "#507dd6",
+              bgColor: "#416283",
+              borderColor: "#000307",
             },
             {
               title: "Frame & Alignment",
@@ -459,15 +785,15 @@ const localConfig: LocalConfig = {
           ],
         },
         {
-          // Category 2
+          // Exterior Card 2
           id: "cosmetic",
           title: "Cosmetic Services",
           description:
             "Premium cosmetic services to enhance and protect your vehicle's appearance",
           bgImage: "/images/back5.png",
-          color: "from-primary-500 to-primary-600",
+          color: "#ffffff-#4f46e5",
           iconColor: "#ffffff",
-          titleColor: "#ffffff",
+          titleColor: "#ff0303",
           descriptionColor: "#f3f4f6",
           borderColor: "#e5e7eb",
           icon: "SparklesIcon",
@@ -478,7 +804,7 @@ const localConfig: LocalConfig = {
               title: "Auto Detailing",
               description: "Comprehensive interior and exterior detailing",
               icon: "SparklesIcon",
-              iconColor: "#3b82f6",
+              iconColor: "#3bf63b",
               titleColor: "#111827",
               descriptionColor: "#6b7280",
               bgColor: "#f9fafb",
@@ -490,7 +816,7 @@ const localConfig: LocalConfig = {
               icon: "ShieldCheckIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
-              descriptionColor: "#6b7280",
+              descriptionColor: "#d8ee17",
               bgColor: "#f9fafb",
               borderColor: "#e5e7eb",
             },
@@ -517,13 +843,13 @@ const localConfig: LocalConfig = {
           ],
         },
         {
-          // Category 3
+          // Exterior Card 3
           id: "mechanical",
           title: "Mechanical Services",
           description:
             "Essential mechanical services and diagnostics for optimal vehicle performance",
           bgImage: "/images/back4.png",
-          color: "from-primary-500 to-primary-600",
+          color: "#ffffff-#10b981",
           iconColor: "#ffffff",
           titleColor: "#ffffff",
           descriptionColor: "#f3f4f6",
@@ -557,7 +883,7 @@ const localConfig: LocalConfig = {
               description: "Specialized fleet maintenance and repair",
               icon: "TruckIcon",
               iconColor: "#3b82f6",
-              titleColor: "#111827",
+              titleColor: "#e4e4e4",
               descriptionColor: "#6b7280",
               bgColor: "#f9fafb",
               borderColor: "#e5e7eb",
@@ -576,92 +902,747 @@ const localConfig: LocalConfig = {
         },
       ],
 
-      /*----------  Expertise Section  ----------*/
-      // Section Colors
-      expertiseBgGradientFrom: "#f9fafb",
-      expertiseBgGradientVia: "#ffffff",
-      expertiseBgGradientTo: "#f9fafb",
-      expertiseAnimatedOrbsColor1: "rgba(219, 234, 254, 0.4)",
-      expertiseAnimatedOrbsColor2: "rgba(191, 219, 254, 0.3)",
-      expertiseAnimatedOrbsColor3: "rgba(147, 197, 253, 0.2)",
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Call-to-Action            =             Call-to-Action
+        ==========================================================================================*/
 
-      // Section Content
-      expertiseTitle: "Why Expert Auto Body Repair Matters",
-      expertiseTitleColor: "from-primary-600 to-primary-900",
-      expertiseDescription:
-        "Modern vehicles are complex machines requiring specialized knowledge and equipment for proper repairs. Choosing the right auto body shop can make all the difference in your vehicle's safety and longevity.",
-      expertiseDescriptionColor: "#4b5563",
-
-      // Expertise Feature Cards
-      expertiseCardBgColor: "#ffffff",
-      expertiseCardShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-      expertiseCardHoverShadow: "0 10px 25px rgba(0, 0, 0, 0.1)",
-      expertiseCardHoverGradient: "rgba(219, 234, 254, 0.8)",
-      expertiseCardIconBgColor: "#dbeafe",
-      expertiseCardIconColor: "#3b82f6",
-      expertiseCardTitleColor: "#111827",
-      expertiseCardTextColor: "#4b5563",
-
-      expertiseCards: [
-        {
-          title: "Feature Card 1",
-          description:
-            "Our team consists of I-CAR Gold Class certified technicians trained to handle all makes and models with precision and care.",
-        },
-        {
-          title: "Feature Card 2",
-          description:
-            "We utilize state-of-the-art diagnostic equipment and repair technologies to ensure accuracy and quality in every repair.",
-        },
-        {
-          title: "Feature Card 3",
-          description:
-            "We prioritize OEM parts that match your vehicle's original specifications for safety, fit, and performance.",
-        },
-        {
-          title: "Feature Card 4",
-          description:
-            "We stand behind our work with a lifetime warranty on all repairs as long as you own your vehicle.",
-        },
-      ],
-
-      /*----------  Call-to-Action Section  ----------*/
       // CTA Background & Colors
-      ctaBgGradientFrom: "#1e40af",
-      ctaBgGradientVia: "#3b82f6",
-      ctaBgGradientTo: "#60a5fa",
-      ctaBgPatternColor: "rgba(255, 255, 255, 0.05)",
-      ctaCardBgColor: "rgba(255, 255, 255, 0.05)",
-      ctaCardBorderColor: "rgba(255, 255, 255, 0.1)",
-      ctaTitleColor: "#ffffff",
-      ctaDescriptionColor: "#bfdbfe",
+      ctaBgGradientFrom: "#1eaf49", //Top Left
+      ctaBgGradientVia: "#00d800", // Middle Center
+      ctaBgGradientTo: "#278d3d", //Bottom Right
+
+      // CTA Pattern Color
+      ctaBgPatternColor: "#ffffff60", //Pattern Color
+
+      // CTA Card BG
+      ctaCardBgColor: "#ffffff2f", //Card Background Color
+      ctaCardBorderColor: "#961111S", //Card Border Color
 
       // CTA Buttons
+
+      // Schedule Button
+      scheduleButtonText: "Schedule Now",
       scheduleButtonBgColor: "#ffffff",
-      scheduleButtonTextColor: "#3b82f6",
+      scheduleButtonTextColor: "#3bf64b",
       scheduleButtonHoverBgColor: "#f3f4f6",
+
+      // Call Button
+      callButtonText: "Call Us Now",
       callButtonBgColor: "#3b82f6",
       callButtonTextColor: "#ffffff",
-      callButtonHoverBgColor: "#2563eb",
+      callButtonHoverBgColor: "#eb2599",
+
+      // CTA Content
+
+      // CTA Title
+      ctaTitle: "Ready to Get Your Car Back to Perfect?",
+      ctaTitleColor: "#ffffff", //Title Color
+
+      // CTA Description
+      ctaDescription:
+        "Schedule your appointment today and experience the difference expert auto body repair makes.",
+      ctaDescriptionColor: "#ffffff", //Description Color
+    },
+    Reviews: {
+      /*=======================================================================================================================================
+      =                 Reviews Page                  =                  Reviews Page                     =                  Reviews Page
+      =======================================================================================================================================*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Title Section            =                  Title Section
+        ==========================================================================================*/
+      // Content
+
+      //Title
+      title: "Community Reviews",
+      heroTitleColor: "#ff0000",
+
+      //Subtitle
+      subtitle:
+        "We're proud of the work we do and the trust our customers place in us. Here's what they have to say about their experience with our services.",
+      heroSubtitleColor: "#cc0000",
+
+      // Badge
+      badge: "Verified Google Reviews",
+      heroBadgeBgColor: "#ffffff10",
+      heroBadgeTextColor: "#b42424",
+      heroBadgeIconColor: "#60a5fa",
+      heroBadgeCheckmarkColor: "#c3de4a",
+      heroBadgeBorderColor: "#d12e2ec9",
+
+      // Stats Cards
+      statsCard1Title: "Verified Reviews",
+      statsCard1IconColor: "#60a5fa",
+      statsCard1BlurGradientFrom: "#4f46e5",
+      statsCard1BlurGradientTo: "#60a5fa",
+
+      statsCard2Title: "Average Rating",
+      statsCard2IconColor: "#facc15",
+      statsCard2BlurGradientFrom: "#60a5fa",
+      statsCard2BlurGradientTo: "#4f46e5",
+
+      statsCardBgColor: "#ffffff10",
+      statsCardTextColor: "#f3f4f6",
+      statsCardTitleColor: "#ffffff",
+      statsCardBorderColor: "#ffffff20",
+      statsCardHoverBorderColor: "#ffffff30",
+
+      // Hero Image & Colors
+      heroImage: "/images/reviews-hero.jpg",
+      heroBgGradientFrom: "#10944c", //Top Left
+      heroBgGradientVia: "#10944c", //Middle
+      heroBgGradientTo: "#10944c", //Bottom Right
+
+      //Blurred Circle
+      heroBlurredCircle1Color: "#3b82f6",
+      heroBlurredCircle2Color: "#60a5fa",
+      heroBlurredCircle3Color: "#93c5fd",
+
+      //Light Beam
+      heroLightBeam1Color: "#60a5fa",
+      heroLightBeam2Color: "#93c5fd",
+
+      //Pattern
+      heroPatternColor: "#ffffff",
+      heroPatternOpacity: 0.1,
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Reviews Section            =             Reviews Section
+        ==========================================================================================*/
+
+      // Section Background
+      reviewsSectionBgColor: "#f9fafb",
+
+      // Review Cards
+      reviewCardBgColor: "#ffffff",
+      reviewCardHoverShadow: "lg",
+      reviewCardBorderColor: "#e5e7eb",
+
+      reviewCardTextColor: "#4b5563",
+      reviewCardAuthorNameColor: "#111827",
+      reviewCardSourceColor: "#6b7280",
+
+      reviewCardStarColor: "#facc15",
+      reviewCardStarEmptyColor: "#d1d5db",
+
+      reviewCardShowMoreColor: "#2563eb",
+      reviewCardShowMoreHoverColor: "#1d4ed8",
+
+      reviewCardGradientColor: "#0ea5e9",
+
+      // Review Avatar
+      reviewAvatarColors: [
+        "#3b82f6", // blue
+        "#10b981", // green
+        "#f59e0b", // yellow
+        "#ef4444", // red
+        "#8b5cf6", // purple
+        "#ec4899", // pink
+        "#6366f1", // indigo
+        "#14b8a6", // teal
+      ],
+      reviewAvatarTextColor: "#ffffff", // Avatar Inital Color
+
+      // Pagination
+      paginationButtonBgColor: "#2563eb",
+      paginationButtonTextColor: "#ffffff",
+      paginationButtonDisabledOpacity: 0.5,
+      paginationTextColor: "#4b5563",
+
+      // "Share Your Experience" Card
+      shareExperienceBgColor: "#ffffff",
+      shareExperienceBorderColor: "#e5e7eb",
+      shareExperienceShadow: "sm",
+      shareExperienceHoverShadow: "md",
+
+      shareExperienceTitleColor: "#111827",
+      shareExperienceSubtitleColor: "#4b5563",
+
+      shareExperienceGradientColor: "#288d4a",
+      shareExperienceGradientOpacity: 0.5,
+
+      // Share Button
+      shareButtonBgColor: "#25eb3f",
+      shareButtonTextColor: "#ffffff",
+      shareButtonHoverBgColor: "#1d6ed8",
+      shareButtonShadow: "sm",
+      shareButtonHoverShadow: "md",
+
+      shareButtonText: "Write a Review on Google",
+      shareButtonLink: "https://g.co/kgs/NVDcU7f",
+      shareExperienceTitle: "Share Your Experience",
+      shareExperienceSubtitle: "Help others by sharing your experience with us",
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Call-to-Action            =             Call-to-Action
+        ==========================================================================================*/
+
+      // NOTE: The CTA section on the Reviews page actually uses the Services page CTA configuration
+      // for consistency across the site. The configuration below is not used for the Reviews page.
+      // To change the CTA on both pages, modify the CTA section in the Services config.
+
+      // CTA Background & Colors
+      ctaBgGradientFrom: "#1e40af", //Top Left
+      ctaBgGradientVia: "#3b82f6", //Middle
+      ctaBgGradientTo: "#2563eb", //Bottom Right
+
+      // CTA Pattern
+      ctaPatternColor: "#ffffff",
+      ctaPatternOpacity: 0.05,
+
+      // CTA Card
+      ctaCardBgColor: "#ffffff0d",
+      ctaCardBlurAmount: "2px",
+
+      // CTA Buttons
+
+      // Schedule Button
+      ctaScheduleButtonText: "Schedule Now",
+      ctaScheduleButtonBgColor: "#ffffff",
+      ctaScheduleButtonTextColor: "#2563eb",
+      ctaScheduleButtonHoverBgColor: "#f3f4f6",
+
+      // Call Button
+      ctaCallButtonText: "Call Us Now",
+      ctaCallButtonBgColor: "#2563eb",
+      ctaCallButtonTextColor: "#ffffff",
+      ctaCallButtonHoverBgColor: "#1d4ed8",
 
       // CTA Content
       ctaTitle: "Ready to Get Your Car Back to Perfect?",
+      ctaTitleColor: "#ffffff",
+
       ctaDescription:
         "Schedule your appointment today and experience the difference expert auto body repair makes.",
-      scheduleButtonText: "Schedule Now",
-      callButtonText: "Call Us Now",
+      ctaDescriptionColor: "#93c5fd",
     },
-    Reviews: {
-      title: "Customer Reviews",
-      content: "See what our customers have to say about us.",
-      heroImage: "/images/reviews-hero.jpg",
+    Careers: {
+      /*=======================================================================================================================================
+      =                 Careers Page                  =                  Careers Page                     =                  Careers Page
+      =======================================================================================================================================*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Hero Section            =                  Hero Section
+        ==========================================================================================*/
+      // Content
+
+      //Hero Background Colors
+      heroBgGradientFrom: "#26126e",
+      heroBgGradientVia: "#8c3bf6",
+      heroBgGradientTo: "#1f2a69",
+
+      //Blurred Circle Colors
+      heroBlurredCircle1Color: "#098633",
+      heroBlurredCircle1Opacity: 0.2,
+      heroBlurredCircle2Color: "#1caa3a",
+      heroBlurredCircle2Opacity: 0.2,
+
+      //Pattern
+      heroPatternColor: "#ffffff",
+      heroPatternOpacity: 0.3,
+
+      //Badge
+      hireBadgeText: "We're hiring passionate professionals",
+      hireBadgeBgColor: "#ffffff10",
+      hireBadgeBorderColor: "#ffffff20",
+      hireBadgeTextColor: "#ffffff",
+
+      //Title
+      hireTitle: "Join Our Team",
+      hireTitleColor: "#ffffff",
+      hireTitleHighlightColor: "#ffffff",
+      hireTitleGlowColor: "#ffffff",
+      hireTitleGlowOpacity: 0.3,
+
+      //Subtitle
+      hireSubtitle:
+        "Build your career with Davis Tree Service. We're looking for talented individuals who are passionate about tree care and customer service.",
+      hireSubtitleColor: "#ffffff",
+      hireSubtitleOpacity: 0.9,
+
+      /*==========================================================================================
+        =                 Application Form            =             Application Form
+        ==========================================================================================*/
+
+      // Form Header
+      formHeaderBgFrom: "#126e40",
+      formHeaderBgTo: "#4bf63b",
+      formHeaderPatternColor: "#ffffff",
+      formHeaderPatternOpacity: 0.15,
+      formHeaderPatternSize: "16px",
+      formHeaderTitleText: "Application Form",
+      formHeaderTitleColor: "#ffffff",
+      formHeaderSubtitleText:
+        "Fill out the form below to apply for a position with our team",
+      formHeaderSubtitleColor: "#ffffff",
+      formHeaderSubtitleOpacity: 0.8,
+
+      // Form Sections
+      formSectionBgColor: "#f9fafb",
+      formSectionBorderColor: "#e5e7eb",
+      formSectionTitleColor: "#126e40",
+      formSectionHoverShadow: "md",
+
+      // Form Inputs
+      formInputBgColor: "#ffffff",
+      formInputBorderColor: "#d1d5db",
+      formInputTextColor: "#111827",
+      formInputFocusRingColor: "#4bf63b",
+      formInputFocusBorderColor: "#126e40",
+      formInputBorderRadius: "xl",
+      formInputPadding: "px-4 py-3",
+
+      // Form Labels
+      formLabelColor: "#374151",
+      formErrorColor: "#ef4444",
+
+      // Position Options
+      positionOptions: [
+        "Tree Removal Specialist",
+        "Arborist",
+        "Groundskeeper",
+        "Stump Grinder",
+        "Customer Service",
+        "Other",
+      ],
+
+      // Form Buttons
+      addReferenceBtnBgColor: "#126e40",
+      addReferenceBtnHoverBgColor: "#0d5730",
+      addReferenceBtnTextColor: "#ffffff",
+
+      removeReferenceBtnColor: "#ef4444",
+      removeReferenceBtnHoverColor: "#dc2626",
+
+      // Submit Button
+      submitButtonBgFrom: "#126e40",
+      submitButtonBgTo: "#4bf63b",
+      submitButtonTextColor: "#ffffff",
+      submitButtonHoverShadow: "xl",
+      submitButtonBorderRadius: "xl",
+
+      // Success/Error Messages
+      successMessageBgColor: "#f0fdf4",
+      successMessageBorderColor: "#86efac",
+      successMessageTextColor: "#166534",
+
+      errorMessageBgColor: "#fef2f2",
+      errorMessageBorderColor: "#fecaca",
+      errorMessageTextColor: "#991b1b",
     },
     Contact: {
-      title: "Contact Us",
-      content: "Get in touch with us today.",
-      scheduleButtonText: "Schedule Now",
-      callButtonText: "Call Us Now",
-      heroImage: "/images/hero-services.jpg",
+      /*=======================================================================================================================================
+      =                 Contact Page                  =                  Contact Page                     =                  Contact Page
+      =======================================================================================================================================*/
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Hero Section            =                  Hero Section
+        ==========================================================================================*/
+      // Content
+
+      //Title
+      title: "Get in Touch",
+      heroTitleColor: "#ffffff",
+      heroTitleGradientFrom: "#ff0000", // Left
+      heroTitleGradientVia: "#016efc", // Middle
+      heroTitleGradientTo: "#030a13", // Right
+      heroTitleGlowColor: "#d2dceb", // Glow effect beneath "touch"
+      heroTitleGlowOpacity: 0.3,
+
+      //Subtitle
+      subtitle:
+        "Have questions about our services? Need an estimate? We're here to help.",
+      heroSubtitleColor: "#7e7501ee", //
+      heroSubtitleHighlightBgColor: "#e61448cc", // Underline Color
+
+      // Badge
+      badge: "24/7 Customer Support",
+      heroBadgeBgColor: "#ffffff1a", // White at 10% opacity
+      heroBadgeTextColor: "#ffffff",
+      heroBadgeIconColor: "#fa60fa", // Blue-400
+      heroBadgeBorderColor: "#ffffff33", // White at 20% opacity
+
+      // Feature Badges
+      featureBadge1Text: "24/7 AI Assistant",
+      featureBadge1IconColor: "#8e60fa", // Blue-400
+      featureBadge1BgColor: "#ffffff1a", // White at 10% opacity
+      featureBadge1BorderColor: "#ffffff33", // White at 20% opacity
+      featureBadge1TextColor: "#ffffff",
+
+      featureBadge2Text: "Expert Consultation",
+      featureBadge2IconColor: "#60a5fa", // Blue-400
+      featureBadge2BgColor: "#ffffff1a", // White at 10% opacity
+      featureBadge2BorderColor: "#ffffff33", // White at 20% opacity
+      featureBadge2TextColor: "#ffffff",
+
+      // Hero Background Colors
+      heroImage: "/images/contact-hero.jpg",
+      heroBgGradientFrom: "#126e40", // Left
+      heroBgGradientVia: "#4bf63b", // Middle
+      heroBgGradientTo: "#0d361a", // Right
+
+      // Background Elements
+      heroBlurredCircle1Color: "#098633", // Blue-400
+      heroBlurredCircle1Opacity: 0.2,
+
+      heroBlurredCircle2Color: "#1caa3a", // Blue-500
+      heroBlurredCircle2Opacity: 0.2,
+
+      heroPatternColor: "#ffffff", // Pattern dots
+      heroPatternOpacity: 0.3,
+
+      heroLightBeam1Color: "#065313", // Blue-400
+      heroLightBeam1Opacity: 0.2,
+
+      heroLightBeam2Color: "#065313", // Blue-500
+      heroLightBeam2Opacity: 0.2,
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Contact Section            =             Contact Section
+        ==========================================================================================*/
+
+      // Section Background
+      contactSectionBgColor: "#49943f2d", // Gray-50
+
+      // Contact Information
+      contactInfoTitleText: "Contact Information",
+      contactInfoTitleColor: "#911c4d", // TITLE COLOR
+
+      // Contact Card Icons
+      contactIconBgColor: "#60a5fa33", // Blue-400 at 20% opacity
+      contactIconColor: "#67f63b", // Blue-500
+      contactLabelColor: "#111827", // Gray-900
+      contactTextColor: "#4b5563", // Gray-600
+      contactLinkHoverColor: "#2563eb", // Blue-600
+
+      // Contact Icons & Text
+      phoneIcon: "PhoneIcon",
+      phoneLabel: "Phone",
+      phoneNumber: "(770) 495-0050",
+      phoneNumberLink: "tel:+17704950050",
+
+      emailIcon: "EnvelopeIcon",
+      emailLabel: "Email",
+      emailAddress: "support@example.com",
+      emailAddressLink: "mailto:support@example.com",
+
+      locationIcon: "MapPinIcon",
+      locationLabel: "Location",
+      locationAddress: "2785 Buford Hwy Ste 101-C,\nDuluth, GA 30096",
+
+      hoursIcon: "ClockIcon",
+      hoursLabel: "Business Hours",
+      hoursText:
+        "Monday - Friday: 8:30 AM - 6:00 PM\nSaturday - Sunday: Closed",
+
+      // Google Map
+      googleMapEmbedUrl:
+        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.6728431479!2d-83.46847632413687!3d33.891119080637714!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f6732844d0854f%3A0x58a2e0e5cc8ccae7!2sDavis%20Tree!5e0!3m2!1sen!2sus!4v1717270133598!5m2!1sen!2sus",
+      googleMapHeight: "300px",
+      googleMapBorderRadius: "lg", // rounded-lg
+      googleMapShadow: "lg", // shadow-lg
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Contact Form            =             Contact Form
+        ==========================================================================================*/
+
+      // Form Title
+      formTitleText: "Send Us a Message",
+      formTitleColor: "#111827", // Gray-900
+
+      // Form Fields Styling
+      formLabelColor: "#374151", // Gray-700
+      formInputBgColor: "#ffffff",
+      formInputBorderColor: "#d1d5db", // Gray-300
+      formInputTextColor: "#111827", // Gray-900
+      formInputFocusRingColor: "#3b82f6", // Blue-500
+      formInputBorderRadius: "lg", // rounded-lg
+      formInputPadding: "px-4 py-3",
+
+      // Form Fields Placeholder Text
+      formFieldFullName: "Full Name",
+      formFieldEmail: "Email Address",
+      formFieldPhone: "Phone Number",
+      formFieldService: "Service Needed",
+      formFieldMessage: "Message",
+
+      // Service Options
+      serviceOptions: [
+        "General Inquiry",
+        "Tree Removal",
+        "Tree Trimming",
+        "Stump Grinding",
+        "Emergency Services",
+        "Lot Clearing",
+        "Consultation",
+      ],
+
+      // Form Button
+      formSubmitBtnText: "Send Message",
+      formSubmitBtnBgColor: "#3b82f6", // Blue-500
+      formSubmitBtnTextColor: "#ffffff",
+      formSubmitBtnHoverBgColor: "#2563eb", // Blue-600
+      formSubmitBtnBorderRadius: "lg", // rounded-lg
+
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      //
+      /*==========================================================================================
+        =                 Call-to-Action            =             Call-to-Action
+        ==========================================================================================*/
+
+      // NOTE: The CTA section on the Contact page uses the Services page CTA configuration
+      // for consistency across the site. The configuration below is used as fallback.
+      // To change the CTA on both pages, modify the CTA section in the Services config.
+
+      // CTA Background & Colors
+      ctaBgGradientFrom: "#1e40af", // Blue-800
+      ctaBgGradientVia: "#3b82f6", // Blue-500
+      ctaBgGradientTo: "#2563eb", // Blue-600
+
+      // CTA Pattern
+      ctaPatternColor: "#ffffff",
+      ctaPatternOpacity: 0.05,
+
+      // CTA Card
+      ctaCardBgColor: "#ffffff0d", // White at 5% opacity
+      ctaCardBlurAmount: "2px",
+
+      // CTA Buttons
+
+      // Schedule Button
+      ctaScheduleButtonText: "Schedule Now",
+      ctaScheduleButtonBgColor: "#ffffff",
+      ctaScheduleButtonTextColor: "#2563eb", // Blue-600
+      ctaScheduleButtonHoverBgColor: "#f3f4f6", // Gray-100
+
+      // Call Button
+      ctaCallButtonText: "Call Us Now",
+      ctaCallButtonBgColor: "#3b82f6", // Blue-500
+      ctaCallButtonTextColor: "#ffffff",
+      ctaCallButtonHoverBgColor: "#2563eb", // Blue-600
+
+      // CTA Content
+      ctaTitle: "Ready to Get Your Car Back to Perfect?",
+      ctaTitleColor: "#ffffff",
+
+      ctaDescription:
+        "Schedule your appointment today and experience the difference expert auto body repair makes.",
+      ctaDescriptionColor: "#e0f2fe", // Blue-50
     },
   },
   /*=============================================
@@ -676,6 +1657,7 @@ const localConfig: LocalConfig = {
     { path: "/services", label: "Services" },
     { path: "/reviews", label: "Reviews" },
     { path: "/contact", label: "Contact" },
+    { path: "/careers", label: "Careers" },
   ],
 
   /*=============================================
@@ -705,6 +1687,7 @@ const localConfig: LocalConfig = {
     { path: "/services", label: "Services" },
     { path: "/reviews", label: "Reviews" },
     { path: "/contact", label: "Contact" },
+    { path: "/careers", label: "Careers" },
   ],
 
   // Social Media Links

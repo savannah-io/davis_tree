@@ -109,6 +109,7 @@ interface ServiceCategory {
   titleFontSize?: string;
   descriptionFontSize?: string;
   services: ServiceItem[];
+  colorGradient?: { fromColor: string; toColor: string } | null;
 }
 
 // Interface for expertise cards
@@ -152,6 +153,34 @@ interface ServicesConfig {
   heroStatsCardIconColor?: string;
   heroStatsCardValueColor?: string;
   heroStatsCardTextColor?: string;
+  heroBlurredCircle1Color?: string;
+  heroBlurredCircle2Color?: string;
+  heroPatternColor?: string;
+  heroLightBeam1Color?: string;
+  heroLightBeam2Color?: string;
+  heroBadgeMedalIconColor?: string;
+  heroBadgeCheckmarkColor?: string;
+  // Service Categories Section
+  serviceCategoriesBgColor?: string;
+  serviceCategoriesBgColorFrom?: string;
+  serviceCategoriesBgColorTo?: string;
+  serviceCategoriesGradientOpacity?: number;
+  serviceCategoryCardGradientFrom?: string;
+  serviceCategoryCardGradientTo?: string;
+  serviceCategoryCardTitleColor?: string;
+  serviceCategoryCardDescriptionColor?: string;
+  serviceCategoryCardButtonColor?: string;
+  serviceCategoryCardButtonBgColor?: string;
+  serviceCategoryCardButtonHoverBgColor?: string;
+  serviceCategoryCardButtonHoverColor?: string;
+  serviceCategoryCardBorderColor?: string;
+  // Service Item Cards
+  serviceItemCardBgColor?: string;
+  serviceItemCardBorderColor?: string;
+  serviceItemCardTitleColor?: string;
+  serviceItemCardDescriptionColor?: string;
+  serviceItemCardIconColor?: string;
+  // Expertise Section
   expertiseBgGradientFrom?: string;
   expertiseBgGradientVia?: string;
   expertiseBgGradientTo?: string;
@@ -167,6 +196,7 @@ interface ServicesConfig {
   expertiseCardIconColor?: string;
   expertiseCardTitleColor?: string;
   expertiseCardTextColor?: string;
+  // CTA Section
   ctaBgGradientFrom?: string;
   ctaBgGradientVia?: string;
   ctaBgGradientTo?: string;
@@ -179,17 +209,6 @@ interface ServicesConfig {
   scheduleButtonTextColor?: string;
   callButtonBgColor?: string;
   callButtonTextColor?: string;
-  serviceCategoryCardGradientFrom?: string;
-  serviceCategoryCardGradientTo?: string;
-  serviceCategoriesBgColorFrom?: string;
-  serviceCategoriesBgColorTo?: string;
-  heroBlurredCircle1Color?: string;
-  heroBlurredCircle2Color?: string;
-  heroPatternColor?: string;
-  heroLightBeam1Color?: string;
-  heroLightBeam2Color?: string;
-  heroBadgeMedalIconColor?: string;
-  heroBadgeCheckmarkColor?: string;
 }
 
 // Add type for the icon prop
@@ -219,6 +238,10 @@ const Section: React.FC<SectionProps> = ({ icon: Icon, title, children }) => (
 
 function ServicesContent() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
+  const [serviceCategoriesData, setServiceCategoriesData] = useState<
+    ServiceCategory[]
+  >([]);
 
   // Get config data from localConfig
   const servicesConfig: ServicesConfig = (localConfig.pages as any)
@@ -227,7 +250,6 @@ function ServicesContent() {
   };
 
   const handleCategorySelect = (categoryId: string) => {
-    console.log("Selecting category:", categoryId);
     setSelectedCategory(categoryId);
   };
 
@@ -236,14 +258,28 @@ function ServicesContent() {
     setSelectedCategory(null);
   };
 
+  // Simple effect to handle modal state
   useEffect(() => {
+    // Toggle body scroll when modal opens/closes
     if (selectedCategory) {
       document.body.style.overflow = "hidden";
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
     }
+
+    // Add escape key handler
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && selectedCategory) {
+        setSelectedCategory(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEsc);
+
+    // Cleanup
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEsc);
     };
   }, [selectedCategory]);
 
@@ -277,6 +313,28 @@ function ServicesContent() {
     return (
       iconMap[iconName] || <WrenchScrewdriverIcon className="w-full h-full" />
     );
+  };
+
+  // Helper function to parse category colors in "fromColor-toColor" format or Tailwind format
+  const parseCategoryColor = (colorString: string) => {
+    if (!colorString) return null;
+
+    // Check if the color string has the format "color1-color2"
+    if (colorString.includes("-")) {
+      const [fromColor, toColor] = colorString.split("-");
+      return { fromColor, toColor };
+    }
+
+    // Check if it uses Tailwind-style "from-X to-Y" format
+    if (colorString.includes("from-") && colorString.includes("to-")) {
+      // For Tailwind format, we'll use default gradient colors
+      return {
+        fromColor: servicesConfig.serviceCategoryCardGradientFrom || "#dc7070",
+        toColor: servicesConfig.serviceCategoryCardGradientTo || "#e69999",
+      };
+    }
+
+    return null;
   };
 
   // Use the serviceCategories from the config if available, otherwise use fallback
@@ -448,35 +506,70 @@ function ServicesContent() {
     },
   ];
 
-  // Process categories from config or use fallback
-  const processCategories = (categories: ServiceCategory[]) => {
-    return categories.map((category) => {
-      // Process category icon
-      const categoryIcon =
-        typeof category.icon === "string"
-          ? getIconComponent(category.icon)
-          : category.icon;
+  // Process and update categories whenever config changes
+  useEffect(() => {
+    // Process categories from config or use fallback
+    const processCategories = (categories: ServiceCategory[]) => {
+      return categories.map((category) => {
+        // Process category icon
+        const categoryIcon =
+          typeof category.icon === "string"
+            ? getIconComponent(category.icon)
+            : category.icon;
 
-      // Process service icons
-      const processedServices = category.services.map((service) => {
-        const serviceIcon =
-          typeof service.icon === "string"
-            ? getIconComponent(service.icon)
-            : service.icon;
+        // Parse category color gradient if it exists
+        const categoryColorGradient = parseCategoryColor(category.color);
 
-        return { ...service, icon: serviceIcon };
+        // Apply global config colors if not specified in the category
+        const processedCategory = {
+          ...category,
+          titleColor:
+            category.titleColor || servicesConfig.serviceCategoryCardTitleColor,
+          descriptionColor:
+            category.descriptionColor ||
+            servicesConfig.serviceCategoryCardDescriptionColor,
+          iconColor:
+            category.iconColor || servicesConfig.serviceItemCardIconColor,
+          icon: categoryIcon,
+          colorGradient: categoryColorGradient,
+        };
+
+        // Process service icons
+        const processedServices = category.services.map((service) => {
+          const serviceIcon =
+            typeof service.icon === "string"
+              ? getIconComponent(service.icon)
+              : service.icon;
+
+          // Apply global config colors if not specified in the service
+          return {
+            ...service,
+            icon: serviceIcon,
+            titleColor:
+              service.titleColor || servicesConfig.serviceItemCardTitleColor,
+            descriptionColor:
+              service.descriptionColor ||
+              servicesConfig.serviceItemCardDescriptionColor,
+            iconColor:
+              service.iconColor || servicesConfig.serviceItemCardIconColor,
+            bgColor: service.bgColor || servicesConfig.serviceItemCardBgColor,
+            borderColor:
+              service.borderColor || servicesConfig.serviceItemCardBorderColor,
+          };
+        });
+
+        return { ...processedCategory, services: processedServices };
       });
+    };
 
-      return { ...category, icon: categoryIcon, services: processedServices };
-    });
-  };
+    const categories = servicesConfig.serviceCategories
+      ? processCategories(servicesConfig.serviceCategories as any)
+      : processCategories(fallbackCategories);
 
-  // Use config categories if available, otherwise use fallback
-  const serviceCategories = servicesConfig.serviceCategories
-    ? processCategories(servicesConfig.serviceCategories as any)
-    : fallbackCategories;
+    setServiceCategoriesData(categories);
+  }, []); // Empty dependency array to only run once
 
-  const selectedCategoryData = serviceCategories.find(
+  const selectedCategoryData = serviceCategoriesData.find(
     (c) => c.id === selectedCategory
   );
 
@@ -750,18 +843,21 @@ function ServicesContent() {
 
       {/* Service Categories */}
       <section
-        className="py-20 overflow-hidden relative bg-gradient-to-b from-gray-50 to-gray-100"
+        className="py-20 overflow-hidden relative"
         style={{
           background: `linear-gradient(to bottom, ${
             servicesConfig.serviceCategoriesBgColorFrom || "#f9fafb"
           }, ${servicesConfig.serviceCategoriesBgColorTo || "#f3f4f6"})`,
         }}
       >
-        <MouseFollowGradient variant="light" opacity={0.6} />
+        <MouseFollowGradient
+          variant="light"
+          opacity={servicesConfig.serviceCategoriesGradientOpacity || 0.6}
+        />
         <div className="container mx-auto px-4">
           <div className="max-w-[90rem] mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {serviceCategories.map((category) => (
+              {serviceCategoriesData.map((category) => (
                 <motion.div
                   key={category.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -779,39 +875,61 @@ function ServicesContent() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
                   <div className="relative h-full p-6 flex flex-col justify-end">
                     <div
-                      className={`w-14 h-14 rounded-xl bg-gradient-to-br ${category.color} text-white flex items-center justify-center p-4 mb-4 transform transition-transform duration-300 group-hover:scale-110`}
+                      className="w-14 h-14 rounded-xl flex items-center justify-center p-4 mb-4 transform transition-transform duration-300 group-hover:scale-110"
                       style={{
                         color: category.iconColor || "#ffffff",
-                        background: `linear-gradient(to bottom right, ${
-                          servicesConfig.serviceCategoryCardGradientFrom ||
-                          "#dc7070"
-                        }, ${
-                          servicesConfig.serviceCategoryCardGradientTo ||
-                          "#e69999"
-                        })`,
+                        background: category.colorGradient
+                          ? `linear-gradient(to bottom right, ${category.colorGradient.fromColor}, ${category.colorGradient.toColor})`
+                          : `linear-gradient(to bottom right, ${
+                              servicesConfig.serviceCategoryCardGradientFrom ||
+                              "#dc7070"
+                            }, ${
+                              servicesConfig.serviceCategoryCardGradientTo ||
+                              "#e69999"
+                            })`,
                       }}
                     >
                       {category.icon}
                     </div>
                     <h2
                       className="text-2xl font-display font-bold mb-2"
-                      style={{ color: category.titleColor || "#ffffff" }}
+                      style={{
+                        color: category.titleColor || "#ffffff",
+                      }}
                     >
                       {category.title}
                     </h2>
                     <p
                       className="mb-4"
-                      style={{ color: category.descriptionColor || "#f3f4f6" }}
+                      style={{
+                        color: category.descriptionColor || "#f3f4f6",
+                      }}
                     >
                       {category.description}
                     </p>
                     <button
                       onClick={() => handleCategorySelect(category.id)}
-                      className="w-full px-4 py-3 bg-white/10 hover:bg-primary-500 border border-white/20 rounded-lg font-medium transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg font-medium transition-all duration-200 border"
                       style={{
-                        color: category.titleColor || "#ffffff",
-                        borderColor: category.borderColor || "#e5e7eb",
+                        color:
+                          hoveredButton === category.id
+                            ? servicesConfig.serviceCategoryCardButtonHoverColor ||
+                              "#ffffff"
+                            : servicesConfig.serviceCategoryCardButtonColor ||
+                              "#ffffff",
+                        borderColor:
+                          servicesConfig.serviceCategoryCardBorderColor ||
+                          "#e5e7eb",
+                        backgroundColor:
+                          hoveredButton === category.id
+                            ? servicesConfig.serviceCategoryCardButtonHoverBgColor ||
+                              "#3d2ba9"
+                            : servicesConfig.serviceCategoryCardButtonBgColor ||
+                              "rgba(255, 255, 255, 0.1)",
+                        borderWidth: "1px",
                       }}
+                      onMouseEnter={() => setHoveredButton(category.id)}
+                      onMouseLeave={() => setHoveredButton(null)}
                     >
                       Learn More
                       <ArrowRightIcon className="w-4 h-4 ml-2 inline-block" />
@@ -832,13 +950,10 @@ function ServicesContent() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={handleCloseModal}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 cursor-pointer"
+              onClick={() => setSelectedCategory(null)}
+              className="fixed top-16 inset-x-0 bottom-0 bg-black/60 backdrop-blur-sm z-30 cursor-pointer"
             />
-            <motion.div
-              className="fixed inset-0 flex items-center justify-center z-50 p-4"
-              onClick={handleCloseModal}
-            >
+            <motion.div className="fixed top-20 inset-x-0 bottom-0 flex items-center justify-center z-30 p-4">
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -847,7 +962,7 @@ function ServicesContent() {
                 className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl relative overflow-y-auto max-h-[90vh] md:max-h-[85vh]"
               >
                 <button
-                  onClick={handleCloseModal}
+                  onClick={() => setSelectedCategory(null)}
                   className="fixed right-6 top-6 p-2 rounded-full bg-white/90 hover:bg-gray-100 z-10 transition-colors duration-200 shadow-lg"
                 >
                   <XMarkIcon className="w-6 h-6 text-gray-600" />
@@ -865,15 +980,39 @@ function ServicesContent() {
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                     <div className="flex items-start md:items-center gap-4 md:gap-6">
                       <div
-                        className={`w-12 h-12 md:w-16 md:h-16 rounded-xl bg-gradient-to-br ${selectedCategoryData.color} text-white flex items-center justify-center p-3 md:p-4`}
+                        className="w-12 h-12 md:w-16 md:h-16 rounded-xl flex items-center justify-center p-3 md:p-4"
+                        style={{
+                          color: selectedCategoryData.iconColor || "#ffffff",
+                          background: selectedCategoryData.colorGradient
+                            ? `linear-gradient(to bottom right, ${selectedCategoryData.colorGradient.fromColor}, ${selectedCategoryData.colorGradient.toColor})`
+                            : `linear-gradient(to bottom right, ${
+                                servicesConfig.serviceCategoryCardGradientFrom ||
+                                "#dc7070"
+                              }, ${
+                                servicesConfig.serviceCategoryCardGradientTo ||
+                                "#e69999"
+                              })`,
+                        }}
                       >
                         {selectedCategoryData.icon}
                       </div>
                       <div>
-                        <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-1 md:mb-2">
+                        <h2
+                          className="text-2xl md:text-3xl font-display font-bold mb-1 md:mb-2"
+                          style={{
+                            color: selectedCategoryData.titleColor || "#ffffff",
+                          }}
+                        >
                           {selectedCategoryData.title}
                         </h2>
-                        <p className="text-gray-200 text-base md:text-lg line-clamp-2 md:line-clamp-none">
+                        <p
+                          className="text-base md:text-lg line-clamp-2 md:line-clamp-none"
+                          style={{
+                            color:
+                              selectedCategoryData.descriptionColor ||
+                              "#f3f4f6",
+                          }}
+                        >
                           {selectedCategoryData.description}
                         </p>
                       </div>
@@ -889,7 +1028,7 @@ function ServicesContent() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="bg-gray-50 rounded-xl p-4 md:p-6 hover:bg-gray-100 transition-colors duration-200"
+                        className="rounded-xl p-4 md:p-6 transition-colors duration-200"
                         style={{
                           backgroundColor: service.bgColor || "#f9fafb",
                           borderColor: service.borderColor || "#e5e7eb",
@@ -898,16 +1037,18 @@ function ServicesContent() {
                       >
                         <div className="flex items-start gap-3 md:gap-4">
                           <div
-                            className={`w-10 h-10 md:w-12 md:h-12 rounded-lg bg-gradient-to-br ${selectedCategoryData.color} flex items-center justify-center p-2 md:p-3 shrink-0`}
+                            className="w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center p-2 md:p-3 shrink-0"
                             style={{
                               color: service.iconColor || "#ffffff",
-                              background: `linear-gradient(to bottom right, ${
-                                servicesConfig.serviceCategoryCardGradientFrom ||
-                                "#dc7070"
-                              }, ${
-                                servicesConfig.serviceCategoryCardGradientTo ||
-                                "#e69999"
-                              })`,
+                              background: selectedCategoryData.colorGradient
+                                ? `linear-gradient(to bottom right, ${selectedCategoryData.colorGradient.fromColor}, ${selectedCategoryData.colorGradient.toColor})`
+                                : `linear-gradient(to bottom right, ${
+                                    servicesConfig.serviceCategoryCardGradientFrom ||
+                                    "#dc7070"
+                                  }, ${
+                                    servicesConfig.serviceCategoryCardGradientTo ||
+                                    "#e69999"
+                                  })`,
                             }}
                           >
                             {service.icon}
@@ -915,7 +1056,9 @@ function ServicesContent() {
                           <div>
                             <h3
                               className="text-lg md:text-xl font-bold mb-1 md:mb-2"
-                              style={{ color: service.titleColor || "#111827" }}
+                              style={{
+                                color: service.titleColor || "#111827",
+                              }}
                             >
                               {service.title}
                             </h3>
