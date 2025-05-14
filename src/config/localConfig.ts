@@ -112,24 +112,24 @@ const localConfig: LocalConfig = {
       heroCard1Text: "*Free Estimates",
       heroBox1BgColor: "#1f1f1f",
       heroBox1TextColor: "#ffffff",
-      heroBox1BorderColor: "#f5d6d6",
-      heroBox1IconBgColor: "#aadfa3",
+      heroBox1BorderColor: "#66bf9b",
+      heroBox1IconBgColor: "#7fd1b6",
       heroBox1IconColor: "#000000",
 
-      // Hero Box 2
-      heroCard2Text: "*ENTER_TEXT*",
+      // Hero Box 2*ENTER_TEXT*
+      heroCard2Text: "Licensed",
       heroBox2BgColor: "#1f1f1f",
       heroBox2TextColor: "#ffffff",
-      heroBox2BorderColor: "#f5d6d6",
-      heroBox2IconBgColor: "#f5d6d6",
+      heroBox2BorderColor: "#66bf9b",
+      heroBox2IconBgColor: "#7fd1b6",
       heroBox2IconColor: "#000000",
 
       // Hero Box 3
-      heroCard3Text: "*ENTER_TEXT*",
+      heroCard3Text: "Fast Removal",
       heroBox3BgColor: "#1f1f1f",
       heroBox3TextColor: "#ffffff",
-      heroBox3BorderColor: "#f5d6d6",
-      heroBox3IconBgColor: "#f5d6d6",
+      heroBox3BorderColor: "#66bf9b",
+      heroBox3IconBgColor: "#7fd1b6",
       heroBox3IconColor: "#000000",
 
       /*----------  Schedule Section  ----------*/
