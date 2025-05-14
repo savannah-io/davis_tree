@@ -70,8 +70,8 @@ const localConfig: LocalConfig = {
       // Hero Section
 
       // Badge
-      badge: "Tree Removal Service",
-      heroBadgeColor: "#335f4d",
+      badge: "free re Service",
+      heroBadgeColor: "#f5d6d61e",
       heroBadgeTitleColor: "#000000",
 
       // Title
@@ -83,7 +83,7 @@ const localConfig: LocalConfig = {
       heroLocationColor: "#363636",
 
       // Subtitle 1
-      content: "Our prices won't stump you!!!",
+      content: "hongroochen@gmail.com",
       heroContentColor: "#1aaa07",
 
       // Subtitle 2
@@ -91,7 +91,7 @@ const localConfig: LocalConfig = {
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
-      heroImage: "dew.png",
+      heroImage: "back12.png",
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
