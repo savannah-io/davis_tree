@@ -1,0 +1,83 @@
+/* NeonCursor.css */
+
+/* Hide the default cursor when custom cursor is enabled */
+body.custom-cursor-enabled {
+  cursor: none !important;
+}
+
+/* Make sure links and interactive elements maintain the custom cursor */
+body.custom-cursor-enabled a,
+body.custom-cursor-enabled button,
+body.custom-cursor-enabled input,
+body.custom-cursor-enabled [data-hover="true"] {
+  cursor: none !important;
+}
+
+/* Container for all cursor elements */
+.neon-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Main cursor dot */
+.cursor-main {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #66bf9b;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+/* Trailing circle */
+.cursor-trail {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid #53a584;
+  background-color: transparent;
+  pointer-events: none;
+  z-index: 9998;
+  will-change: transform;
+  opacity: 0.7;
+}
+
+/* Outer glow */
+.cursor-glow {
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #3d725d 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 9997;
+  will-change: transform;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+/* Responsive adjustments for mobile/touch devices */
+@media (max-width: 768px), (pointer: coarse) {
+  .neon-cursor-container {
+    display: none;
+  }
+
+  body.custom-cursor-enabled {
+    cursor: auto !important;
+  }
+
+  body.custom-cursor-enabled a,
+  body.custom-cursor-enabled button,
+  body.custom-cursor-enabled input,
+  body.custom-cursor-enabled [data-hover="true"] {
+    cursor: pointer !important;
+  }
+}

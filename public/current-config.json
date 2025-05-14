@@ -132,10 +132,10 @@
         "gradientTop": "#f9fafb",
         "gradientBottom": "#f3f4f6",
         "guaranteeTitle": "Our Guarantee",
-        "guaranteeTitleColor": "#dc7070", 
+        "guaranteeTitleColor": "#dc7070",
         "guaranteeBadgeColor": "#f5d6d636",
         "guaranteeBadgeTextColor": "#dc7070",
-        
+
         "guaranteeIcon1": "access.png",
         "guaranteeTitle1": "Lifetime Warranty",
         "guaranteeSubtitle1": "On All Services",
@@ -143,7 +143,7 @@
         "guaranteeIconBorderColor1": "#e0e7ff",
         "guaranteeTitleTextColor1": "#111827",
         "guaranteeSubtitleTextColor1": "#6b7280",
-        
+
         "guaranteeIcon2": "free.png",
         "guaranteeTitle2": "Free Estimates",
         "guaranteeSubtitle2": "Quick & Accurate",
@@ -151,11 +151,11 @@
         "guaranteeIconBorderColor2": "#e0e7ff",
         "guaranteeTitleTextColor2": "#111827",
         "guaranteeSubtitleTextColor2": "#6b7280",
-        
+
         "guaranteeCenterLogo": "PPG.png",
         "guaranteeCenterBgColor": "#ffffff",
         "guaranteeCenterBorderColor": "#e0e7ff",
-        
+
         "guaranteeIcon4": "calculator.png",
         "guaranteeTitle4": "Insurance Approved",
         "guaranteeSubtitle4": "All Major & Minor Companies",
@@ -163,7 +163,7 @@
         "guaranteeIconBorderColor4": "#e0e7ff",
         "guaranteeTitleTextColor4": "#111827",
         "guaranteeSubtitleTextColor4": "#6b7280",
-        
+
         "guaranteeIcon5": "shipping.png",
         "guaranteeTitle5": "Towing Service",
         "guaranteeSubtitle5": "24/7 Available",
@@ -171,7 +171,7 @@
         "guaranteeIconBorderColor5": "#e0e7ff",
         "guaranteeTitleTextColor5": "#111827",
         "guaranteeSubtitleTextColor5": "#6b7280",
-        
+
         "guaranteeIconBgColor": "#ffffff",
         "guaranteeIconBorderColor": "#e0e7ff",
         "guaranteeTitleTextColor": "#111827",
@@ -301,7 +301,7 @@
       "reviewsBgStartColor": "#4f46e5",
       "reviewsBgMiddleColor": "#4338ca",
       "reviewsBgEndColor": "#3730a3",
-      
+
       "defaultReviews": [
         {
           "text": "Absolutely phenomenal work! My car looks even better than before the accident. The attention to detail and craftsmanship is top-notch. I highly recommend their services.",
@@ -441,7 +441,7 @@
       "heroImage": "/images/hero-services.jpg",
       "servicesSection": {
         "servicesBgColor": "#ffffff",
-        
+
         "serviceReelCardBgColor": "#ffffff",
         "serviceReelCardBorderColor": "#f3f4f680",
         "serviceReelCardHoverShadowColor": "rgba(0, 0, 0, 0.08)",
@@ -483,14 +483,14 @@
     "terms": "Our terms of service text here.",
     "privacy": "Our privacy policy text here."
   },
-  "description": "*ENTER_DESCRIPTION*",
+  "description": "Professional tree removal services in Athens, GA",
   "contactInfo": {
-    "address": "*ENTER_ADDRESS_HERE*",
-    "phone": "(XXX) XXX-XXXX",
-    "email": "EMAIL@COMPANY_DOMAIN.COM"
+    "address": "Athens, GA",
+    "phone": "(706)-296-3318",
+    "email": "davistreeservice@example.com"
   },
   "hours": {
-    "weekday": "8:30 AM - 6:00 PM",
+    "weekday": "Monday - Friday: 9AM - 5PM",
     "weekend": "Closed"
   },
   "footerLinks": [
@@ -518,9 +518,9 @@
     "instagram": "https://instagram.com/davistreremoval"
   },
   "showJoinTeamButton": true,
-  "joinTeamText": "*CALL_TO_ACTION*",
+  "joinTeamText": "Join the Team",
   "joinTeamLink": "/careers",
-  "copyright": "© 2025 Davis Tree Removal. All rights reserved.",
+  "copyright": "© 2023 Davis Tree Service. All rights reserved.",
   "footerStyle": {
     "backgroundColor": "#ffffff",
     "gradientFromColor": "rgba(5, 5, 5, 1.00)",

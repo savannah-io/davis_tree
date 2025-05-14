@@ -84,11 +84,63 @@ const localConfig: LocalConfig = {
         path: "/contact",
         label: "Contact",
       },
-      {
-        path: "/careers",
-        label: "Careers",
-      },
     ],
+  },
+
+  /*=============================================
+  =                CUSTOM CURSOR                =
+  =============================================*/
+  cursor: {
+    // Enable/disable custom cursor
+    enabled: true,
+
+    // Main cursor dot
+    main: {
+      size: 20, // in pixels
+      color: "#66bf9b",
+      backgroundColor: "#66bf9b",
+      opacity: 1,
+    },
+
+    // Trailing circle
+    trail: {
+      size: 40, // in pixels
+      borderColor: "#53a584",
+      borderWidth: 2, // in pixels
+      opacity: 0.7,
+    },
+
+    // Outer glow
+    glow: {
+      size: 60, // in pixels
+      color: "#3d725d",
+      opacity: 0.4,
+    },
+
+    // Hover effects
+    hover: {
+      scale: 1.5,
+      color: "#84cbaf",
+      trailBorderColor: "#84cbaf",
+      glowColor: "#53a584",
+      glowOpacity: 0.8,
+    },
+
+    // Click effects
+    click: {
+      scale: 0.8,
+    },
+
+    // Animation settings
+    animation: {
+      type: "spring",
+      mainDamping: 20,
+      mainStiffness: 400,
+      trailDamping: 30,
+      trailStiffness: 200,
+      glowDamping: 40,
+      glowStiffness: 150,
+    },
   },
   /*=============================================
   =                    PAGES                    =
@@ -1658,7 +1710,6 @@ const localConfig: LocalConfig = {
     { path: "/services", label: "Services" },
     { path: "/reviews", label: "Reviews" },
     { path: "/contact", label: "Contact" },
-    { path: "/careers", label: "Careers" },
   ],
 
   /*=============================================
@@ -1668,14 +1719,14 @@ const localConfig: LocalConfig = {
     terms: "Our terms of service text here.",
     privacy: "Our privacy policy text here.",
   },
-  description: "*ENTER_DESCRIPTION*",
+  description: "Professional tree removal services in Athens, GA",
   contactInfo: {
-    address: "*ENTER_ADDRESS_HERE*",
-    phone: "(XXX) XXX-XXXX",
-    email: "EMAIL@COMPANY_DOMAIN.COM",
+    address: "Athens, GA",
+    phone: "(706)-296-3318",
+    email: "davistreeservice@example.com",
   },
   hours: {
-    weekday: "8:30 AM - 6:00 PM",
+    weekday: "Monday - Friday: 9AM - 5PM",
     weekend: "Closed",
   },
 
@@ -1688,7 +1739,6 @@ const localConfig: LocalConfig = {
     { path: "/services", label: "Services" },
     { path: "/reviews", label: "Reviews" },
     { path: "/contact", label: "Contact" },
-    { path: "/careers", label: "Careers" },
   ],
 
   // Social Media Links
@@ -1701,52 +1751,52 @@ const localConfig: LocalConfig = {
 
   // Join Team Button Configuration
   showJoinTeamButton: true,
-  joinTeamText: "*CALL_TO_ACTION*",
+  joinTeamText: "Join the Team",
   joinTeamLink: "/careers",
 
   // Copyright Text
-  copyright: "© 2025 Company Name. All rights reserved.",
+  copyright: "© 2023 Davis Tree Service. All rights reserved.",
 
   // Footer Styling
   footerStyle: {
     // Background Colors
-    backgroundColor: "#ffffff",
-    gradientFromColor: "rgba(5, 5, 5, 1.00)",
-    gradientToColor: "rgba(5, 5, 5, 1.00)",
+    backgroundColor: "#000000",
+    gradientFromColor: "#e60303",
+    gradientToColor: "#050505",
 
     // Text Colors
-    titleColor: "rgba(238, 191, 191, 1.00)", // Section title colors (Quick Links, Contact Info, etc)
-    textColor: "rgba(255, 255, 255, 1.00)", // General text color
+    titleColor: "#eebfbf",
+    textColor: "#ffffff",
 
     // Link Styling
-    linkColor: "rgba(240, 240, 240, 1.00)", // Navigation link color
-    linkHoverColor: "rgba(238, 191, 191, 1.00)", // Navigation link hover color
+    linkColor: "#f0f0f0",
+    linkHoverColor: "#eebfbf",
 
     // Social Media Icons
-    socialIconColor: "rgba(238, 191, 191, 1.00)", // Color of social media icons
+    socialIconColor: "#eebfbf",
 
     // Divider Line
-    dividerColor: "rgba(253, 201, 201, 0.20)", // Color of divider lines between sections
+    dividerColor: "rgba(253, 201, 201, 0.2)",
 
     // Section Titles
-    quickLinksTitleColor: "rgba(238, 191, 191, 1.00)", // "Quick Links" section title
-    contactInfoTitleColor: "rgba(238, 191, 191, 1.00)", // "Contact Info" section title
-    infoTitleColor: "rgba(238, 191, 191, 1.00)", // "Info" section title
+    quickLinksTitleColor: "#eebfbf",
+    contactInfoTitleColor: "#eebfbf",
+    infoTitleColor: "#eebfbf",
 
     // Join Team Button
-    joinButtonBgColor: "rgba(238, 191, 191, 1.00)", // Background color
-    joinButtonTextColor: "rgba(3, 3, 3, 1.00)", // Text color
-    joinButtonHoverBgColor: "rgba(219, 191, 191, 1.00)", // Background hover color
+    joinButtonBgColor: "#eebfbf",
+    joinButtonTextColor: "#030303",
+    joinButtonHoverBgColor: "#dbbfbf",
 
     // Hours Card
-    hoursCardBgColor: "rgba(245, 245, 245, 0.04)", // Background of hours display
-    hoursCardTextColor: "rgba(245, 245, 245, 1.00)", // Label text color (e.g., "Weekday:")
-    hoursCardValueColor: "rgba(238, 191, 191, 1.00)", // Value text color (e.g., "8:30 AM - 6:00 PM")
+    hoursCardBgColor: "rgba(245, 245, 245, 0.04)",
+    hoursCardTextColor: "#f5f5f5",
+    hoursCardValueColor: "#eebfbf",
 
     // Copyright & Policies
-    copyrightTextColor: "#6b7280", // Copyright text color
-    policyLinkColor: "rgba(240, 240, 240, 1.00)", // Policy link color (Terms, Privacy)
-    policyLinkHoverColor: "rgba(238, 191, 191, 1.00)", // Policy link hover color
+    copyrightTextColor: "#6b7280",
+    policyLinkColor: "#f0f0f0",
+    policyLinkHoverColor: "#eebfbf",
   },
 
   /*=============================================
@@ -1757,7 +1807,7 @@ const localConfig: LocalConfig = {
   _timestamp: "2025-05-13T06:08:37.910Z",
   _lastUpdated: "2025-05-13T06:08:39.227Z",
   themeLink: "",
-  companyName: "*ENTER_NAME*",
+  companyName: "Davis Tree Service",
 };
 
 export default localConfig;
