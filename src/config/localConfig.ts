@@ -218,17 +218,17 @@ const localConfig: LocalConfig = {
       heroTitleColor: "#000000",
 
       // Location
-      location: "Athens, GA",
+      location: "",
       heroLocationColor: "#363636",
 
       // Subtitle 1
       content: "Where our prices won't stump you!!!",
-      heroContentColor: "#1aaa07",
+      heroContentColor: "#ffffff",
 
       // Subtitle 2
       subtitle2:
         "No job is too big or too small—our team is equipped to handle it all!",
-      heroSubtitleColor: "#1aaa07",
+      heroSubtitleColor: "#ffffff",
 
       // Hero Image
       heroImage: "davisbg.png",
@@ -323,18 +323,18 @@ const localConfig: LocalConfig = {
 
         // Address
         scheduleAddress: "*ENTER_ADDRESS_HERE*",
-        scheduleAddressColor: "#2563eb",
+        scheduleAddressColor: "#ffffff00",
         scheduleContent:
-          "Book your appointment with our expert technicians. We'll get your vehicle back to its best condition.",
+          "Ready to tackle that tree problem? We’ll visit your property to assess the job and provide a transparent quote.",
         scheduleContentColor: "#6b7280",
 
         // Calendar UI Elements
-        calendarRippleStartColor: "#e69999",
-        calendarRippleEndColor: "#e69999",
+        calendarRippleStartColor: "#d1ebe1",
+        calendarRippleEndColor: "#a3d8c3",
         calendarRippleOpacity: 0.15,
         calendarBgColor: "#000000",
-        calendarBorderColor: "#e69999",
-        calendarAccentColor: "#e69999",
+        calendarBorderColor: "#c3f1f3",
+        calendarAccentColor: "#48cfe0",
 
         // Booking Button
         tapToBookText: "Tap to Book",
@@ -342,8 +342,8 @@ const localConfig: LocalConfig = {
         calendlyUrl: "https://calendly.com/[*ENTER_CALENDLY_URL*]",
 
         // Schedule Section Gradients
-        scheduleGradientTop: "#f5d6d6",
-        scheduleGradientBottom: "#ffffff",
+        scheduleGradientTop: "#a3d8c3",
+        scheduleGradientBottom: "#284c3e",
       },
 
       //
