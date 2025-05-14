@@ -55,7 +55,7 @@ const localConfig: LocalConfig = {
   // Nav Bar
   navBar: {
     backgroundColor: "#000000S",
-    textColor: "#000000",
+    textColor: "#110505",
     logo: "TC-TITLE.png",
     // Title
     siteTitle: "Davis Tree Service",
@@ -170,11 +170,12 @@ const localConfig: LocalConfig = {
       heroLocationColor: "#363636",
 
       // Subtitle 1
-      content: "hongroochen@gmail.com",
+      content: "Where our prices won't stump you!!!",
       heroContentColor: "#1aaa07",
 
       // Subtitle 2
-      subtitle2: "Family Owned & Operated",
+      subtitle2:
+        "No job is too big or too small—our team is equipped to handle it all!",
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
