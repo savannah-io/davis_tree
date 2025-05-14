@@ -76,30 +76,30 @@ const localConfig: LocalConfig = {
 
       // Title
       title: "Expert Tree Removal",
-      heroTitleColor: "#f5d6d6",
+      heroTitleColor: "#000000",
 
       // Location
-      location: "*ENTER_LOCATION*",
-      heroLocationColor: "#e69999",
+      location: "Athens, GA",
+      heroLocationColor: "#363636",
 
       // Subtitle 1
-      content: "*ENTER_SUBTITLE 1*",
-      heroContentColor: "#ffffff",
+      content: "Our prices won't stump you!!!",
+      heroContentColor: "#1aaa07",
 
       // Subtitle 2
-      subtitle2: "*ENTER_SUBTITLE 2*",
-      heroSubtitleColor: "#e71a1a",
+      subtitle2: "Family Owned & Operated",
+      heroSubtitleColor: "#1aaa07",
 
       // Hero Image
       heroImage: "back12.png",
 
       // Hero Gradients
-      heroGradientTop: "#e69999",
-      heroGradientBottom: "#dc7070",
+      heroGradientTop: "#66bf9b",
+      heroGradientBottom: "#1e392e",
 
       // Hero Schedule Button
       scheduleButtonText: "Schedule Now",
-      heroScheduleButtonColor: "#f5d6d6",
+      heroScheduleButtonColor: "#3d725d",
       heroScheduleButtonTextColor: "#000000",
 
       // Hero Contact Button
@@ -109,11 +109,11 @@ const localConfig: LocalConfig = {
       heroContactButtonBorderColor: "#ffffff",
 
       // Hero Box 1
-      heroCard1Text: "*ENTER_TEXT*",
+      heroCard1Text: "*Free Estimates",
       heroBox1BgColor: "#1f1f1f",
       heroBox1TextColor: "#ffffff",
       heroBox1BorderColor: "#f5d6d6",
-      heroBox1IconBgColor: "#f5d6d6",
+      heroBox1IconBgColor: "#aadfa3",
       heroBox1IconColor: "#000000",
 
       // Hero Box 2
