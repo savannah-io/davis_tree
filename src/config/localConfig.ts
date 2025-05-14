@@ -1,6 +1,6 @@
 // Define the type for the localConfig object
 // Last updated: 2025-05-13T06:08:39.227Z
-
+//supapass:RemovalTreeDavis321!
 // Link For Hex Colors: https://www.color-hex.com/
 
 import { SiteConfig } from "./configFixTypes";
@@ -343,9 +343,6 @@ const localConfig: LocalConfig = {
         ],
       },
     },
-    /*=============================================
-    =               OTHER PAGES                   =
-    =============================================*/
 
     /*=============================================
     =              Services Page       =
@@ -357,6 +354,7 @@ const localConfig: LocalConfig = {
       //Title
       title: "Our Auto Body Services",
       heroTitleColor: "#ffffff",
+
       //Subtitle
       subtitle:
         "Expert collision repair and auto body services. Quality work guaranteed.",
