@@ -75,7 +75,7 @@ const localConfig: LocalConfig = {
       heroBadgeTitleColor: "#000000",
 
       // Title
-      title: "Welcome to Davis Tree Removal",
+      title: "Welcome to Davis Tree Removal ",
       heroTitleColor: "#000000",
 
       // Location
