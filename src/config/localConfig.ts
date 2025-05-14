@@ -71,11 +71,11 @@ const localConfig: LocalConfig = {
 
       // Badge
       badge: "Tree Removal Service",
-      heroBadgeColor: "#335f4d",
+      heroBadgeColor: "#f5d6d61e",
       heroBadgeTitleColor: "#000000",
 
       // Title
-      title: "Welcome to Davis Tree Removal",
+      title: "Welcome to Davis Tree Removal ",
       heroTitleColor: "#000000",
 
       // Location
@@ -91,7 +91,7 @@ const localConfig: LocalConfig = {
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
-      heroImage: "dew.png",
+      heroImage: "davisbg.png",
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
