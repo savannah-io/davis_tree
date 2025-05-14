@@ -70,12 +70,12 @@ const localConfig: LocalConfig = {
       // Hero Section
 
       // Badge
-      badge: "free re Service",
-      heroBadgeColor: "#f5d6d61e",
+      badge: "Tree Removal Service",
+      heroBadgeColor: "#335f4d",
       heroBadgeTitleColor: "#000000",
 
       // Title
-      title: "Expert Tree Removal",
+      title: "Welcome to Davis Tree Removal",
       heroTitleColor: "#000000",
 
       // Location
@@ -91,7 +91,7 @@ const localConfig: LocalConfig = {
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
-      heroImage: "back12.png",
+      heroImage: "dew.png",
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
@@ -135,21 +135,21 @@ const localConfig: LocalConfig = {
       /*----------  Schedule Section  ----------*/
       scheduleSection: {
         // Section Header
-        scheduleSectionTitle: "SCHEDULE",
-        scheduleSectionTitleColor: "#dc7070",
+        scheduleSectionTitle: "REQUEST A FREE ESTIMATE BELOW",
+        scheduleSectionTitleColor: "#53a584",
         scheduleSectionBadgeColor: "#f5d6d636",
-        scheduleSectionBadgeTextColor: "#dc7070",
+        scheduleSectionBadgeTextColor: "#387e62",
 
         // Title and Content
         bookingTitle: "BOOK YOUR SERVICE",
-        bookingTitleColor: "#6b7280",
-        scheduleTitlePart1: "Schedule Your",
-        scheduleTitlePart1Color: "#333333",
-        scheduleTitlePart2: "Auto Estimate",
-        scheduleTitlePart2Color: "#e69999",
+        bookingTitleColor: "#387e62",
+        scheduleTitlePart1: "Get Your ",
+        scheduleTitlePart1Color: "#3d725d",
+        scheduleTitlePart2: "Free Quote Now",
+        scheduleTitlePart2Color: "#3d725d",
 
         // Icon
-        scheduleIconBgColor: "#e69999",
+        scheduleIconBgColor: "#5bab8b",
         scheduleIconColor: "#ffffff",
 
         // Address
