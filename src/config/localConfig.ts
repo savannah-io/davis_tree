@@ -91,7 +91,7 @@ const localConfig: LocalConfig = {
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
-      heroImage: "davisbg.png",
+      heroImage: "davisb.png",
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
