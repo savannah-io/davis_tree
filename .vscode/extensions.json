@@ -6,9 +6,8 @@
     "ms-vscode.vscode-typescript-next",
     "formulahendry.auto-rename-tag",
     "christian-kohler.path-intellisense",
-    "streetsidesoftware.code-spell-checker",
     "naumovs.color-highlight",
     "yoavbls.pretty-ts-errors",
     "mikestead.dotenv"
   ]
-} 
+}
