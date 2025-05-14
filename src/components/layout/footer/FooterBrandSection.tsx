@@ -1,19 +1,20 @@
-'use client'
+"use client";
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { 
-  FacebookIcon, 
-  InstagramIcon, 
-  LinkedInIcon, 
-  TwitterXIcon 
-} from './SocialIcons'
+import React from "react";
+import { motion } from "framer-motion";
+import {
+  FacebookIcon,
+  InstagramIcon,
+  LinkedInIcon,
+  TwitterXIcon,
+} from "./SocialIcons";
 
 interface SocialLinks {
   facebook?: string;
   instagram?: string;
   linkedin?: string;
   twitter?: string;
+  [key: string]: string | undefined;
 }
 
 interface BrandSectionProps {
@@ -27,12 +28,15 @@ interface BrandSectionProps {
   };
 }
 
-export default function FooterBrandSection({ 
-  companyName, 
-  description, 
+export default function FooterBrandSection({
+  companyName,
+  description,
   socialLinks,
-  colors
+  colors,
 }: BrandSectionProps) {
+  // Ensure socialLinks is defined with empty object as fallback
+  const links = socialLinks || {};
+
   return (
     <div className="col-span-1">
       <motion.div
@@ -41,14 +45,14 @@ export default function FooterBrandSection({
         viewport={{ once: true }}
         className="mb-2 flex items-center"
       >
-        <span 
+        <span
           className="font-bold text-2xl md:text-3xl font-rubik block leading-tight select-none"
           style={{ color: colors.title }}
         >
           {companyName}
         </span>
       </motion.div>
-      <motion.p 
+      <motion.p
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -60,17 +64,17 @@ export default function FooterBrandSection({
       </motion.p>
 
       {/* Social Media Icons */}
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.2 }}
         className="flex space-x-6"
       >
-        {socialLinks.instagram && (
-          <a 
-            href={socialLinks.instagram}
-            target="_blank" 
+        {links.instagram && (
+          <a
+            href={links.instagram}
+            target="_blank"
             rel="noopener noreferrer"
             className="transform transition-transform duration-200 hover:scale-110"
             style={{ color: colors.socialIcon }}
@@ -78,10 +82,10 @@ export default function FooterBrandSection({
             <InstagramIcon />
           </a>
         )}
-        {socialLinks.facebook && (
-          <a 
-            href={socialLinks.facebook}
-            target="_blank" 
+        {links.facebook && (
+          <a
+            href={links.facebook}
+            target="_blank"
             rel="noopener noreferrer"
             className="transform transition-transform duration-200 hover:scale-110"
             style={{ color: colors.socialIcon }}
@@ -89,10 +93,10 @@ export default function FooterBrandSection({
             <FacebookIcon />
           </a>
         )}
-        {socialLinks.linkedin && (
-          <a 
-            href={socialLinks.linkedin}
-            target="_blank" 
+        {links.linkedin && (
+          <a
+            href={links.linkedin}
+            target="_blank"
             rel="noopener noreferrer"
             className="transform transition-transform duration-200 hover:scale-110"
             style={{ color: colors.socialIcon }}
@@ -100,10 +104,10 @@ export default function FooterBrandSection({
             <LinkedInIcon />
           </a>
         )}
-        {socialLinks.twitter && (
-          <a 
-            href={socialLinks.twitter}
-            target="_blank" 
+        {links.twitter && (
+          <a
+            href={links.twitter}
+            target="_blank"
             rel="noopener noreferrer"
             className="transform transition-transform duration-200 hover:scale-110"
             style={{ color: colors.socialIcon }}
@@ -113,5 +117,5 @@ export default function FooterBrandSection({
         )}
       </motion.div>
     </div>
-  )
-} 
+  );
+}
