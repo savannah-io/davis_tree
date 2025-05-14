@@ -70,7 +70,7 @@ const localConfig: LocalConfig = {
       // Hero Section
 
       // Badge
-      badge: "Tree Removal Service",
+      badge: "free re Service",
       heroBadgeColor: "#f5d6d61e",
       heroBadgeTitleColor: "#000000",
 
