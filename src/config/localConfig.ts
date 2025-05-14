@@ -362,9 +362,11 @@ const localConfig: LocalConfig = {
 
       // Badge
       badge: "Certified Auto Body Shop",
-      heroBadgeBgColor: "rgba(255, 255, 255, 0.1)",
+      heroBadgeBgColor: "#06ac143a",
       heroBadgeTextColor: "#ffffff",
       heroBadgeIconColor: "#60a5fa",
+      heroBadgeCheckmarkColor: "#4ade80",
+      heroBadgeMedalIconColor: "#f3b3b3",
 
       // Hero Statistics Cards
       card1Title: "Years Experience",
@@ -372,21 +374,21 @@ const localConfig: LocalConfig = {
       card2Title: "Cars Repaired",
       card2Value: "5000+",
 
+      heroStatsCardBgColor: "#242424",
+      heroStatsCardTextColor: "#ffffff",
+      heroStatsCardValueColor: "#ffffff",
+      heroStatsCardIconColor: "#60a5fa",
+
       // Hero Image & Colors
       heroImage: "/images/service-hero.jpg",
       heroBgGradientFrom: "🎨#1e40af",
       heroBgGradientVia: "🎨#3b82f6",
       heroBgGradientTo: "🎨#60a5fa",
-      heroBlurredCircle1Color: "rgba(59, 130, 246, 0.2)",
-      heroBlurredCircle2Color: "rgba(96, 165, 250, 0.2)",
-      heroPatternColor: "rgba(255, 255, 255, 0.15)",
-      heroLightBeam1Color: "rgba(59, 130, 246, 0.3)",
-      heroLightBeam2Color: "rgba(59, 130, 246, 0.3)",
-
-      heroStatsCardBgColor: "rgba(255, 255, 255, 0.1)",
-      heroStatsCardTextColor: "#ffffff",
-      heroStatsCardValueColor: "#ffffff",
-      heroStatsCardIconColor: "#60a5fa",
+      heroBlurredCircle1Color: "#60a5fa",
+      heroBlurredCircle2Color: "#60a5fa",
+      heroPatternColor: "#60a5fa",
+      heroLightBeam1Color: "#60a5fa",
+      heroLightBeam2Color: "#60a5fa",
 
       /*----------  Service Categories Section  ----------*/
       // Section Background
