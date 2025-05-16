@@ -468,25 +468,25 @@ const localConfig: LocalConfig = {
         // Section Header
         // Badge
         servicesBadgeText: "Our Expertise",
-        servicesBadgeColor: "#f5d6d636",
+        servicesBadgeColor: "#c1f3c56b",
         servicesBadgeTextColor: "#387e62",
 
-        servicesTitle: "Expert Auto Body Repair Services",
-        servicesHighlightText: "Repair Services",
+        servicesTitle: "Comprehensive Tree ",
+        servicesHighlightText: "Care Services",
         servicesTitleColor: "#111827",
         servicesHighlightColor: "#66bf9b",
-        servicesHighlightUnderlineColor: "#d60a0a",
+        servicesHighlightUnderlineColor: "#66bf9b4d",
 
         // Services Description
         servicesDescription:
-          "We specialize in comprehensive auto body repair services, from collision repair and dent removal to expert paint matching and structural repairs.",
+          "Davis Tree offers a full range of services to keep your trees healthy and your property safe. Our prices are transparent, and our work is unmatched.",
         servicesDescriptionColor: "#6b7280",
 
         // Services Button
         servicesButtonText: "Explore Our Services",
         servicesButtonUrl: "/services",
-        servicesButtonStartColor: "#e69999",
-        servicesButtonEndColor: "#e69999",
+        servicesButtonStartColor: "#387e62",
+        servicesButtonEndColor: "#387e62",
         servicesButtonTextColor: "#ffffff",
 
         // Service Reel Configuration
