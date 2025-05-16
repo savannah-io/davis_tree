@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -13,6 +13,7 @@ import {
   validatePhone,
 } from "@/utils/formatters";
 import localConfig from "@/config/localConfig";
+import MobileOverlay from "@/components/MobileOverlay";
 
 interface Reference {
   name: string;
@@ -38,6 +39,47 @@ interface FormData {
 export default function CareersPage() {
   // Get careers config
   const careersConfig = localConfig.pages.Careers;
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
+
+  useEffect(() => {
+    // Get the mobile overlay config
+    const overlayConfig = localConfig.pages.Careers.mobileOverlay;
+
+    // Set fixed breakpoint to match cursor
+    const mobileBreakpoint = 663;
+
+    // Check if the overlay is enabled in the config
+    if (!overlayConfig.enabled) {
+      setIsMobile(false);
+      setHasLoaded(true);
+      return;
+    }
+
+    // Function to check if the viewport is mobile size
+    const checkIsMobile = () => {
+      const mobileView = window.innerWidth < mobileBreakpoint;
+      setIsMobile(mobileView);
+
+      // Log message for developers
+      if (mobileView) {
+        console.log(
+          `Mobile view detected (width < ${mobileBreakpoint}px): Career application form is optimized for desktop. Mobile overlay shown.`
+        );
+      }
+    };
+
+    // Initial check
+    checkIsMobile();
+    // Mark as loaded so we don't show/hide the overlay during SSR
+    setHasLoaded(true);
+
+    // Set up event listener for window resize
+    window.addEventListener("resize", checkIsMobile);
+
+    // Clean up event listener
+    return () => window.removeEventListener("resize", checkIsMobile);
+  }, []);
 
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
@@ -250,11 +292,22 @@ export default function CareersPage() {
     <main className="min-h-screen">
       <Header />
 
+      {/* Mobile Overlay - only shown on mobile devices after component has loaded on client */}
+      {hasLoaded && isMobile && (
+        <MobileOverlay
+          title={localConfig.pages.Careers.mobileOverlay.title}
+          message={localConfig.pages.Careers.mobileOverlay.message}
+          buttonText={localConfig.pages.Careers.mobileOverlay.buttonText}
+          buttonLink={localConfig.pages.Careers.mobileOverlay.buttonLink}
+        />
+      )}
+
       {/* Hero Section */}
       <section
-        className="pt-32 pb-16 relative overflow-hidden bg-gradient-to-br"
+        className="pb-16 relative overflow-hidden bg-gradient-to-br"
         style={{
           backgroundImage: `linear-gradient(to bottom right, ${careersConfig.heroBgGradientFrom}, ${careersConfig.heroBgGradientVia}, ${careersConfig.heroBgGradientTo})`,
+          paddingTop: careersConfig.heroPaddingTop || "128px",
         }}
       >
         <MouseFollowGradient variant="dark" opacity={0.3} />
@@ -358,9 +411,12 @@ export default function CareersPage() {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
             className="w-full"
+            style={{
+              height: careersConfig.waveSeparatorHeight || "auto",
+            }}
           >
             <path
-              fill="#F9FAFB"
+              fill={careersConfig.waveSeparatorColor || "#F9FAFB"}
               fillOpacity="1"
               d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
             ></path>
@@ -369,14 +425,24 @@ export default function CareersPage() {
       </section>
 
       {/* Application Form Section */}
-      <section className="py-16 bg-gray-50">
+      <section
+        className="py-20"
+        style={{
+          backgroundColor: careersConfig.applicationSectionBgColor || "#F9FAFB",
+        }}
+      >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <motion.div
-              className="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
+              className="bg-white rounded-3xl overflow-hidden border border-gray-100"
+              initial={{ opacity: 0, y: 20, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              style={{
+                boxShadow:
+                  careersConfig.applicationFormShadow ||
+                  "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
+              }}
             >
               {/* Form Header */}
               <div

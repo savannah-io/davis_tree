@@ -7,6 +7,9 @@ interface ModalProps {
   onClose: () => void;
   title: string;
   children: React.ReactNode;
+  bgColor?: string;
+  textColor?: string;
+  borderColor?: string;
 }
 
 export default function Modal({
@@ -14,6 +17,9 @@ export default function Modal({
   onClose,
   title,
   children,
+  bgColor = "#ffffff",
+  textColor = "#374151",
+  borderColor = "#e5e7eb",
 }: ModalProps) {
   if (!isOpen) return null;
 
@@ -29,19 +35,31 @@ export default function Modal({
 
         {/* Modal */}
         <div
-          className="relative bg-white border border-gray-300 w-full max-w-lg p-6 mx-auto rounded-lg shadow-xl"
+          className="relative w-full max-w-lg p-6 mx-auto rounded-lg shadow-xl"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-title"
+          style={{
+            backgroundColor: bgColor,
+            borderColor: borderColor,
+            color: textColor,
+            borderWidth: "1px",
+            borderStyle: "solid",
+          }}
         >
           <div className="flex justify-between items-center mb-4">
-            <h3 id="modal-title" className="text-lg font-medium text-gray-700">
+            <h3
+              id="modal-title"
+              className="text-lg font-medium"
+              style={{ color: textColor }}
+            >
               {title}
             </h3>
             <button
               onClick={onClose}
-              className="text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className="hover:opacity-70 focus:outline-none focus:ring-2 focus:ring-offset-2"
               aria-label="Close"
+              style={{ color: textColor }}
             >
               <svg
                 className="h-6 w-6"

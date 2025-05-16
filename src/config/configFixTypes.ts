@@ -7,6 +7,48 @@ export interface SiteConfig {
     siteTitle?: string;
     [key: string]: any;
   };
+  cursor?: {
+    enabled?: boolean;
+    cursorImage?: string;
+    elementCursorImage?: string;
+    [key: string]: any;
+  };
+  browser?: {
+    title?: string;
+    shortTitle?: string;
+    faviconFolder?: string;
+    themeColor?: string;
+    [key: string]: any;
+  };
+  businessInfo?: {
+    name?: string;
+    llcType?: string;
+    contactEmail?: string;
+    contactPhone?: string;
+    legalPages?: {
+      privacyPolicy?: {
+        headerColor?: string;
+        linkColor?: string;
+        backgroundColor?: string;
+        textColor?: string;
+        borderColor?: string;
+        iconColor?: string;
+        [key: string]: any;
+      };
+      termsOfService?: {
+        headerColor?: string;
+        linkColor?: string;
+        backgroundColor?: string;
+        textColor?: string;
+        borderColor?: string;
+        disclaimerBgColor?: string;
+        disclaimerTextColor?: string;
+        [key: string]: any;
+      };
+      [key: string]: any;
+    };
+    [key: string]: any;
+  };
   description?: string;
   footerLinks?: Array<{ label: string; path: string }>;
   socialLinks?: SocialLinks;
