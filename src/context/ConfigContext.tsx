@@ -18,9 +18,15 @@ interface ConfigContextType {
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
-export function ConfigProvider({ children }: { children: ReactNode }) {
-  // Use the localConfig directly with simple normalization
-  const [config] = useState(normalizeConfig(localConfig));
+export function ConfigProvider({
+  children,
+  config: propConfig,
+}: {
+  children: ReactNode;
+  config?: any;
+}) {
+  // Use the provided config or fall back to localConfig
+  const [config] = useState(normalizeConfig(propConfig || localConfig));
   // Track if the context is hydrated
   const [isHydrated, setIsHydrated] = useState(false);
 
