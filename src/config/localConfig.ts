@@ -842,8 +842,9 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Dent Removal",
-              description: "Skilled dent removal using advanced techniques",
+              title: "Tree Risk Assessments",
+              description:
+                "Proactive inspections to identify potential hazards, such as weak branches or unstable roots, before they become costly problems.",
               icon: "WrenchIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
