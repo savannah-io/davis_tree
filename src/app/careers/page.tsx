@@ -406,14 +406,16 @@ export default function CareersPage() {
         </div>
 
         {/* Wave separator */}
-        <div className="absolute bottom-0 left-0 right-0">
+        <div className="absolute bottom-0 left-0 right-0 w-full overflow-hidden">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1440 320"
-            className="w-full"
+            className="w-full h-auto min-w-[100vw]"
             style={{
               height: careersConfig.waveSeparatorHeight || "auto",
+              display: "block",
             }}
+            preserveAspectRatio="none"
           >
             <path
               fill={careersConfig.waveSeparatorColor || "#F9FAFB"}

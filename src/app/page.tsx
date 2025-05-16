@@ -446,36 +446,140 @@ export default function Home() {
                 </div>
                 {/* Calendar SVG Illustration */}
                 <div className="w-full h-full flex items-center justify-center relative z-20">
-                  <svg
-                    width="320"
-                    height="320"
-                    viewBox="0 0 320 320"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                  {/* Modern Calendar Design */}
+                  <div
+                    className="w-full max-w-[320px] h-auto bg-white rounded-2xl shadow-xl overflow-hidden"
+                    style={{
+                      backgroundColor:
+                        home.scheduleSection?.calendarBgColor || "#f9fafb",
+                      border: `2px solid ${
+                        home.scheduleSection?.calendarBorderColor || "#66bf9b"
+                      }`,
+                    }}
                   >
-                    <rect
-                      x="30"
-                      y="60"
-                      width="260"
-                      height="220"
-                      rx="32"
-                      fill={home.scheduleSection?.calendarBgColor || "#f9fafb"}
-                      stroke={
-                        home.scheduleSection?.calendarBorderColor || "#4f46e5"
-                      }
-                      strokeWidth="6"
-                    />
-                    <rect
-                      x="30"
-                      y="60"
-                      width="260"
-                      height="44"
-                      rx="16"
-                      fill={
-                        home.scheduleSection?.calendarAccentColor || "#4f46e5"
-                      }
-                    />
-                  </svg>
+                    {/* Calendar Header */}
+                    <div
+                      className="w-full h-16 flex items-center justify-center px-6 py-4"
+                      style={{
+                        backgroundColor:
+                          home.scheduleSection?.calendarAccentColor ||
+                          "#66bf9b",
+                      }}
+                    >
+                      <div className="flex items-center gap-1.5">
+                        <svg
+                          className="w-5 h-5 text-white"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        <span className="text-white font-bold text-lg">
+                          Schedule Now
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Weekdays */}
+                    <div className="grid grid-cols-7 gap-0 pt-4 pb-2 px-4">
+                      {["S", "M", "T", "W", "T", "F", "S"].map((day, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-center h-8"
+                        >
+                          <span
+                            className="text-xs font-medium"
+                            style={{
+                              color:
+                                home.scheduleSection?.calendarAccentColor ||
+                                "#66bf9b",
+                            }}
+                          >
+                            {day}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Calendar Grid */}
+                    <div className="grid grid-cols-7 gap-1 px-4 py-2 pb-6">
+                      {/* Days according to config or default to first few days in July */}
+                      {Array.from({
+                        length: parseInt(
+                          home.scheduleSection?.calendarEmptyDays || "2"
+                        ),
+                      }).map((_, i) => (
+                        <div
+                          key={`empty-${i}`}
+                          className="flex items-center justify-center h-9"
+                        >
+                          <span className="text-sm text-gray-300"></span>
+                        </div>
+                      ))}
+
+                      {/* Actual days - randomly generated availability */}
+                      {Array.from({
+                        length: parseInt(
+                          home.scheduleSection?.calendarDaysInMonth || "28"
+                        ),
+                      }).map((_, i) => {
+                        const day = i + 1;
+                        // Generate a semi-random pattern using the day number
+                        const isAvailable =
+                          (day % 2 === 0 && day % 3 !== 0) || day % 5 === 0;
+                        const isSelected =
+                          day ===
+                          parseInt(
+                            home.scheduleSection?.calendarSelectedDay || "15"
+                          );
+
+                        return (
+                          <div
+                            key={`day-${day}`}
+                            className={`flex items-center justify-center h-9 relative ${
+                              isAvailable ? "cursor-pointer" : ""
+                            }`}
+                          >
+                            <div
+                              className={`
+                              w-8 h-8 rounded-full flex items-center justify-center text-sm transition
+                              ${isSelected ? "font-bold" : "font-medium"}
+                            `}
+                              style={{
+                                backgroundColor: isSelected
+                                  ? home.scheduleSection?.calendarAccentColor ||
+                                    "#66bf9b"
+                                  : isAvailable
+                                  ? "#f0fdf4"
+                                  : "transparent",
+                                color: isSelected
+                                  ? "#ffffff"
+                                  : isAvailable
+                                  ? home.scheduleSection?.calendarAccentColor ||
+                                    "#66bf9b"
+                                  : "#6b7280",
+                                border:
+                                  isAvailable && !isSelected
+                                    ? `1px solid ${
+                                        home.scheduleSection
+                                          ?.calendarAccentColor || "#66bf9b"
+                                      }`
+                                    : "none",
+                              }}
+                            >
+                              {day}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
                 {/* Tap to Book Button Overlay */}
                 <button

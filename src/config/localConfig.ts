@@ -330,7 +330,7 @@ const localConfig: LocalConfig = {
         scheduleAddress: "*ENTER_ADDRESS_HERE*",
         scheduleAddressColor: "#ffffff00",
         scheduleContent:
-          "Ready to tackle that tree problem? We’ll visit your property to assess the job and provide a transparent quote.",
+          "Ready to tackle that tree problem? We'll visit your property to assess the job and provide a transparent quote.",
         scheduleContentColor: "#6b7280",
 
         // Calendar UI Elements
@@ -340,6 +340,15 @@ const localConfig: LocalConfig = {
         calendarBgColor: "#ffffff",
         calendarBorderColor: "#99dac0",
         calendarAccentColor: "#7dae99",
+
+        // Calendar Content Configuration
+        calendarMonth: "AUGUST",
+        calendarYear: "2024",
+        calendarEmptyDays: "3", // Number of empty days before the first day of the month
+        calendarDaysInMonth: "31", // Number of days in the displayed month
+        calendarSelectedDay: "15", // Which day should be selected/highlighted
+        calendarAvailableDays: "5,8,12,15,19,22,26,29", // Comma-separated list of available days
+        calendarTimeSlotsText: "3 Time Slots Available", // Text shown in time slot section
 
         // Booking Button
         tapToBookText: "Tap to Book",
