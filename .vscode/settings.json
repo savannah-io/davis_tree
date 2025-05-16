@@ -29,5 +29,8 @@
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "cSpell.words": ["davisbg", "headlessui"]
+  "cSpell.words": ["davisbg", "headlessui"],
+  "workbench.tree.indent": 20,
+  "workbench.tree.renderIndentGuides": "always",
+  "workbench.tree.indentGuidesStroke": "#666666"
 }

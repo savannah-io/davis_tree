@@ -329,21 +329,21 @@ const localConfig: LocalConfig = {
         scheduleContentColor: "#6b7280",
 
         // Calendar UI Elements
-        calendarRippleStartColor: "#d1ebe1",
+        calendarRippleStartColor: "#9ddac0",
         calendarRippleEndColor: "#a3d8c3",
         calendarRippleOpacity: 0.15,
-        calendarBgColor: "#000000",
-        calendarBorderColor: "#c3f1f3",
-        calendarAccentColor: "#48cfe0",
+        calendarBgColor: "#ffffff",
+        calendarBorderColor: "#99dac0",
+        calendarAccentColor: "#7dae99",
 
         // Booking Button
         tapToBookText: "Tap to Book",
-        tapToBookTextColor: "#ffffff",
+        tapToBookTextColor: "#000000",
         calendlyUrl: "https://calendly.com/[*ENTER_CALENDLY_URL*]",
 
         // Schedule Section Gradients
-        scheduleGradientTop: "#a3d8c3",
-        scheduleGradientBottom: "#284c3e",
+        scheduleGradientTop: "#ceffec",
+        scheduleGradientBottom: "#ffffff",
       },
 
       //
@@ -377,14 +377,13 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
 
       guaranteeSection: {
-        // Section Header
+        // Section Badge
         guaranteeTitle: "Our Guarantee",
-        guaranteeTitleColor: "#dc7070",
-        guaranteeBadgeColor: "#f5d6d636",
-        guaranteeBadgeTextColor: "#dc7070",
+        guaranteeBadgeColor: "#c9f5c9ec",
+        guaranteeBadgeTextColor: "#000000",
 
         // Guarantee Icon 1
-        guaranteeIcon1: "access.png",
+        guaranteeIcon1: "deforestation.png",
         guaranteeTitle1: "Lifetime Warranty",
         guaranteeSubtitle1: "On All Services",
         guaranteeIconBgColor1: "#ffffff",
@@ -402,7 +401,7 @@ const localConfig: LocalConfig = {
         guaranteeSubtitleTextColor2: "#6b7280",
 
         // Center Logo
-        guaranteeCenterLogo: "PPG.png",
+        guaranteeCenterLogo: "deforestation.png",
         guaranteeCenterBgColor: "#ffffff",
         guaranteeCenterBorderColor: "#e0e7ff",
 
@@ -470,13 +469,13 @@ const localConfig: LocalConfig = {
         // Badge
         servicesBadgeText: "Our Expertise",
         servicesBadgeColor: "#f5d6d636",
-        servicesBadgeTextColor: "#dc7070",
+        servicesBadgeTextColor: "#387e62",
 
         servicesTitle: "Expert Auto Body Repair Services",
         servicesHighlightText: "Repair Services",
         servicesTitleColor: "#111827",
-        servicesHighlightColor: "#dc7070",
-        servicesHighlightUnderlineColor: "#e699995e",
+        servicesHighlightColor: "#66bf9b",
+        servicesHighlightUnderlineColor: "#d60a0a",
 
         // Services Description
         servicesDescription:
