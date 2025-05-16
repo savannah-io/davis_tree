@@ -240,7 +240,7 @@ const localConfig: LocalConfig = {
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
-      heroGradientBottom: "#1e392e",
+      heroGradientBottom: "#66bf9b",
 
       // Hero Schedule Button
       scheduleButtonText: "Schedule Now",
@@ -488,8 +488,8 @@ const localConfig: LocalConfig = {
         servicesTitle: "Comprehensive Tree ",
         servicesHighlightText: "Care Services",
         servicesTitleColor: "#111827",
-        servicesHighlightColor: "#66bf9b",
-        servicesHighlightUnderlineColor: "#66bf9b4d",
+        servicesHighlightColor: "#246043",
+        servicesHighlightUnderlineColor: "#66bf9b42",
 
         // Services Description
         servicesDescription:
@@ -564,7 +564,7 @@ const localConfig: LocalConfig = {
         reviewsTitle: "What Our Customers",
         reviewsHighlight: "Are Saying",
         reviewsTitleColor: "#ffffff",
-        reviewsHighlightColor: "#dc7070",
+        reviewsHighlightColor: "#387e62",
         // Subtitle
         reviewsSubtitle:
           "See what our satisfied customers have to say about our service.",
@@ -576,7 +576,7 @@ const localConfig: LocalConfig = {
         reviewCardHoverBorderColor: "rgba(255, 255, 255, 0.3)",
         reviewTextColor: "rgba(255, 255, 255, 0.9)",
         reviewAuthorColor: "#ffffff",
-        reviewVerifiedColor: "#93c5fd",
+        reviewVerifiedColor: "#ffffff",
         reviewStarColor: "#fbbf24",
 
         // View All Button
@@ -587,9 +587,9 @@ const localConfig: LocalConfig = {
         viewAllButtonBorderColor: "rgba(255, 255, 255, 0.2)",
 
         // Reviews Section Background
-        reviewsBgStartColor: "#e69999",
-        reviewsBgMiddleColor: "#e69999",
-        reviewsBgEndColor: "#e69999",
+        reviewsBgStartColor: "#7dd0ae",
+        reviewsBgMiddleColor: "#66bf9b",
+        reviewsBgEndColor: "#53a584",
 
         // Default Reviews for when no reviews are loaded
         defaultReviews: [
@@ -700,16 +700,16 @@ const localConfig: LocalConfig = {
       // Content
 
       //Title
-      title: "Our Auto Body Services",
+      title: "Our Services",
       heroTitleColor: "#ffffff",
 
       //Subtitle
       subtitle:
-        "Expert collision repair and auto body services. Quality work guaranteed.",
+        "At Davis Tree, we provide a comprehensive range of tree care solutions designed to keep your property safe, beautiful, and thriving. Explore our offerings below and let us help you cultivate a healthier, greener landscape.",
       heroSubtitleColor: "#ffffff",
 
       // Badge
-      badge: "Certified Auto Body Shop",
+      badge: "certified Arborists",
       heroBadgeBgColor: "#06ac143a",
       heroBadgeTextColor: "#ffffff",
       heroBadgeIconColor: "#60a5fa",
@@ -729,16 +729,16 @@ const localConfig: LocalConfig = {
 
       // Hero Image & Colors
       heroImage: "/images/service-hero.jpg",
-      heroBgGradientFrom: "#a7ff03", //Left
-      heroBgGradientVia: "#ff0000", //Middle
-      heroBgGradientTo: "#00ffddff", //Right
+      heroBgGradientFrom: "#367658", //Left
+      heroBgGradientVia: "#11492d", //Middle
+      heroBgGradientTo: "#0c2217", //Right
       //Blurred Circle
-      heroBlurredCircle1Color: "#fa6060",
-      heroBlurredCircle2Color: "#fa6060",
-      heroPatternColor: "#fa6060",
+      heroBlurredCircle1Color: "#7dd0ae",
+      heroBlurredCircle2Color: "#53a584",
+      heroPatternColor: "#ffffff",
       //Light Beam
-      heroLightBeam1Color: "#60fa74",
-      heroLightBeam2Color: "#fa6060",
+      heroLightBeam1Color: "#53a584",
+      heroLightBeam2Color: "#7dd0ae",
 
       //
       //
@@ -1844,7 +1844,7 @@ const localConfig: LocalConfig = {
   footerStyle: {
     // Background Colors
     backgroundColor: "#000000",
-    gradientFromColor: "#e60303",
+    gradientFromColor: "#0f3622",
     gradientToColor: "#050505",
 
     // Text Colors
