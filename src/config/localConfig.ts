@@ -235,7 +235,7 @@ const localConfig: LocalConfig = {
       heroLocationColor: "#363636",
 
       // Subtitle 1
-      content: "Where our prices won't stump you!!!",
+      content: "",
       heroContentColor: "#ffffff",
 
       // Subtitle 2
