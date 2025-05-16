@@ -1896,6 +1896,74 @@ const localConfig: LocalConfig = {
   },
 
   /*=============================================
+  =            FOOTER CONFIGURATION             =
+  =============================================*/
+  // Quick Links displayed in the footer
+  //footerLinks: [
+  // { path: "/", label: "Home" },
+  // { path: "/services", label: "Services" },
+  // { path: "/reviews", label: "Reviews" },
+  // { path: "/contact", label: "Contact" },
+  //],
+
+  // Social Media Links
+  // socialLinks: {
+  // twitter: "https://twitter.com/company",
+  // facebook: "https://facebook.com/company",
+  // linkedin: "https://linkedin.com/company/company",
+  //instagram: "https://instagram.com/company",
+  // },
+
+  // Join Team Button Configuration
+  //showJoinTeamButton: true,
+  //joinTeamText: "Join the Team",
+  //joinTeamLink: "/careers",
+
+  // Copyright Text
+  //copyright: "© 2023 Davis Tree Service. All rights reserved.",
+
+  //  //Footer Styling
+  // footerStyle: {
+  // Background Colors
+  // backgroundColor: "#000000",
+  // gradientFromColor: "#0f3622",
+  //gradientToColor: "#050505",
+
+  // Text Colors
+  //titleColor: "#ffffff",
+  //textColor: "#ffffff",
+
+  // Link Styling
+  //linkColor: "#f0f0f0",
+  //linkHoverColor: "#ffffff",
+
+  // Social Media Icons
+  //socialIconColor: "#7dd0ae",
+
+  // Divider Line
+  //dividerColor: "rgba(253, 201, 201, 0.2)",
+
+  // Section Titles
+  //quickLinksTitleColor: "#ffffff",
+  //contactInfoTitleColor: "#ffffff",
+  //infoTitleColor: "#ffffff",
+
+  // Join Team Button
+  //joinButtonBgColor: "#387e62",
+  //joinButtonTextColor: "#030303",
+  //joinButtonHoverBgColor: "#7dd0ae",
+
+  // Hours Card
+  //hoursCardBgColor: "rgba(245, 245, 245, 0.04)",
+  //hoursCardTextColor: "#f5f5f5",
+  //hoursCardValueColor: "#ffffff",
+
+  // Copyright & Policies
+  //copyrightTextColor: "#6b7280",
+  //policyLinkColor: "#f0f0f0",
+  //policyLinkHoverColor: "#eebfbf"
+
+  /*=============================================
   =          MISC GLOBAL CONFIGURATION          =
   =============================================*/
   schedulingButtonText: "Schedule Now",
