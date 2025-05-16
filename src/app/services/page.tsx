@@ -946,26 +946,36 @@ function ServicesContent() {
       <AnimatePresence>
         {selectedCategory && selectedCategoryData && (
           <>
+            {/* Full-screen overlay that closes the modal when clicked */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              onClick={() => setSelectedCategory(null)}
-              className="fixed top-16 inset-x-0 bottom-0 bg-black/60 backdrop-blur-sm z-30 cursor-pointer"
+              onClick={handleCloseModal}
+              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-30 cursor-pointer"
+              aria-label="Close modal"
             />
-            <motion.div className="fixed top-20 inset-x-0 bottom-0 flex items-center justify-center z-30 p-4">
+            <motion.div
+              className="fixed top-20 inset-x-0 bottom-0 flex items-center justify-center z-30 p-4"
+              onClick={handleCloseModal} // Close when clicking the outer container
+            >
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()} // Stop clicks within the modal from closing it
                 className="bg-white rounded-2xl shadow-2xl w-full max-w-6xl relative overflow-y-auto max-h-[90vh] md:max-h-[85vh]"
               >
                 <button
-                  onClick={() => setSelectedCategory(null)}
-                  className="fixed right-6 top-6 p-2 rounded-full bg-white/90 hover:bg-gray-100 z-10 transition-colors duration-200 shadow-lg"
+                  onClick={handleCloseModal}
+                  className="absolute right-4 top-4 p-2.5 rounded-full bg-white hover:bg-gray-100 z-50 transition-colors duration-200 shadow-lg flex items-center justify-center"
+                  aria-label="Close"
+                  style={{
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                    border: "1px solid rgba(0, 0, 0, 0.1)",
+                  }}
                 >
-                  <XMarkIcon className="w-6 h-6 text-gray-600" />
+                  <XMarkIcon className="w-6 h-6 text-gray-700" />
                 </button>
 
                 <div className="relative h-[250px] md:h-[400px]">
