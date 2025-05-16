@@ -705,22 +705,22 @@ const localConfig: LocalConfig = {
 
       //Subtitle
       subtitle:
-        "At Davis Tree, we provide a comprehensive range of tree care solutions designed to keep your property safe, beautiful, and thriving. Explore our offerings below and let us help you cultivate a healthier, greener landscape.",
+        "Explore our services below and let us help you cultivate a healthier, greener landscape.",
       heroSubtitleColor: "#ffffff",
 
       // Badge
-      badge: "certified Arborists",
+      badge: "Certified Arborists",
       heroBadgeBgColor: "#06ac143a",
       heroBadgeTextColor: "#ffffff",
       heroBadgeIconColor: "#60a5fa",
       heroBadgeCheckmarkColor: "#4ade80",
-      heroBadgeMedalIconColor: "#f3b3b3",
+      heroBadgeMedalIconColor: "#66bf9b",
 
       // Hero Statistics Cards
       card1Title: "Years Experience",
       card1Value: "20",
       card2Title: "Trees Removed",
-      card2Value: "***",
+      card2Value: "400+",
 
       heroStatsCardBgColor: "#10500a4f",
       heroStatsCardTextColor: "#ffffff",
@@ -776,7 +776,7 @@ const localConfig: LocalConfig = {
       serviceCategoriesBgColorTo: "#c1e5d7",
 
       // Card Elements
-      serviceCategoryCardTitleColor: "#4e0d0d",
+      serviceCategoryCardTitleColor: "#ffffff",
       serviceCategoryCardDescriptionColor: "#0342c2",
 
       // Card Border
@@ -793,34 +793,36 @@ const localConfig: LocalConfig = {
         {
           // Exterior Card 1
           id: "collision",
-          title: "Collision Services",
-          titleColor: "#f50000",
+          title: "Emergency and Health Services",
+          titleColor: "#ffffff",
 
           description:
-            "Complete collision repair services to restore your vehicle to pre-accident condition",
-          descriptionColor: "#0055ff",
+            "From storm damage to disease prevention, we’re here to protect your trees and property 24/7.",
+          descriptionColor: "#ffffff",
 
           bgImage: "/images/back1.png",
-          color: "#ff3030-#0055ff",
-          iconColor: "#ca6eff",
+          color: "#ff3030-#ff0000",
+          iconColor: "#000000",
           borderColor: "#0055ff",
           icon: "ExclamationTriangleIcon",
 
           // Services in Category 1
           services: [
             {
-              title: "Collision Repair",
-              description: "Expert repair of vehicle damage from accidents",
+              title: "Emergency Tree Services",
+              description:
+                "Immediate response to storm-damaged or fallen trees, including hazardous limbs threatening structures. Available 24/7, our team prioritizes safety and quick resolution to minimize disruption.",
               icon: "WrenchScrewdriverIcon",
               iconColor: "#3b82f6",
-              titleColor: "#6c35a0",
-              descriptionColor: "#507dd6",
-              bgColor: "#416283",
-              borderColor: "#000307",
+              titleColor: "#111827",
+              descriptionColor: "#6b7280",
+              bgColor: "#f9fafb",
+              borderColor: "#e5e7eb",
             },
             {
-              title: "Frame & Alignment",
-              description: "Precise frame straightening and alignment services",
+              title: "Tree Health Assessments & Treatment",
+              description:
+                "In-depth evaluations by certified arborists to diagnose pests, diseases, or nutrient deficiencies. We provide tailored treatments, such as insect control, fertilization, or soil care, to restore tree vigor.",
               icon: "CogIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -829,8 +831,9 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Paint Services",
-              description: "Professional auto painting with color matching",
+              title: "Cabling & Bracing",
+              description:
+                "Structural support for weak or overextended trees to prevent splitting or collapse. We install discreet cables and braces to stabilize trees, extending their lifespan without removal.",
               icon: "PaintBrushIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
