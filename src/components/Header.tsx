@@ -243,11 +243,7 @@ const Header = () => {
           isScrolled ? "bg-white/95 backdrop-blur" : "bg-white"
         } ${isScrolled ? "shadow-md" : ""}`}
         style={{
-          background: isScrolled
-            ? navBg
-            : !isScrolled && isMobileMenuOpen
-            ? "linear-gradient(to right, rgba(14, 165, 233, 0.95), rgba(2, 132, 199, 0.95))"
-            : navBg,
+          background: navBg,
         }}
       >
         <div className="container mx-auto px-4">
@@ -335,15 +331,37 @@ const Header = () => {
             </div>
             {/* Mobile Menu Button */}
             <button
-              className="md:hidden relative p-2 rounded-lg transition-all duration-300 group bg-gradient-to-r from-sky-500/10 to-primary-600/10"
+              className="md:hidden relative p-2 rounded-lg transition-all duration-300 group"
+              style={{
+                backgroundColor:
+                  config.navBar?.hamburgerIconHoverBgColor ||
+                  "rgba(102, 191, 155, 0.1)",
+              }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label="Toggle mobile menu"
             >
-              <div className="absolute inset-0 bg-blue-400/10 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div
+                className="absolute inset-0 rounded-lg blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{
+                  backgroundColor:
+                    config.navBar?.hamburgerIconHoverBgColor ||
+                    "rgba(102, 191, 155, 0.1)",
+                }}
+              ></div>
               {isMobileMenuOpen ? (
-                <XMarkIcon className="h-5 w-5 text-primary-600 relative z-10 transition-transform duration-300 transform group-hover:scale-110" />
+                <XMarkIcon
+                  className="h-5 w-5 relative z-10 transition-transform duration-300 transform group-hover:scale-110"
+                  style={{
+                    color: config.navBar?.hamburgerIconColor || "#387e62",
+                  }}
+                />
               ) : (
-                <Bars3Icon className="h-5 w-5 text-primary-600 relative z-10 transition-transform duration-300 transform group-hover:scale-110" />
+                <Bars3Icon
+                  className="h-5 w-5 relative z-10 transition-transform duration-300 transform group-hover:scale-110"
+                  style={{
+                    color: config.navBar?.hamburgerIconColor || "#387e62",
+                  }}
+                />
               )}
             </button>
             <motion.div
@@ -393,7 +411,12 @@ const Header = () => {
             />
 
             {/* Menu Panel */}
-            <div className="absolute right-0 top-0 h-full w-64 bg-white shadow-xl">
+            <div
+              className="absolute right-0 top-0 h-full w-64 shadow-xl"
+              style={{
+                backgroundColor: config.navBar?.mobileMenuBgColor || "#ffffff",
+              }}
+            >
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}
                 <div className="p-2 border-b border-gray-200">
@@ -439,12 +462,17 @@ const Header = () => {
                       <Link
                         key={item.label}
                         href={item.path}
-                        className={`text-lg font-medium py-2 px-4 rounded-lg transition-colors ${
-                          isActivePath(item.path)
-                            ? "bg-primary-50 text-primary-600"
-                            : "text-gray-700 hover:bg-gray-50"
-                        }`}
-                        style={{ color: navText }}
+                        className={`text-lg font-medium py-2 px-4 rounded-lg transition-colors`}
+                        style={{
+                          backgroundColor: isActivePath(item.path)
+                            ? config.navBar?.mobileActiveTabBgColor ||
+                              "rgba(102, 191, 155, 0.1)"
+                            : "transparent",
+                          color: isActivePath(item.path)
+                            ? config.navBar?.mobileActiveTabTextColor ||
+                              "#387e62"
+                            : config.navBar?.mobileNavTextColor || "#111827",
+                        }}
                       >
                         {item.label}
                       </Link>

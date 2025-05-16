@@ -35,7 +35,10 @@ const CustomCursor: React.FC<CustomCursorProps> = ({
       target.closest("a") ||
       target.closest('[role="button"]') ||
       target.closest('[role="link"]') ||
-      target.closest(".interactive")
+      target.closest(".interactive") ||
+      // Check for data-cursor-element on the target or its closest parent with this attribute
+      target.hasAttribute("data-cursor-element") ||
+      target.closest("[data-cursor-element]")
     );
 
     setIsOverElement(isInteractive);

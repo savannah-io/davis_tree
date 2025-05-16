@@ -41,6 +41,13 @@ const localConfig: LocalConfig = {
     scheduleButtonColor: "#387e62",
     // Active Tab Color
     activeTabColor: "#66bf9b",
+    // Mobile Menu Hamburger Icon
+    hamburgerIconColor: "#387e62",
+    hamburgerIconHoverBgColor: "#66bf9b20",
+    mobileMenuBgColor: "#ffffff",
+    mobileNavTextColor: "#111827",
+    mobileActiveTabBgColor: "#66bf9b20",
+    mobileActiveTabTextColor: "#387e62",
     // Nav Links
     navLinks: [
       {
@@ -80,7 +87,7 @@ const localConfig: LocalConfig = {
   loadingScreen: {
     enabled: true, // Set to false to disable the loading screen
     backgroundColor: "#FFFFFF", // Background color of loading overlay
-    logoImage: "TC-TITLE.png", // Logo displayed in the loading screen (from /public/images/)
+    logoImage: "dt-logo.png", // Logo displayed in the loading screen (from /public/images/)
     logoWidth: 280, // Width of the logo in pixels
     logoAlt: "Davis Tree Service", // Alt text for the logo
 
@@ -399,7 +406,7 @@ const localConfig: LocalConfig = {
         guaranteeBadgeTextColor: "#000000",
 
         // Guarantee Icon 1
-        guaranteeIcon1: "deforestation.png",
+        guaranteeIcon1: "clock.png",
         guaranteeTitle1: "Lifetime Warranty",
         guaranteeSubtitle1: "On All Services",
         guaranteeIconBgColor1: "#ffffff",
@@ -408,7 +415,7 @@ const localConfig: LocalConfig = {
         guaranteeSubtitleTextColor1: "#6b7280",
 
         // Guarantee Icon 2
-        guaranteeIcon2: "ppg.png",
+        guaranteeIcon2: "clock.png",
         guaranteeTitle2: "Free Estimates",
         guaranteeSubtitle2: "Quick & Accurate",
         guaranteeIconBgColor2: "#ffffff",
@@ -417,12 +424,12 @@ const localConfig: LocalConfig = {
         guaranteeSubtitleTextColor2: "#6b7280",
 
         // Center Logo
-        guaranteeCenterLogo: "deforestation.png",
+        guaranteeCenterLogo: "clock.png",
         guaranteeCenterBgColor: "#ffffff",
         guaranteeCenterBorderColor: "#e0e7ff",
 
         // Guarantee Icon 4
-        guaranteeIcon4: "calculator.png",
+        guaranteeIcon4: "clock.png",
         guaranteeTitle4: "Insurance Approved",
         guaranteeSubtitle4: "All Major & Minor Companies",
         guaranteeIconBgColor4: "#ffffff",
@@ -431,7 +438,7 @@ const localConfig: LocalConfig = {
         guaranteeSubtitleTextColor4: "#6b7280",
 
         // Guarantee Icon 5
-        guaranteeIcon5: "shipping.png",
+        guaranteeIcon5: "clock.png",
         guaranteeTitle5: "Towing Service",
         guaranteeSubtitle5: "24/7 Available",
         guaranteeIconBgColor5: "#ffffff",
@@ -803,9 +810,9 @@ const localConfig: LocalConfig = {
           descriptionColor: "#ffffff",
 
           bgImage: "davis2.png",
-          color: "#ff3030-#ff0000",
+          color: "#53a584-#53a584",
           iconColor: "#000000",
-          borderColor: "#0055ff",
+          borderColor: "#53a584",
           icon: "ExclamationTriangleIcon",
 
           // Services in Category 1
@@ -860,14 +867,14 @@ const localConfig: LocalConfig = {
           // Exterior Card 2
           id: "cosmetic",
           title: "Tree Maintenance",
+          titleColor: "#ffffff",
           description:
             "Our Tree Maintenance services focus on enhancing the health, safety, and aesthetics of your trees.",
           descriptionColor: "#ffffff",
           bgImage: "davis3.png",
-          color: "#ffffff-#ffffff",
-          iconColor: "#055305",
-          titleColor: "#ffffff",
-          borderColor: "#e5e7eb",
+          color: "#53a584-#53a584",
+          iconColor: "#000000",
+          borderColor: "#53a584",
           icon: "SparklesIcon",
 
           // Services in Category 2
@@ -922,14 +929,14 @@ const localConfig: LocalConfig = {
           // Exterior Card 3
           id: "Tree Removal & Cleanup",
           title: "Tree Removal & Cleanup",
+          titleColor: "#ffffff",
           description:
             "Our Tree Removal & Cleanup services provide fast, thorough solutions for removing hazardous trees, stumps, or debris.",
           bgImage: "davis4.png",
-          color: "#ffffff-#10b981",
-          iconColor: "#ffffff",
-          titleColor: "#ffffff",
+          color: "#53a584-#53a584",
+          iconColor: "#000000",
+          borderColor: "#53a584",
           descriptionColor: "#f3f4f6",
-          borderColor: "#e5e7eb",
           icon: "CogIcon",
 
           // Services in Category 3
@@ -1026,16 +1033,16 @@ const localConfig: LocalConfig = {
       // CTA Buttons
 
       // Schedule Button
-      scheduleButtonText: "poobs",
-      scheduleButtonBgColor: "#ff0000",
+      scheduleButtonText: "Schedule Now",
+      scheduleButtonBgColor: "#7dd0ae",
       scheduleButtonTextColor: "#000000",
-      scheduleButtonHoverBgColor: "#0055ff", //may not apply
+      scheduleButtonHoverBgColor: "#ffffff", //may not apply
 
       // Call Button
       callButtonText: "Call Us Now",
-      callButtonBgColor: "#3b82f6",
-      callButtonTextColor: "#ffffff",
-      callButtonHoverBgColor: "#eb2599", //may not apply
+      callButtonBgColor: "#ffffff",
+      callButtonTextColor: "#387e62",
+      callButtonHoverBgColor: "#7dd0ae", //may not apply
 
       // CTA Content
 
@@ -1046,7 +1053,7 @@ const localConfig: LocalConfig = {
       // CTA Description
       ctaDescription:
         "Schedule your  today and experience the difference expert tree care makes.",
-      ctaDescriptionColor: "#ff0000", //Description Color
+      ctaDescriptionColor: "#ffffff", //Description Color
     },
     Reviews: {
       /*=======================================================================================================================================
@@ -1616,14 +1623,14 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
 
       // Section Background
-      contactSectionBgColor: "#49943f2d", // Gray-50
+      contactSectionBgColor: "#7dd0ad1f", // Gray-50
 
       // Contact Information
       contactInfoTitleText: "Contact Information",
       contactInfoTitleColor: "#0c2217", // TITLE COLOR
 
       // Contact Card Icons
-      contactIconBgColor: "#60a5fa33", // Blue-400 at 20% opacity
+      contactIconBgColor: "#7dd0ad42", // Blue-400 at 20% opacity
       contactIconColor: "#0c2217", // Blue-500
       contactLabelColor: "#111827", // Gray-900
       contactTextColor: "#4b5563", // Gray-600
@@ -1819,7 +1826,7 @@ const localConfig: LocalConfig = {
   contactInfo: {
     address: "Athens, GA",
     phone: "(706)-296-3318",
-    email: "davistreeservice@example.com",
+    email: "jimmy@davistree.com",
   },
   hours: {
     weekday: "Monday - Friday: 9AM - 5PM",
@@ -1827,7 +1834,7 @@ const localConfig: LocalConfig = {
   },
 
   /*=============================================
-  =            FOOTER CONFIGURATION             =
+  =            FOOTER Section             =
   =============================================*/
   // Quick Links displayed in the footer
   footerLinks: [
@@ -1851,7 +1858,7 @@ const localConfig: LocalConfig = {
   joinTeamLink: "/careers",
 
   // Copyright Text
-  copyright: "© 2023 Davis Tree Service. All rights reserved.",
+  copyright: "© 2025 Davis Tree Service. All rights reserved.",
 
   // Footer Styling
   footerStyle: {
@@ -1894,74 +1901,6 @@ const localConfig: LocalConfig = {
     policyLinkColor: "#f0f0f0",
     policyLinkHoverColor: "#eebfbf",
   },
-
-  /*=============================================
-  =            FOOTER CONFIGURATION             =
-  =============================================*/
-  // Quick Links displayed in the footer
-  //footerLinks: [
-  // { path: "/", label: "Home" },
-  // { path: "/services", label: "Services" },
-  // { path: "/reviews", label: "Reviews" },
-  // { path: "/contact", label: "Contact" },
-  //],
-
-  // Social Media Links
-  // socialLinks: {
-  // twitter: "https://twitter.com/company",
-  // facebook: "https://facebook.com/company",
-  // linkedin: "https://linkedin.com/company/company",
-  //instagram: "https://instagram.com/company",
-  // },
-
-  // Join Team Button Configuration
-  //showJoinTeamButton: true,
-  //joinTeamText: "Join the Team",
-  //joinTeamLink: "/careers",
-
-  // Copyright Text
-  //copyright: "© 2023 Davis Tree Service. All rights reserved.",
-
-  //  //Footer Styling
-  // footerStyle: {
-  // Background Colors
-  // backgroundColor: "#000000",
-  // gradientFromColor: "#0f3622",
-  //gradientToColor: "#050505",
-
-  // Text Colors
-  //titleColor: "#ffffff",
-  //textColor: "#ffffff",
-
-  // Link Styling
-  //linkColor: "#f0f0f0",
-  //linkHoverColor: "#ffffff",
-
-  // Social Media Icons
-  //socialIconColor: "#7dd0ae",
-
-  // Divider Line
-  //dividerColor: "rgba(253, 201, 201, 0.2)",
-
-  // Section Titles
-  //quickLinksTitleColor: "#ffffff",
-  //contactInfoTitleColor: "#ffffff",
-  //infoTitleColor: "#ffffff",
-
-  // Join Team Button
-  //joinButtonBgColor: "#387e62",
-  //joinButtonTextColor: "#030303",
-  //joinButtonHoverBgColor: "#7dd0ae",
-
-  // Hours Card
-  //hoursCardBgColor: "rgba(245, 245, 245, 0.04)",
-  //hoursCardTextColor: "#f5f5f5",
-  //hoursCardValueColor: "#ffffff",
-
-  // Copyright & Policies
-  //copyrightTextColor: "#6b7280",
-  //policyLinkColor: "#f0f0f0",
-  //policyLinkHoverColor: "#eebfbf"
 
   /*=============================================
   =          MISC GLOBAL CONFIGURATION          =
