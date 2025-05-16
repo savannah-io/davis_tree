@@ -866,7 +866,11 @@ function ServicesContent() {
                   className="relative bg-black rounded-2xl overflow-hidden aspect-[3/4] transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
                 >
                   <Image
-                    src={category.bgImage}
+                    src={
+                      category.bgImage.startsWith("/")
+                        ? category.bgImage
+                        : `/images/${category.bgImage}`
+                    }
                     alt={category.title}
                     width={1200}
                     height={1600}
@@ -980,7 +984,11 @@ function ServicesContent() {
 
                 <div className="relative h-[250px] md:h-[400px]">
                   <Image
-                    src={selectedCategoryData.bgImage}
+                    src={
+                      selectedCategoryData.bgImage.startsWith("/")
+                        ? selectedCategoryData.bgImage
+                        : `/images/${selectedCategoryData.bgImage}`
+                    }
                     alt={selectedCategoryData.title}
                     width={1920}
                     height={1080}

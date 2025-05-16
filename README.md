@@ -2,12 +2,13 @@
 
 This repository is a reusable template for creating Next.js sites with Supabase, configured via JSON in a Supabase `site_configs` table.
 
-## Initial Setup d
+## Initial Setup
 
 1.
 
-(1.1) Create New Repository in Git
-[x] New Project name -> Public -> Init w/ README.md & .gitignore (node)
+(1.1) Create New Repository in Github
+
+[x] New Project name -> Public -> Check the boxes :: w/ README.md & .gitignore Search: (node)
 
 (1.2) Copy project to new local directory && Open Cursor in new directory
 [ ] (In Template Terminal) Run: cp -r . /c/Users/J/OneDrive/Desktop/Sites/[NEW-SITE-PROJECT-DIRECTORY]
@@ -16,10 +17,10 @@ This repository is a reusable template for creating Next.js sites with Supabase,
 (1.3) Edit package.json file name/description
 [ ] Change the name: "name": "templatesoite",
 [ ] Change the description: "description": "AutoSite Template Site",
-[ ] IN TERMINAL, Run: rm -rf node_modules package-lock.json
+[ ] IN TERMINAL, Run: rm -rf node*modules package-lock.json
 [ ] -> npm install
 [ ] -> npm run dev
-[ ] _GO TO: localhost:3000 to test running_
+[ ] \_GO TO: localhost:3000 to test running*
 [ ] _In terminal, Ctrl+C to kill the terminal_
 
 (1.4) Initialize Git

@@ -322,32 +322,21 @@ export default function Home() {
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-start">
               <div className="flex items-center mb-8">
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center mr-6 shadow-lg"
+                  className="w-16 h-16 rounded-full flex items-center justify-center mr-6"
                   style={{
-                    backgroundColor:
-                      home.scheduleSection?.scheduleIconBgColor || "#2563eb",
+                    backgroundColor: "transparent",
                   }}
                 >
-                  {/* Clock icon */}
-                  <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="12"
-                      fill={
-                        home.scheduleSection?.scheduleIconColor || "#ffffff"
-                      }
-                    />
-                    <path
-                      d="M12 7v6m0 0l-2-2m2 2l2-2"
-                      stroke={
-                        home.scheduleSection?.scheduleIconBgColor || "#2563eb"
-                      }
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  {/* Custom icon image */}
+                  <Image
+                    src={`/images/${
+                      home.scheduleSection?.scheduleIconImage ||
+                      "clock-icon.png"
+                    }`}
+                    alt="Schedule Icon"
+                    width={48}
+                    height={48}
+                  />
                 </div>
                 <div>
                   <div

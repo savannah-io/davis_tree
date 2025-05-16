@@ -236,7 +236,7 @@ const localConfig: LocalConfig = {
       heroSubtitleColor: "#ffffff",
 
       // Hero Image
-      heroImage: "davisbg.png",
+      heroImage: "davis1.png",
 
       // Hero Gradients
       heroGradientTop: "#66bf9b",
@@ -325,6 +325,7 @@ const localConfig: LocalConfig = {
         // Icon
         scheduleIconBgColor: "#5bab8b",
         scheduleIconColor: "#ffffff",
+        scheduleIconImage: "clock.png", // Custom icon image from the public/images directory
 
         // Address
         scheduleAddress: "*ENTER_ADDRESS_HERE*",
@@ -800,9 +801,9 @@ const localConfig: LocalConfig = {
             "From storm damage to disease prevention, we’re here to protect your trees and property 24/7.",
           descriptionColor: "#ffffff",
 
-          bgImage: "/images/back1.png",
-          color: "#ff3030-#ff0000",
-          iconColor: "#000000",
+          bgImage: "davis2.png",
+          color: "#ff3030-#0055ff",
+          iconColor: "#ca6eff",
           borderColor: "#0055ff",
           icon: "ExclamationTriangleIcon",
 
@@ -860,11 +861,10 @@ const localConfig: LocalConfig = {
           title: "Cosmetic Services",
           description:
             "Premium cosmetic services to enhance and protect your vehicle's appearance",
-          bgImage: "/images/back5.png",
+          bgImage: "davis3.png",
           color: "#ffffff-#4f46e5",
           iconColor: "#ffffff",
           titleColor: "#ff0303",
-          descriptionColor: "#f3f4f6",
           borderColor: "#e5e7eb",
           icon: "SparklesIcon",
 
@@ -918,7 +918,7 @@ const localConfig: LocalConfig = {
           title: "Mechanical Services",
           description:
             "Essential mechanical services and diagnostics for optimal vehicle performance",
-          bgImage: "/images/back4.png",
+          bgImage: "davis4.png",
           color: "#ffffff-#10b981",
           iconColor: "#ffffff",
           titleColor: "#ffffff",
