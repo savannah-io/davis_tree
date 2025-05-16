@@ -255,7 +255,7 @@ const localConfig: LocalConfig = {
 
       // Hero Box 1
       heroCard1Text: "*Free Estimates",
-      heroBox1BgColor: "#1f1f1f",
+      heroBox1BgColor: "#66bf9b1f",
       heroBox1TextColor: "#ffffff",
       heroBox1BorderColor: "#66bf9b",
       heroBox1IconBgColor: "#7fd1b6",
@@ -263,7 +263,7 @@ const localConfig: LocalConfig = {
 
       // Hero Box 2*ENTER_TEXT*
       heroCard2Text: "Licensed",
-      heroBox2BgColor: "#1f1f1f",
+      heroBox2BgColor: "#66bf9b1f",
       heroBox2TextColor: "#ffffff",
       heroBox2BorderColor: "#66bf9b",
       heroBox2IconBgColor: "#7fd1b6",
@@ -271,7 +271,7 @@ const localConfig: LocalConfig = {
 
       // Hero Box 3
       heroCard3Text: "Fast Removal",
-      heroBox3BgColor: "#1f1f1f",
+      heroBox3BgColor: "#66bf9b1f",
       heroBox3TextColor: "#ffffff",
       heroBox3BorderColor: "#66bf9b",
       heroBox3IconBgColor: "#7fd1b6",
