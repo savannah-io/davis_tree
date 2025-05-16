@@ -33,8 +33,8 @@ const localConfig: LocalConfig = {
     logo: "TC-TITLE.png",
     // Title
     siteTitle: "Davis Tree Service",
-    siteTitleGradientFrom: "#84cbaf",
-    siteTitleGradientTo: "#3d725d",
+    siteTitleGradientFrom: "#367658",
+    siteTitleGradientTo: "#0c2217",
     // Schedule Button
     scheduleButtonText: "Schedule Now",
     scheduleButtonColor: "#387e62",
@@ -771,10 +771,10 @@ const localConfig: LocalConfig = {
         =                 Service Categories            =             Service Categories
         ==========================================================================================*/
       // Section Background
-      serviceCategoriesBgColor: "#66bf9b", // Legacy property maintained for backward compatibility
+      serviceCategoriesBgColor: "#ffffff", // Legacy property maintained for backward compatibility
       serviceCategoriesGradientOpacity: 0.7,
-      serviceCategoriesBgColorFrom: "#e0f2eb",
-      serviceCategoriesBgColorTo: "#c1e5d7",
+      serviceCategoriesBgColorFrom: "#ffffff",
+      serviceCategoriesBgColorTo: "#ffffff",
 
       // Card Elements
       serviceCategoryCardTitleColor: "#ffffff",
@@ -812,7 +812,7 @@ const localConfig: LocalConfig = {
             {
               title: "Emergency Tree Services",
               description:
-                "Immediate response to storm-damaged or fallen trees, including hazardous limbs threatening structures. Available 24/7, our team prioritizes safety and quick resolution to minimize disruption.",
+                "Immediate response to storm-damaged or fallen trees, including hazardous limbs threatening structures.",
               icon: "WrenchScrewdriverIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -823,7 +823,7 @@ const localConfig: LocalConfig = {
             {
               title: "Tree Health Assessments & Treatment",
               description:
-                "In-depth evaluations by certified arborists to diagnose pests, diseases, or nutrient deficiencies. We provide tailored treatments, such as insect control, fertilization, or soil care, to restore tree vigor.",
+                "Certified arborists diagnose pests, diseases, or nutrient issues and provide tailored treatments like insect control, fertilization, or soil care to restore tree health.",
               icon: "CogIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -834,7 +834,7 @@ const localConfig: LocalConfig = {
             {
               title: "Cabling & Bracing",
               description:
-                "Structural support for weak or overextended trees to prevent splitting or collapse. We install discreet cables and braces to stabilize trees, extending their lifespan without removal.",
+                "We install discreet cables and braces to stabilize weak or overextended trees, preventing collapse and extending their lifespan without removal.",
               icon: "PaintBrushIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -858,21 +858,23 @@ const localConfig: LocalConfig = {
         {
           // Exterior Card 2
           id: "cosmetic",
-          title: "Cosmetic Services",
+          title: "Tree Maintenance",
           description:
-            "Premium cosmetic services to enhance and protect your vehicle's appearance",
+            "Our Tree Maintenance services focus on enhancing the health, safety, and aesthetics of your trees.",
+          descriptionColor: "#ffffff",
           bgImage: "davis3.png",
-          color: "#ffffff-#4f46e5",
-          iconColor: "#ffffff",
-          titleColor: "#ff0303",
+          color: "#ffffff-#ffffff",
+          iconColor: "#055305",
+          titleColor: "#ffffff",
           borderColor: "#e5e7eb",
           icon: "SparklesIcon",
 
           // Services in Category 2
           services: [
             {
-              title: "Auto Detailing",
-              description: "Comprehensive interior and exterior detailing",
+              title: "Tree Trimming & Pruning",
+              description:
+                "Expert trimming and pruning to shape trees, remove dead or overgrown branches, and promote healthy growth. We tailor our cuts to improve air circulation, sunlight exposure, and structural integrity, enhancing both beauty and safety.",
               icon: "SparklesIcon",
               iconColor: "#3bf63b",
               titleColor: "#111827",
@@ -881,18 +883,20 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Paint Protection",
-              description: "Advanced paint protection and ceramic coating",
+              title: "Crown Thinning & Reduction",
+              description:
+                "Selective removal of inner branches to reduce weight, improve light penetration, and lower wind resistance. This service is ideal for mature trees or those vulnerable to storm damage, preserving their strength and form.",
               icon: "ShieldCheckIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
-              descriptionColor: "#d8ee17",
+              descriptionColor: "#6b7280",
               bgColor: "#f9fafb",
               borderColor: "#e5e7eb",
             },
             {
-              title: "Classic Restoration",
-              description: "Expert restoration of vintage vehicles",
+              title: "Fruit Tree Pruning",
+              description:
+                "Specialized pruning for fruit trees to increase yield, improve fruit quality, and maintain manageable sizes. We time our cuts to align with seasonal growth cycles, ensuring your orchard produces abundant, healthy fruit.",
               icon: "WrenchScrewdriverIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -901,8 +905,9 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Wheel & Rim Services",
-              description: "Professional wheel repair and restoration",
+              title: "Seasonal Tree Care",
+              description:
+                "Ongoing maintenance to prepare trees for seasonal changes, including winter protection, spring growth encouragement, and fall cleanup. ",
               icon: "CogIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -914,10 +919,10 @@ const localConfig: LocalConfig = {
         },
         {
           // Exterior Card 3
-          id: "mechanical",
-          title: "Mechanical Services",
+          id: "Tree Removal & Cleanup",
+          title: "Tree Removal & Cleanup",
           description:
-            "Essential mechanical services and diagnostics for optimal vehicle performance",
+            "Our Tree Removal & Cleanup services provide fast, thorough solutions for removing hazardous trees, stumps, or debris.",
           bgImage: "davis4.png",
           color: "#ffffff-#10b981",
           iconColor: "#ffffff",
@@ -929,8 +934,9 @@ const localConfig: LocalConfig = {
           // Services in Category 3
           services: [
             {
-              title: "Diagnostic Services",
-              description: "Comprehensive vehicle diagnostics and assessment",
+              title: "Tree Removal & Cleanup",
+              description:
+                "Our Tree Removal & Cleanup services tackle unwanted trees, stumps, and debris with precision and care. We ensure your property is left clean and ready for its next use, delivering efficient results without breaking the bank.",
               icon: "BeakerIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -939,8 +945,9 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Check Engine Light",
-              description: "Professional diagnosis and resolution",
+              title: "Tree Removal",
+              description:
+                "Safe removal of dead, diseased, or hazardous trees that threaten your property or safety. Using advanced rigging and cutting techniques, we dismantle trees in confined spaces, protecting your home and landscape.",
               icon: "ExclamationTriangleIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -949,18 +956,19 @@ const localConfig: LocalConfig = {
               borderColor: "#e5e7eb",
             },
             {
-              title: "Fleet Services",
+              title: "Stump Grinding & Removal",
               description: "Specialized fleet maintenance and repair",
               icon: "TruckIcon",
               iconColor: "#3b82f6",
-              titleColor: "#e4e4e4",
+              titleColor: "#000000",
               descriptionColor: "#6b7280",
               bgColor: "#f9fafb",
               borderColor: "#e5e7eb",
             },
             {
-              title: "Custom Fabrication",
-              description: "Specialized metal fabrication and repairs",
+              title: "Seasonal Tree Care",
+              description:
+                "Ongoing maintenance tailored to seasonal needs, including leaf thinning, deadwood removal, and growth monitoring.",
               icon: "WrenchIcon",
               iconColor: "#3b82f6",
               titleColor: "#111827",
@@ -1003,9 +1011,9 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
 
       // CTA Background & Colors
-      ctaBgGradientFrom: "#1eaf49", //Top Left
-      ctaBgGradientVia: "#00d800", // Middle Center
-      ctaBgGradientTo: "#278d3d", //Bottom Right
+      ctaBgGradientFrom: "#7dd0ae", //Top Left
+      ctaBgGradientVia: "#53a584", // Middle Center
+      ctaBgGradientTo: "#387e62", //Bottom Right
 
       // CTA Pattern Color
       ctaBgPatternColor: "#ffffff60", //Pattern Color
@@ -1019,7 +1027,7 @@ const localConfig: LocalConfig = {
       // Schedule Button
       scheduleButtonText: "Schedule Now",
       scheduleButtonBgColor: "#ffffff",
-      scheduleButtonTextColor: "#3bf64b",
+      scheduleButtonTextColor: "#000000",
       scheduleButtonHoverBgColor: "#f3f4f6",
 
       // Call Button
@@ -1031,12 +1039,12 @@ const localConfig: LocalConfig = {
       // CTA Content
 
       // CTA Title
-      ctaTitle: "Ready to Get Your Car Back to Perfect?",
+      ctaTitle: "Ready to get your free estimate?",
       ctaTitleColor: "#ffffff", //Title Color
 
       // CTA Description
       ctaDescription:
-        "Schedule your appointment today and experience the difference expert auto body repair makes.",
+        "Schedule your appointment today and experience the difference expert tree care makes.",
       ctaDescriptionColor: "#ffffff", //Description Color
     },
     Reviews: {
@@ -1076,20 +1084,20 @@ const localConfig: LocalConfig = {
 
       //Title
       title: "Community Reviews",
-      heroTitleColor: "#ff0000",
+      heroTitleColor: "#ffffff",
 
       //Subtitle
       subtitle:
         "We're proud of the work we do and the trust our customers place in us. Here's what they have to say about their experience with our services.",
-      heroSubtitleColor: "#cc0000",
+      heroSubtitleColor: "#ffffff",
 
       // Badge
       badge: "Verified Google Reviews",
       heroBadgeBgColor: "#ffffff10",
-      heroBadgeTextColor: "#b42424",
+      heroBadgeTextColor: "#ffffff",
       heroBadgeIconColor: "#60a5fa",
-      heroBadgeCheckmarkColor: "#c3de4a",
-      heroBadgeBorderColor: "#d12e2ec9",
+      heroBadgeCheckmarkColor: "#7dd0ae",
+      heroBadgeBorderColor: "#7dd0ae",
 
       // Stats Cards
       statsCard1Title: "Verified Reviews",
@@ -1110,9 +1118,9 @@ const localConfig: LocalConfig = {
 
       // Hero Image & Colors
       heroImage: "/images/reviews-hero.jpg",
-      heroBgGradientFrom: "#10944c", //Top Left
-      heroBgGradientVia: "#10944c", //Middle
-      heroBgGradientTo: "#10944c", //Bottom Right
+      heroBgGradientFrom: "#367658", //Top Left
+      heroBgGradientVia: "#11492d", //Middle
+      heroBgGradientTo: "#0c2217", //Bottom Right
 
       //Blurred Circle
       heroBlurredCircle1Color: "#3b82f6",
@@ -1158,7 +1166,7 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
 
       // Section Background
-      reviewsSectionBgColor: "#f9fafb",
+      reviewsSectionBgColor: "#7dd0ad2a",
 
       // Review Cards
       reviewCardBgColor: "#ffffff",
@@ -1172,8 +1180,8 @@ const localConfig: LocalConfig = {
       reviewCardStarColor: "#facc15",
       reviewCardStarEmptyColor: "#d1d5db",
 
-      reviewCardShowMoreColor: "#2563eb",
-      reviewCardShowMoreHoverColor: "#1d4ed8",
+      reviewCardShowMoreColor: "#0f3622",
+      reviewCardShowMoreHoverColor: "#367658",
 
       reviewCardGradientColor: "#0ea5e9",
 
@@ -1209,9 +1217,9 @@ const localConfig: LocalConfig = {
       shareExperienceGradientOpacity: 0.5,
 
       // Share Button
-      shareButtonBgColor: "#25eb3f",
+      shareButtonBgColor: "#0f3622",
       shareButtonTextColor: "#ffffff",
-      shareButtonHoverBgColor: "#1d6ed8",
+      shareButtonHoverBgColor: "#367658",
       shareButtonShadow: "sm",
       shareButtonHoverShadow: "md",
 
@@ -1314,9 +1322,9 @@ const localConfig: LocalConfig = {
       heroPaddingTop: "150px", // Controls the top padding of the hero section (use pixel values)
 
       //Hero Background Colors
-      heroBgGradientFrom: "#26126e",
-      heroBgGradientVia: "#8c3bf6",
-      heroBgGradientTo: "#1f2a69",
+      heroBgGradientFrom: "#387e62",
+      heroBgGradientVia: "#0c2217",
+      heroBgGradientTo: "#246043",
 
       //Blurred Circle Colors
       heroBlurredCircle1Color: "#098633",
@@ -1329,7 +1337,7 @@ const localConfig: LocalConfig = {
       heroPatternOpacity: 0.3,
 
       //Wave Separator
-      waveSeparatorColor: "#0060c0", // Color of the wave
+      waveSeparatorColor: "#0c221781", // Color of the wave
       waveSeparatorHeight: "250px", // Height of the wave SVG
 
       //App Form BG
@@ -1360,8 +1368,8 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
 
       // Form Header
-      formHeaderBgFrom: "#126e40",
-      formHeaderBgTo: "#4bf63b",
+      formHeaderBgFrom: "#66bf9b",
+      formHeaderBgTo: "#387e62",
       formHeaderPatternColor: "#ffffff",
       formHeaderPatternOpacity: 0.15,
       formHeaderPatternSize: "16px",
@@ -1411,7 +1419,7 @@ const localConfig: LocalConfig = {
 
       // Submit Button
       submitButtonBgFrom: "#126e40",
-      submitButtonBgTo: "#4bf63b",
+      submitButtonBgTo: "#0c2217",
       submitButtonTextColor: "#ffffff",
       submitButtonHoverShadow: "xl",
       submitButtonBorderRadius: "xl",
@@ -1522,43 +1530,43 @@ const localConfig: LocalConfig = {
       //Title
       title: "Get in Touch",
       heroTitleColor: "#ffffff",
-      heroTitleGradientFrom: "#ff0000", // Left
-      heroTitleGradientVia: "#016efc", // Middle
-      heroTitleGradientTo: "#030a13", // Right
+      heroTitleGradientFrom: "#ffffff", // Left
+      heroTitleGradientVia: "#ffffff", // Middle
+      heroTitleGradientTo: "#ffffff", // Right
       heroTitleGlowColor: "#d2dceb", // Glow effect beneath "touch"
       heroTitleGlowOpacity: 0.3,
 
       //Subtitle
       subtitle:
         "Have questions about our services? Need an estimate? We're here to help.",
-      heroSubtitleColor: "#7e7501ee", //
-      heroSubtitleHighlightBgColor: "#e61448cc", // Underline Color
+      heroSubtitleColor: "#ffffffff", //
+      heroSubtitleHighlightBgColor: "#387e62", // Underline Color
 
       // Badge
       badge: "24/7 Customer Support",
       heroBadgeBgColor: "#ffffff1a", // White at 10% opacity
       heroBadgeTextColor: "#ffffff",
-      heroBadgeIconColor: "#fa60fa", // Blue-400
+      heroBadgeIconColor: "#7dd0ae", // Blue-400
       heroBadgeBorderColor: "#ffffff33", // White at 20% opacity
 
       // Feature Badges
       featureBadge1Text: "24/7 AI Assistant",
-      featureBadge1IconColor: "#8e60fa", // Blue-400
+      featureBadge1IconColor: "#7dd0ae", // Blue-400
       featureBadge1BgColor: "#ffffff1a", // White at 10% opacity
       featureBadge1BorderColor: "#ffffff33", // White at 20% opacity
       featureBadge1TextColor: "#ffffff",
 
       featureBadge2Text: "Expert Consultation",
-      featureBadge2IconColor: "#60a5fa", // Blue-400
+      featureBadge2IconColor: "#7dd0ae", // Blue-400
       featureBadge2BgColor: "#ffffff1a", // White at 10% opacity
       featureBadge2BorderColor: "#ffffff33", // White at 20% opacity
       featureBadge2TextColor: "#ffffff",
 
       // Hero Background Colors
       heroImage: "/images/contact-hero.jpg",
-      heroBgGradientFrom: "#126e40", // Left
-      heroBgGradientVia: "#4bf63b", // Middle
-      heroBgGradientTo: "#0d361a", // Right
+      heroBgGradientFrom: "#7dd0ae", // Left
+      heroBgGradientVia: "#387e62", // Middle
+      heroBgGradientTo: "#367658", // Right
 
       // Background Elements
       heroBlurredCircle1Color: "#098633", // Blue-400
@@ -1570,10 +1578,10 @@ const localConfig: LocalConfig = {
       heroPatternColor: "#ffffff", // Pattern dots
       heroPatternOpacity: 0.3,
 
-      heroLightBeam1Color: "#065313", // Blue-400
+      heroLightBeam1Color: "#387e62", // Blue-400
       heroLightBeam1Opacity: 0.2,
 
-      heroLightBeam2Color: "#065313", // Blue-500
+      heroLightBeam2Color: "#387e62", // Blue-500
       heroLightBeam2Opacity: 0.2,
 
       //
@@ -1611,11 +1619,11 @@ const localConfig: LocalConfig = {
 
       // Contact Information
       contactInfoTitleText: "Contact Information",
-      contactInfoTitleColor: "#911c4d", // TITLE COLOR
+      contactInfoTitleColor: "#0c2217", // TITLE COLOR
 
       // Contact Card Icons
       contactIconBgColor: "#60a5fa33", // Blue-400 at 20% opacity
-      contactIconColor: "#67f63b", // Blue-500
+      contactIconColor: "#0c2217", // Blue-500
       contactLabelColor: "#111827", // Gray-900
       contactTextColor: "#4b5563", // Gray-600
       contactLinkHoverColor: "#2563eb", // Blue-600
@@ -1710,9 +1718,9 @@ const localConfig: LocalConfig = {
 
       // Form Button
       formSubmitBtnText: "Send Message",
-      formSubmitBtnBgColor: "#3b82f6", // Blue-500
+      formSubmitBtnBgColor: "#0c2217", // Blue-500
       formSubmitBtnTextColor: "#ffffff",
-      formSubmitBtnHoverBgColor: "#2563eb", // Blue-600
+      formSubmitBtnHoverBgColor: "#367658", // Blue-600
       formSubmitBtnBorderRadius: "lg", // rounded-lg
 
       //
@@ -1772,16 +1780,16 @@ const localConfig: LocalConfig = {
 
       // Call Button
       ctaCallButtonText: "Call Us Now",
-      ctaCallButtonBgColor: "#3b82f6", // Blue-500
+      ctaCallButtonBgColor: "#387e62", // Blue-500
       ctaCallButtonTextColor: "#ffffff",
-      ctaCallButtonHoverBgColor: "#2563eb", // Blue-600
+      ctaCallButtonHoverBgColor: "#387e62", // Blue-600
 
       // CTA Content
-      ctaTitle: "Ready to Get Your Car Back to Perfect?",
+      ctaTitle: "Ready to Get ss Car Back to Perfect?",
       ctaTitleColor: "#ffffff",
 
       ctaDescription:
-        "Schedule your appointment today and experience the difference expert auto body repair makes.",
+        "Schedule your e today and experience the difference expert auto body repair makes.",
       ctaDescriptionColor: "#e0f2fe", // Blue-50
     },
   },
@@ -1852,33 +1860,33 @@ const localConfig: LocalConfig = {
     gradientToColor: "#050505",
 
     // Text Colors
-    titleColor: "#eebfbf",
+    titleColor: "#ffffff",
     textColor: "#ffffff",
 
     // Link Styling
     linkColor: "#f0f0f0",
-    linkHoverColor: "#eebfbf",
+    linkHoverColor: "#ffffff",
 
     // Social Media Icons
-    socialIconColor: "#eebfbf",
+    socialIconColor: "#7dd0ae",
 
     // Divider Line
     dividerColor: "rgba(253, 201, 201, 0.2)",
 
     // Section Titles
-    quickLinksTitleColor: "#eebfbf",
-    contactInfoTitleColor: "#eebfbf",
-    infoTitleColor: "#eebfbf",
+    quickLinksTitleColor: "#ffffff",
+    contactInfoTitleColor: "#ffffff",
+    infoTitleColor: "#ffffff",
 
     // Join Team Button
-    joinButtonBgColor: "#eebfbf",
+    joinButtonBgColor: "#387e62",
     joinButtonTextColor: "#030303",
-    joinButtonHoverBgColor: "#dbbfbf",
+    joinButtonHoverBgColor: "#7dd0ae",
 
     // Hours Card
     hoursCardBgColor: "rgba(245, 245, 245, 0.04)",
     hoursCardTextColor: "#f5f5f5",
-    hoursCardValueColor: "#eebfbf",
+    hoursCardValueColor: "#ffffff",
 
     // Copyright & Policies
     copyrightTextColor: "#6b7280",
