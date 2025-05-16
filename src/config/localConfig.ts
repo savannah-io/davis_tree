@@ -30,7 +30,8 @@ const localConfig: LocalConfig = {
   navBar: {
     backgroundColor: "#000000S",
     textColor: "#000000",
-    logo: "TC-TITLE.png",
+    logo: "dt-logo.png",
+    showLogo: true,
     // Title
     siteTitle: "Davis Tree Service",
     siteTitleGradientFrom: "#367658",
@@ -510,15 +511,15 @@ const localConfig: LocalConfig = {
         serviceReelCardBorderColor: "#f3f4f680",
         serviceReelCardHoverShadowColor: "rgba(0, 0, 0, 0.08)",
         // Service Reel Icon
-        serviceReelIconColor: "#dc7070",
+        serviceReelIconColor: "#387e62",
         // Service Reel Title
         serviceReelTitleColor: "#111827",
-        serviceReelTitleHoverColor: "#dc7070",
+        serviceReelTitleHoverColor: "#387e62",
         // Service Reel Description
         serviceReelDescriptionColor: "#6b7280",
         serviceReelDescriptionHoverColor: "#374151",
         // Service Reel Mobile Indicator
-        serviceReelMobileIndicatorColor: "#dc7070",
+        serviceReelMobileIndicatorColor: "#387e62",
         // Service Reel Mobile Inactive Color
         serviceReelMobileInactiveColor: "#e0e0e0",
         // Service Reel Gradient
@@ -798,7 +799,7 @@ const localConfig: LocalConfig = {
           titleColor: "#ffffff",
 
           description:
-            "From storm damage to disease prevention, we’re here to protect your trees and property 24/7.",
+            "From storm damage to disease prevention, we're here to protect your trees and property 24/7.",
           descriptionColor: "#ffffff",
 
           bgImage: "davis2.png",
@@ -1025,27 +1026,27 @@ const localConfig: LocalConfig = {
       // CTA Buttons
 
       // Schedule Button
-      scheduleButtonText: "Schedule Now",
-      scheduleButtonBgColor: "#ffffff",
+      scheduleButtonText: "poobs",
+      scheduleButtonBgColor: "#ff0000",
       scheduleButtonTextColor: "#000000",
-      scheduleButtonHoverBgColor: "#f3f4f6",
+      scheduleButtonHoverBgColor: "#0055ff", //may not apply
 
       // Call Button
       callButtonText: "Call Us Now",
       callButtonBgColor: "#3b82f6",
       callButtonTextColor: "#ffffff",
-      callButtonHoverBgColor: "#eb2599",
+      callButtonHoverBgColor: "#eb2599", //may not apply
 
       // CTA Content
 
       // CTA Title
-      ctaTitle: "Ready to get your free estimate?",
+      ctaTitle: "Ready to free estimate?",
       ctaTitleColor: "#ffffff", //Title Color
 
       // CTA Description
       ctaDescription:
-        "Schedule your appointment today and experience the difference expert tree care makes.",
-      ctaDescriptionColor: "#ffffff", //Description Color
+        "Schedule your  today and experience the difference expert tree care makes.",
+      ctaDescriptionColor: "#ff0000", //Description Color
     },
     Reviews: {
       /*=======================================================================================================================================

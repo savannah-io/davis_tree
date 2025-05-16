@@ -45,6 +45,7 @@ export interface NavBarConfig {
   backgroundColor?: string;
   textColor?: string;
   logo?: string;
+  showLogo?: boolean;
   siteTitle?: string;
   siteTitleGradientFrom?: string;
   siteTitleGradientTo?: string;
@@ -169,4 +170,4 @@ export interface ServiceItem {
   description: string;
   image: string;
   link: string;
-} 
+}

@@ -253,7 +253,9 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <nav className="flex items-center justify-between py-3">
             <Link href="/" className="relative group flex items-center gap-2">
-              {config.showLogo && config.navBar?.logo ? (
+              {(config.navBar?.showLogo !== undefined
+                ? config.navBar.showLogo
+                : config.showLogo) && config.navBar?.logo ? (
                 <img
                   src={
                     config.navBar.logo.startsWith("/")
@@ -396,7 +398,9 @@ const Header = () => {
                 {/* Mobile Menu Header */}
                 <div className="p-2 border-b border-gray-200">
                   <Link href="/">
-                    {config.showLogo && config.navBar?.logo ? (
+                    {(config.navBar?.showLogo !== undefined
+                      ? config.navBar.showLogo
+                      : config.showLogo) && config.navBar?.logo ? (
                       <img
                         src={
                           config.navBar.logo.startsWith("/")
