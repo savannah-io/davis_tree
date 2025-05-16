@@ -611,13 +611,46 @@ export default function Home() {
       >
         {/* Enhanced decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-sky-200/30 to-primary-200/30 rounded-full blur-[128px] mix-blend-multiply"></div>
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary-200/30 to-sky-200/30 rounded-full blur-[128px] mix-blend-multiply"></div>
+          <div
+            className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br rounded-full blur-[128px] mix-blend-multiply"
+            style={{
+              background: `linear-gradient(to bottom right, ${
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.topCircleFromColor || "#e0f2fe"
+              }, ${
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.topCircleToColor || "#bae6fd"
+              })`,
+              opacity:
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.topCircleOpacity || 0.3,
+            }}
+          ></div>
+          <div
+            className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br rounded-full blur-[128px] mix-blend-multiply"
+            style={{
+              background: `linear-gradient(to bottom right, ${
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.bottomCircleFromColor || "#bae6fd"
+              }, ${
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.bottomCircleToColor || "#e0f2fe"
+              })`,
+              opacity:
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.bottomCircleOpacity || 0.3,
+            }}
+          ></div>
           <div
             className="absolute inset-0"
             style={{
-              backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)`,
-              opacity: 0.8,
+              backgroundImage: `radial-gradient(circle at 50% 50%, ${
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.centerRadialColor || "rgba(255,255,255,0.8)"
+              } 0%, rgba(255,255,255,0) 100%)`,
+              opacity:
+                home.guaranteeSection?.guaranteeDecorativeElements
+                  ?.centerRadialOpacity || 0.8,
             }}
           ></div>
         </div>
@@ -662,7 +695,22 @@ export default function Home() {
               className="text-center group"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-br rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item1BgFromColor || "#c9f5c9"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item1BgViaColor || "#99dac0"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item1BgToColor || "#c9f5c9"
+                    })`,
+                    opacity: 0.2,
+                  }}
+                ></div>
                 <div
                   className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
                   style={{
@@ -677,7 +725,19 @@ export default function Home() {
                       "#e0e7ff",
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div
+                    className="absolute inset-0 rounded-full bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(to bottom right, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverFromColor || "#c9f5c9"
+                      }, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverToColor || "#99dac0"
+                      })`,
+                      opacity: 0.1,
+                    }}
+                  ></div>
                   <Image
                     src={`/images/${
                       home.guaranteeSection?.guaranteeIcon1 || "access.png"
@@ -733,7 +793,22 @@ export default function Home() {
               className="text-center group"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 via-sky-400/20 to-primary-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-br rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item2BgFromColor || "#c9f5c9"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item2BgViaColor || "#99dac0"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item2BgToColor || "#c9f5c9"
+                    })`,
+                    opacity: 0.2,
+                  }}
+                ></div>
                 <div
                   className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
                   style={{
@@ -748,7 +823,19 @@ export default function Home() {
                       "#e0e7ff",
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500/10 to-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div
+                    className="absolute inset-0 rounded-full bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(to bottom right, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverFromColor || "#c9f5c9"
+                      }, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverToColor || "#99dac0"
+                      })`,
+                      opacity: 0.1,
+                    }}
+                  ></div>
                   <Image
                     src={`/images/${
                       home.guaranteeSection?.guaranteeIcon2 || "free.png"
@@ -801,7 +888,22 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="relative group"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-2xl blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
+              <div
+                className="absolute inset-0 bg-gradient-to-br rounded-2xl blur-2xl transform group-hover:scale-110 transition-transform duration-500"
+                style={{
+                  background: `linear-gradient(to bottom right, ${
+                    home.guaranteeSection?.guaranteeDecorativeElements
+                      ?.centerBgFromColor || "#c9f5c9"
+                  }, ${
+                    home.guaranteeSection?.guaranteeDecorativeElements
+                      ?.centerBgViaColor || "#99dac0"
+                  }, ${
+                    home.guaranteeSection?.guaranteeDecorativeElements
+                      ?.centerBgToColor || "#c9f5c9"
+                  })`,
+                  opacity: 0.2,
+                }}
+              ></div>
               <div
                 className="w-56 h-auto relative bg-gradient-to-br from-white via-sky-50/50 to-white rounded-2xl p-8 backdrop-blur-sm border border-sky-100/50 shadow-lg transform group-hover:scale-105 transition-all duration-500"
                 style={{
@@ -816,7 +918,19 @@ export default function Home() {
                     "#e0e7ff",
                 }}
               >
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-500/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div
+                  className="absolute inset-0 rounded-2xl bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.itemHoverFromColor || "#c9f5c9"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.itemHoverToColor || "#99dac0"
+                    })`,
+                    opacity: 0.05,
+                  }}
+                ></div>
                 <Image
                   src={`/images/${
                     home.guaranteeSection?.guaranteeCenterLogo || "PPG.png"
@@ -838,7 +952,22 @@ export default function Home() {
               className="text-center group"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-br rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item4BgFromColor || "#c9f5c9"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item4BgViaColor || "#99dac0"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item4BgToColor || "#c9f5c9"
+                    })`,
+                    opacity: 0.2,
+                  }}
+                ></div>
                 <div
                   className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
                   style={{
@@ -853,7 +982,19 @@ export default function Home() {
                       "#e0e7ff",
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div
+                    className="absolute inset-0 rounded-full bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(to bottom right, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverFromColor || "#c9f5c9"
+                      }, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverToColor || "#99dac0"
+                      })`,
+                      opacity: 0.1,
+                    }}
+                  ></div>
                   <Image
                     src={`/images/${
                       home.guaranteeSection?.guaranteeIcon4 || "calculator.png"
@@ -909,7 +1050,22 @@ export default function Home() {
               className="text-center group"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 via-sky-400/20 to-primary-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
+                <div
+                  className="absolute inset-0 bg-gradient-to-br rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item5BgFromColor || "#c9f5c9"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item5BgViaColor || "#99dac0"
+                    }, ${
+                      home.guaranteeSection?.guaranteeDecorativeElements
+                        ?.item5BgToColor || "#c9f5c9"
+                    })`,
+                    opacity: 0.2,
+                  }}
+                ></div>
                 <div
                   className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
                   style={{
@@ -924,7 +1080,19 @@ export default function Home() {
                       "#e0e7ff",
                   }}
                 >
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500/10 to-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div
+                    className="absolute inset-0 rounded-full bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                    style={{
+                      background: `linear-gradient(to bottom right, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverFromColor || "#c9f5c9"
+                      }, ${
+                        home.guaranteeSection?.guaranteeDecorativeElements
+                          ?.itemHoverToColor || "#99dac0"
+                      })`,
+                      opacity: 0.1,
+                    }}
+                  ></div>
                   <Image
                     src={`/images/${
                       home.guaranteeSection?.guaranteeIcon5 || "shipping.png"

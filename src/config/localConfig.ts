@@ -455,6 +455,48 @@ const localConfig: LocalConfig = {
         // Guarantee Section Background
         guaranteeBgGradientTop: "#ffffff",
         guaranteeBgGradientBottom: "#f0f9ff",
+
+        // Decorative Elements
+        guaranteeDecorativeElements: {
+          // Top left gradient circle
+          topCircleFromColor: "#c9f5c9ec", // Light blue color
+          topCircleToColor: "#99dac0", // Slightly darker blue
+          topCircleOpacity: 0.3, // 30% opacity
+
+          // Bottom right gradient circle
+          bottomCircleFromColor: "#c9f5c9ec", // Light blue color
+          bottomCircleToColor: "#99dac0", // Slightly lighter blue
+          bottomCircleOpacity: 0.3, // 30% opacity
+
+          // Center radial gradient
+          centerRadialColor: "#ffffff", // White color for the radial gradient
+          centerRadialOpacity: 0.8, // 80% opacity
+
+          // Item Background Gradients (these control the background blur effects behind each icon)
+          item1BgFromColor: "#c9f5c9", // From color for Lifetime Warranty item background
+          item1BgViaColor: "#99dac0", // Via color for Lifetime Warranty item background
+          item1BgToColor: "#c9f5c9", // To color for Lifetime Warranty item background
+
+          item2BgFromColor: "#c9f5c9", // From color for Free Estimates item background
+          item2BgViaColor: "#99dac0", // Via color for Free Estimates item background
+          item2BgToColor: "#c9f5c9", // To color for Free Estimates item background
+
+          centerBgFromColor: "#c9f5c9", // From color for center PPG logo background
+          centerBgViaColor: "#99dac0", // Via color for center PPG logo background
+          centerBgToColor: "#c9f5c9", // To color for center PPG logo background
+
+          item4BgFromColor: "#c9f5c9", // From color for Insurance Approved item background
+          item4BgViaColor: "#99dac0", // Via color for Insurance Approved item background
+          item4BgToColor: "#c9f5c9", // To color for Insurance Approved item background
+
+          item5BgFromColor: "#c9f5c9", // From color for Towing Service item background
+          item5BgViaColor: "#99dac0", // Via color for Towing Service item background
+          item5BgToColor: "#c9f5c9", // To color for Towing Service item background
+
+          // Item Hover Effects (these control the gradient effects that appear on hover)
+          itemHoverFromColor: "#c9f5c9", // From color for item hover effect
+          itemHoverToColor: "#99dac0", // To color for item hover effect
+        },
       },
 
       //
