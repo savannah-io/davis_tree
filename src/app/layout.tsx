@@ -32,63 +32,6 @@ const loadingConfig = localConfig.loadingScreen || {
   },
 };
 
-// Add loading overlay style to prevent FOUC
-const loadingOverlayStyles = `
-  .loading-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: ${loadingConfig.backgroundColor};
-    z-index: 9999;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: opacity ${loadingConfig.timing.fadeOutDuration}ms ease-out;
-  }
-  
-  .loading-overlay.hidden {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* Hide all content until JavaScript removes the no-js class */
-  .no-js .site-content {
-    display: none;
-  }
-  
-  /* Spinner animation */
-  .spinner {
-    width: ${loadingConfig.spinner.size}px;
-    height: ${loadingConfig.spinner.size}px;
-    margin: 24px auto;
-    border-radius: 50%;
-    border: ${loadingConfig.spinner.thickness}px solid transparent;
-    border-top-color: ${loadingConfig.spinner.color};
-    border-bottom-color: ${loadingConfig.spinner.color};
-    animation: spin 1.2s linear infinite;
-    display: ${loadingConfig.spinner.enabled ? "block" : "none"};
-  }
-  
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  /* Logo container */
-  .logo-container {
-    max-width: ${loadingConfig.logoWidth}px;
-    margin-bottom: 20px;
-  }
-  
-  .logo-container img {
-    width: 100%;
-    height: auto;
-  }
-`;
-
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-space-grotesk",
@@ -192,7 +135,7 @@ export default function RootLayout({
       }}
     >
       <head>
-        {isLoadingEnabled && <style>{loadingOverlayStyles}</style>}
+        {/* Instead of inline styles, add CSS classes for the loading overlay */}
         {/* Script for client-side detection to add data attribute */}
         <script
           dangerouslySetInnerHTML={{
@@ -218,6 +161,71 @@ export default function RootLayout({
                       document.documentElement.setAttribute('data-is-mobile', 'false');
                     }
                   });
+                  
+                  // Add loading overlay styles dynamically to avoid hydration mismatches
+                  var style = document.createElement('style');
+                  style.textContent = \`
+                    .loading-overlay {
+                      position: fixed;
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      background-color: ${loadingConfig.backgroundColor};
+                      z-index: 9999;
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: center;
+                      align-items: center;
+                      transition: opacity ${
+                        loadingConfig.timing.fadeOutDuration
+                      }ms ease-out;
+                    }
+                    
+                    .loading-overlay.hidden {
+                      opacity: 0;
+                      pointer-events: none;
+                    }
+                    
+                    /* Hide all content until JavaScript removes the no-js class */
+                    .no-js .site-content {
+                      display: none;
+                    }
+                    
+                    /* Spinner animation */
+                    .spinner {
+                      width: ${loadingConfig.spinner.size}px;
+                      height: ${loadingConfig.spinner.size}px;
+                      margin: 24px auto;
+                      border-radius: 50%;
+                      border: ${
+                        loadingConfig.spinner.thickness
+                      }px solid transparent;
+                      border-top-color: ${loadingConfig.spinner.color};
+                      border-bottom-color: ${loadingConfig.spinner.color};
+                      animation: spin 1.2s linear infinite;
+                      display: ${
+                        loadingConfig.spinner.enabled ? "block" : "none"
+                      };
+                    }
+                    
+                    @keyframes spin {
+                      0% { transform: rotate(0deg); }
+                      100% { transform: rotate(360deg); }
+                    }
+                    
+                    /* Logo container */
+                    .logo-container {
+                      max-width: ${loadingConfig.logoWidth}px;
+                      margin-bottom: 20px;
+                    }
+                    
+                    .logo-container img {
+                      width: 100%;
+                      height: auto;
+                    }
+                  \`;
+                  document.head.appendChild(style);
                 } catch (e) {
                   console.error('Error in mobile detection script:', e);
                 }

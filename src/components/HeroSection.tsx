@@ -279,12 +279,16 @@ export default function HeroSection({
           {/* Scheduling and Contact buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full items-start justify-start mb-8">
             <motion.a
-              href="#"
+              href="#schedule"
               onClick={(e) => {
                 e.preventDefault();
-                document
-                  .getElementById("schedule")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                const scheduleSection = document.getElementById("schedule");
+                if (scheduleSection) {
+                  scheduleSection.scrollIntoView({ behavior: "smooth" });
+                } else {
+                  // Fallback if section not found
+                  window.location.href = "/#schedule";
+                }
               }}
               className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-20 py-3 sm:py-4 min-w-[140px] sm:min-w-[320px] rounded-lg font-semibold text-base sm:text-2xl transition-all duration-300 shadow-xl hover:shadow-2xl relative group overflow-hidden text-left"
               style={{
@@ -294,6 +298,7 @@ export default function HeroSection({
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
+              aria-label="Scroll to schedule section"
             >
               {scheduleButtonText}
             </motion.a>

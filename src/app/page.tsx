@@ -284,6 +284,7 @@ export default function Home() {
 
       {/* Schedule Section */}
       <section
+        id="schedule"
         className="py-16 bg-gradient-to-b"
         style={{
           background: `linear-gradient(to bottom, ${
