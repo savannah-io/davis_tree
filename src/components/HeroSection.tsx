@@ -1,7 +1,12 @@
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import { ShieldCheckIcon, SparklesIcon, ClockIcon, ArrowRightIcon } from '@heroicons/react/24/solid';
-import React from 'react';
+import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  ShieldCheckIcon,
+  SparklesIcon,
+  ClockIcon,
+  ArrowRightIcon,
+} from "@heroicons/react/24/solid";
+import React from "react";
 
 interface HeroSectionProps {
   title?: string;
@@ -48,135 +53,178 @@ interface HeroSectionProps {
   onShowInstructions?: () => void;
 }
 
-export default function HeroSection({ 
-  title = 'Welcome to our Site',
-  subtitle = 'We provide the best services',
-  content = '',
-  location = '',
-  backgroundImage = '',
-  badge = '',
-  heroBadgeColor = '#1787c9',
-  heroBadgeTitleColor = '#fff',
-  heroTitleColor = '#fff',
-  heroLocationColor = '#38bdf8',
-  heroContentColor = '#fff',
-  heroSubtitleColor = '#fff',
-  scheduleButtonText = 'Schedule Now',
-  scheduleButtonColor = '#c9ba18',
-  scheduleButtonTextColor = '#ffffff',
-  contactButtonText = 'Contact Us',
-  contactButtonColor = '#ffffff',
-  contactButtonTextColor = '#4fc917',
-  heroContactButtonBorderColor = '#ffffff',
-  heroCard1Text = 'Hero Card 1',
-  heroCard2Text = 'Hero Card 2',
-  heroCard3Text = 'Hero Card 3',
-  heroBox1BgColor = '#25647a',
-  heroBox1TextColor = '#fff',
-  heroBox1BorderColor = '#25647a',
-  heroBox1IconBgColor = 'rgba(255,255,255,0.1)',
-  heroBox1IconColor = '#fff',
-  heroBox2BgColor = '#25647a',
-  heroBox2TextColor = '#fff',
-  heroBox2BorderColor = '#25647a',
-  heroBox2IconBgColor = 'rgba(255,255,255,0.1)',
-  heroBox2IconColor = '#fff',
-  heroBox3BgColor = '#25647a',
-  heroBox3TextColor = '#fff',
-  heroBox3BorderColor = '#25647a',
-  heroBox3IconBgColor = 'rgba(255,255,255,0.1)',
-  heroBox3IconColor = '#fff',
-  heroGradientTop = '#2563eb',
-  heroGradientBottom = '#1e293b',
-  heroGradientLeft = '#1e293b',
-  heroRadialColor = '#38bdf8',
-  onShowInstructions = () => {}
+export default function HeroSection({
+  title = "Welcome to our Site",
+  subtitle = "We provide the best services",
+  content = "",
+  location = "",
+  backgroundImage = "",
+  badge = "",
+  heroBadgeColor = "#1787c9",
+  heroBadgeTitleColor = "#fff",
+  heroTitleColor = "#fff",
+  heroLocationColor = "#38bdf8",
+  heroContentColor = "#fff",
+  heroSubtitleColor = "#fff",
+  scheduleButtonText = "Schedule Now",
+  scheduleButtonColor = "#c9ba18",
+  scheduleButtonTextColor = "#ffffff",
+  contactButtonText = "Contact Us",
+  contactButtonColor = "#ffffff",
+  contactButtonTextColor = "#4fc917",
+  heroContactButtonBorderColor = "#ffffff",
+  heroCard1Text = "Hero Card 1",
+  heroCard2Text = "Hero Card 2",
+  heroCard3Text = "Hero Card 3",
+  heroBox1BgColor = "#25647a",
+  heroBox1TextColor = "#fff",
+  heroBox1BorderColor = "#25647a",
+  heroBox1IconBgColor = "rgba(255,255,255,0.1)",
+  heroBox1IconColor = "#fff",
+  heroBox2BgColor = "#25647a",
+  heroBox2TextColor = "#fff",
+  heroBox2BorderColor = "#25647a",
+  heroBox2IconBgColor = "rgba(255,255,255,0.1)",
+  heroBox2IconColor = "#fff",
+  heroBox3BgColor = "#25647a",
+  heroBox3TextColor = "#fff",
+  heroBox3BorderColor = "#25647a",
+  heroBox3IconBgColor = "rgba(255,255,255,0.1)",
+  heroBox3IconColor = "#fff",
+  heroGradientTop = "#2563eb",
+  heroGradientBottom = "#1e293b",
+  heroGradientLeft = "#1e293b",
+  heroRadialColor = "#38bdf8",
+  onShowInstructions = () => {},
 }: HeroSectionProps) {
   // Function to ensure image URLs are properly formatted
   const getImageUrl = (src: string) => {
-    if (!src) return '';
+    if (!src) return "";
     // If it's a data URL or absolute URL, return as is
-    if (src.startsWith('data:') || src.startsWith('http://') || src.startsWith('https://')) {
+    if (
+      src.startsWith("data:") ||
+      src.startsWith("http://") ||
+      src.startsWith("https://")
+    ) {
       return src;
     }
     // If it doesn't start with a slash or 'images/', prepend '/images/'
-    if (!src.startsWith('/') && !src.startsWith('images/')) {
+    if (!src.startsWith("/") && !src.startsWith("images/")) {
       return `/images/${src}`;
     }
     // For relative URLs, ensure they start with a slash
-    return src.startsWith('/') ? src : `/${src}`;
+    return src.startsWith("/") ? src : `/${src}`;
   };
 
   // Helper function to convert hex to rgba with alpha
   const hexToRgba = (hex: string, alpha: number) => {
     if (!hex) return `rgba(0, 0, 0, ${alpha})`;
-    let c = hex.replace('#', '');
-    if (c.length === 3) c = c.split('').map(x => x + x).join('');
+    let c = hex.replace("#", "");
+    if (c.length === 3)
+      c = c
+        .split("")
+        .map((x) => x + x)
+        .join("");
     const num = parseInt(c, 16);
-    return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+    return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${
+      num & 255
+    }, ${alpha})`;
   };
 
   // Use default values if not provided
-  const finalGradientTop = heroGradientTop || '#8b2424';
-  const finalGradientBottom = heroGradientBottom || '#000000';
+  const finalGradientTop = heroGradientTop || "#8b2424";
+  const finalGradientBottom = heroGradientBottom || "#000000";
   const finalGradientLeft = heroGradientLeft || finalGradientBottom;
-  const finalRadialColor = heroRadialColor || '#f5d6d6';
+  const finalRadialColor = heroRadialColor || "#f5d6d6";
 
-  console.log('Hero Gradient Colors:', { 
-    top: finalGradientTop, 
-    bottom: finalGradientBottom, 
+  console.log("Hero Gradient Colors:", {
+    top: finalGradientTop,
+    bottom: finalGradientBottom,
     left: finalGradientLeft,
-    radial: finalRadialColor
+    radial: finalRadialColor,
   });
 
   return (
-    <section 
+    <section
       className="hero-section relative overflow-hidden"
       style={
         backgroundImage
-          ? { backgroundImage: `url(${getImageUrl(backgroundImage)})`, backgroundSize: 'cover', backgroundPosition: 'center' }
+          ? {
+              backgroundImage: `url(${getImageUrl(backgroundImage)})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }
           : {}
       }
     >
       {/* Top dark blue gradient overlay for navbar transition */}
-      <div className="absolute top-0 left-0 w-full h-16 z-30 pointer-events-none" 
-          style={{background: `linear-gradient(to bottom, ${hexToRgba(finalGradientBottom, 0.85)} 0%, ${hexToRgba(finalGradientBottom, 0)} 100%)`}}>
-      </div>
-      
+      <div
+        className="absolute top-0 left-0 w-full h-16 z-30 pointer-events-none"
+        style={{
+          background: `linear-gradient(to bottom, ${hexToRgba(
+            finalGradientBottom,
+            0.85
+          )} 0%, ${hexToRgba(finalGradientBottom, 0)} 100%)`,
+        }}
+      ></div>
+
       {/* Main overlay gradient */}
-      <div className="absolute inset-0 pointer-events-none"
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to bottom, ${hexToRgba(finalGradientTop, 0.5)} 0%, ${hexToRgba(finalGradientTop, 0.25)} 50%, ${hexToRgba(finalGradientBottom, 0.4)} 100%)`
+          background: `linear-gradient(to bottom, ${hexToRgba(
+            finalGradientTop,
+            0.5
+          )} 0%, ${hexToRgba(finalGradientTop, 0.25)} 50%, ${hexToRgba(
+            finalGradientBottom,
+            0.4
+          )} 100%)`,
         }}
       ></div>
-      
-      <div className="absolute inset-0 pointer-events-none"
+
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background: `linear-gradient(to right, ${hexToRgba(finalGradientLeft, 0.3)} 0%, transparent 100%)`
+          background: `linear-gradient(to right, ${hexToRgba(
+            finalGradientLeft,
+            0.3
+          )} 0%, transparent 100%)`,
         }}
       ></div>
-      
+
       {/* Tech pattern overlay */}
       <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0"
+        <div
+          className="absolute inset-0"
           style={{
             backgroundImage: `
-              radial-gradient(circle at 20% 30%, ${hexToRgba(finalRadialColor, 0.15)} 0%, transparent 8%),
-              radial-gradient(circle at 80% 20%, ${hexToRgba(finalRadialColor, 0.15)} 0%, transparent 6%),
-              radial-gradient(circle at 40% 70%, ${hexToRgba(finalRadialColor, 0.15)} 0%, transparent 12%),
-              radial-gradient(circle at 70% 50%, ${hexToRgba(finalRadialColor, 0.15)} 0%, transparent 10%),
+              radial-gradient(circle at 20% 30%, ${hexToRgba(
+                finalRadialColor,
+                0.15
+              )} 0%, transparent 8%),
+              radial-gradient(circle at 80% 20%, ${hexToRgba(
+                finalRadialColor,
+                0.15
+              )} 0%, transparent 6%),
+              radial-gradient(circle at 40% 70%, ${hexToRgba(
+                finalRadialColor,
+                0.15
+              )} 0%, transparent 12%),
+              radial-gradient(circle at 70% 50%, ${hexToRgba(
+                finalRadialColor,
+                0.15
+              )} 0%, transparent 10%),
               linear-gradient(to bottom right, transparent 0%, transparent 100%)
             `,
-            backgroundSize: '100% 100%',
-            backgroundRepeat: 'no-repeat'
+            backgroundSize: "100% 100%",
+            backgroundRepeat: "no-repeat",
           }}
-        >
-        </div>
+        ></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-20 h-full flex items-center">
-        <motion.div 
-          className="hero-content max-w-3xl md:py-12 w-full"
+        <motion.div
+          className="hero-content max-w-3xl md:py-12 w-full pt-6 sm:pt-10 md:pt-0"
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
@@ -191,7 +239,10 @@ export default function HeroSection({
             >
               <span
                 className="px-4 py-2 rounded-full text-xs sm:text-sm font-semibold tracking-wider uppercase shadow-lg backdrop-blur-sm"
-                style={{ background: heroBadgeColor, color: heroBadgeTitleColor }}
+                style={{
+                  background: heroBadgeColor,
+                  color: heroBadgeTitleColor,
+                }}
               >
                 {badge}
               </span>
@@ -210,15 +261,19 @@ export default function HeroSection({
             )}
           </h1>
           {/* Main content and subtitle from config */}
-          <div className="text-base sm:text-xl mb-6 sm:mb-12 max-w-2xl leading-relaxed drop-shadow-lg font-medium text-left"
-               style={{ color: heroContentColor }}>
-            {content && (
-              <div>
-                {content.replace(/<[^>]+>/g, '')}
-              </div>
-            )}
+          <div
+            className="text-base sm:text-xl mb-6 sm:mb-12 max-w-2xl leading-relaxed drop-shadow-lg font-medium text-left"
+            style={{ color: heroContentColor }}
+          >
+            {content && <div>{content.replace(/<[^>]+>/g, "")}</div>}
             {subtitle && (
-              <span className="block sm:inline" style={{ color: heroSubtitleColor }}> {subtitle}</span>
+              <span
+                className="block sm:inline"
+                style={{ color: heroSubtitleColor }}
+              >
+                {" "}
+                {subtitle}
+              </span>
             )}
           </div>
           {/* Scheduling and Contact buttons */}
@@ -227,13 +282,15 @@ export default function HeroSection({
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById('schedule')?.scrollIntoView({ behavior: 'smooth' });
+                document
+                  .getElementById("schedule")
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
               className="inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-20 py-3 sm:py-4 min-w-[140px] sm:min-w-[320px] rounded-lg font-semibold text-base sm:text-2xl transition-all duration-300 shadow-xl hover:shadow-2xl relative group overflow-hidden text-left"
               style={{
                 background: scheduleButtonColor,
                 color: scheduleButtonTextColor,
-                border: 'none',
+                border: "none",
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -246,20 +303,24 @@ export default function HeroSection({
               style={{
                 background: contactButtonColor,
                 color: contactButtonTextColor,
-                border: `2px solid ${heroContactButtonBorderColor || contactButtonColor}`,
-                transition: 'all 0.3s',
+                border: `2px solid ${
+                  heroContactButtonBorderColor || contactButtonColor
+                }`,
+                transition: "all 0.3s",
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              onMouseEnter={e => {
-                e.currentTarget.style.background = '#5cbe1a';
-                e.currentTarget.style.color = '#ffffff';
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#5cbe1a";
+                e.currentTarget.style.color = "#ffffff";
                 e.currentTarget.style.border = `2px solid #1787c9`;
               }}
-              onMouseLeave={e => {
+              onMouseLeave={(e) => {
                 e.currentTarget.style.background = contactButtonColor;
                 e.currentTarget.style.color = contactButtonTextColor;
-                e.currentTarget.style.border = `2px solid ${heroContactButtonBorderColor || contactButtonColor}`;
+                e.currentTarget.style.border = `2px solid ${
+                  heroContactButtonBorderColor || contactButtonColor
+                }`;
               }}
             >
               <span className="mr-2">{contactButtonText}</span>
@@ -269,9 +330,33 @@ export default function HeroSection({
           {/* Hero boxes - single column on mobile, fixed width and aligned on desktop */}
           <div className="flex flex-col sm:flex-row sm:justify-start gap-4 sm:gap-6 w-full items-center">
             {[
-              { icon: <ShieldCheckIcon className="w-7 h-7" />, text: heroCard1Text, boxBg: heroBox1BgColor, textColor: heroBox1TextColor, borderColor: heroBox1BorderColor, iconBg: heroBox1IconBgColor, iconColor: heroBox1IconColor },
-              { icon: <SparklesIcon className="w-7 h-7" />, text: heroCard2Text, boxBg: heroBox2BgColor, textColor: heroBox2TextColor, borderColor: heroBox2BorderColor, iconBg: heroBox2IconBgColor, iconColor: heroBox2IconColor },
-              { icon: <ClockIcon className="w-7 h-7" />, text: heroCard3Text, boxBg: heroBox3BgColor, textColor: heroBox3TextColor, borderColor: heroBox3BorderColor, iconBg: heroBox3IconBgColor, iconColor: heroBox3IconColor }
+              {
+                icon: <ShieldCheckIcon className="w-7 h-7" />,
+                text: heroCard1Text,
+                boxBg: heroBox1BgColor,
+                textColor: heroBox1TextColor,
+                borderColor: heroBox1BorderColor,
+                iconBg: heroBox1IconBgColor,
+                iconColor: heroBox1IconColor,
+              },
+              {
+                icon: <SparklesIcon className="w-7 h-7" />,
+                text: heroCard2Text,
+                boxBg: heroBox2BgColor,
+                textColor: heroBox2TextColor,
+                borderColor: heroBox2BorderColor,
+                iconBg: heroBox2IconBgColor,
+                iconColor: heroBox2IconColor,
+              },
+              {
+                icon: <ClockIcon className="w-7 h-7" />,
+                text: heroCard3Text,
+                boxBg: heroBox3BgColor,
+                textColor: heroBox3TextColor,
+                borderColor: heroBox3BorderColor,
+                iconBg: heroBox3IconBgColor,
+                iconColor: heroBox3IconColor,
+              },
             ].map((item, index) => (
               <div
                 key={index}
@@ -285,7 +370,9 @@ export default function HeroSection({
                   className="p-2 rounded-xl flex items-center justify-center"
                   style={{ background: item.iconBg }}
                 >
-                  {React.cloneElement(item.icon, { style: { color: item.iconColor } })}
+                  {React.cloneElement(item.icon, {
+                    style: { color: item.iconColor },
+                  })}
                 </div>
                 <span
                   className="font-bold text-base sm:text-lg tracking-wide whitespace-nowrap"
@@ -300,4 +387,4 @@ export default function HeroSection({
       </div>
     </section>
   );
-} 
+}

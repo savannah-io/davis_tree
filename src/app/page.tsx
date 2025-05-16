@@ -1,17 +1,25 @@
-'use client'
+"use client";
 
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import { StarIcon, ClockIcon, ArrowRightIcon, ShieldCheckIcon, SparklesIcon } from '@heroicons/react/24/solid'
-import { motion } from 'framer-motion'
-import ServiceReel from '../components/ServiceReel'
-import Image from 'next/image'
-import Script from 'next/script'
-import { useConfig } from '../context/ConfigContext'
-import React, { useState, useEffect } from 'react'
-import { disableReloadWarning } from '../utils/preventReloadWarning'
-import Modal from '../components/Modal'
-import HeroSection from '@/components/HeroSection'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import {
+  StarIcon,
+  ClockIcon,
+  ArrowRightIcon,
+  ShieldCheckIcon,
+  SparklesIcon,
+} from "@heroicons/react/24/solid";
+import { motion } from "framer-motion";
+import ServiceReel from "../components/ServiceReel";
+import Image from "next/image";
+import Script from "next/script";
+import { useConfig } from "../context/ConfigContext";
+import { useConfigHydration } from "../context/ConfigContext";
+import React, { useState, useEffect } from "react";
+import { disableReloadWarning } from "../utils/preventReloadWarning";
+import Modal from "../components/Modal";
+import HeroSection from "@/components/HeroSection";
+import localConfig from "../config/localConfig";
 
 // Add Calendly type declaration
 declare global {
@@ -30,91 +38,183 @@ declare global {
 
 // Add a helper to convert hex to rgba with alpha
 function hexToRgba(hex: string, alpha: number) {
-  let c = hex.replace('#', '');
-  if (c.length === 3) c = c.split('').map(x => x + x).join('');
+  let c = hex.replace("#", "");
+  if (c.length === 3)
+    c = c
+      .split("")
+      .map((x) => x + x)
+      .join("");
   const num = parseInt(c, 16);
-  return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+  return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${
+    num & 255
+  }, ${alpha})`;
 }
 
 export default function Home() {
+  // Get loading screen config
+  const loadingConfig = localConfig.loadingScreen || { enabled: true };
+
   // Get the config object from context
   const config = useConfig();
+  // Get config hydration state
+  const isConfigHydrated = useConfigHydration();
   // State to track client-side rendering
   const [isClient, setIsClient] = useState(false);
   // State for instructions modal
   const [showInstructions, setShowInstructions] = useState(false);
-  
+  // State for reviews from API
+  const [apiReviews, setApiReviews] = useState<
+    Array<{ text: string; author: string; rating: number }>
+  >([]);
+  const [reviewsLoaded, setReviewsLoaded] = useState(false);
+  // State to track if the component is fully hydrated
+  const [isHydrated, setIsHydrated] = useState(false);
+
   // Set isClient to true once component mounts on client
   useEffect(() => {
     setIsClient(true);
   }, []);
-  
+
+  // Set isHydrated true after styles are applied
+  useEffect(() => {
+    if (isClient) {
+      // Add a small delay to ensure styles are properly applied
+      const timer = setTimeout(() => {
+        setIsHydrated(true);
+
+        // Also make sure loading overlay is hidden if loading screen is disabled
+        if (!loadingConfig.enabled) {
+          const overlay = document.getElementById("loading-overlay");
+          if (overlay) overlay.classList.add("hidden");
+        }
+      }, 200);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isClient, loadingConfig.enabled]);
+
+  // Fetch reviews from API
+  useEffect(() => {
+    async function fetchReviews() {
+      try {
+        const response = await fetch("/api/reviews?page=1&pageSize=3");
+        if (!response.ok) {
+          throw new Error("Failed to fetch reviews");
+        }
+        const data = await response.json();
+
+        // Transform the data to match the expected format
+        const formattedReviews = data.reviews.map((review: any) => ({
+          text: review.text,
+          author: review.author_name,
+          rating: review.rating,
+        }));
+
+        setApiReviews(formattedReviews);
+        setReviewsLoaded(true);
+      } catch (error) {
+        console.error("Error fetching reviews for homepage:", error);
+        setReviewsLoaded(true); // Still mark as loaded so fallbacks can display
+      }
+    }
+
+    if (isClient) {
+      fetchReviews();
+    }
+  }, [isClient]);
+
   // Debug log to see what config is loaded
-  console.log('Config in Home:', config);
+  console.log("Config in Home:", config);
   // Home page content from config
   const home = config?.pages?.Home || {};
   // Reviews page content from config
   const reviewsConfig = config?.pages?.Reviews || {};
   // Scheduling button text from config
   const schedulingButtonText = config?.schedulingButtonText;
-  // Reviews array from config
-  const reviews = reviewsConfig.reviews || [];
   // Hero gradient color from Home page config
-  const heroGradientColor = config?.pages?.Home?.heroGradientColor || '#0a2540';
+  const heroGradientColor = config?.pages?.Home?.heroGradientColor || "#0a2540";
   const infoBar = config?.infoBar || {};
 
   // Instructions content
   const instructionsContent = [
-    { title: "Tree Removal Services", content: "We provide professional tree removal services for residential and commercial properties." },
-    { title: "Expert Arborists", content: "Our team of certified arborists ensures safe and efficient tree removal." },
-    { title: home.heroCard1Text || "Hero Card 1", content: "This is the first hero card showcased on the homepage." },
-    { title: home.heroCard2Text || "Hero Card 2", content: "This is the second hero card displayed on the homepage." },
-    { title: home.heroCard3Text || "Hero Card 3", content: "This is the third hero card featured on the homepage." }
+    {
+      title: "Tree Removal Services",
+      content:
+        "We provide professional tree removal services for residential and commercial properties.",
+    },
+    {
+      title: "Expert Arborists",
+      content:
+        "Our team of certified arborists ensures safe and efficient tree removal.",
+    },
+    {
+      title: home.heroCard1Text || "Hero Card 1",
+      content: "This is the first hero card showcased on the homepage.",
+    },
+    {
+      title: home.heroCard2Text || "Hero Card 2",
+      content: "This is the second hero card displayed on the homepage.",
+    },
+    {
+      title: home.heroCard3Text || "Hero Card 3",
+      content: "This is the third hero card featured on the homepage.",
+    },
   ];
-  
+
   // Set CSS variables when component loads
   useEffect(() => {
     if (isClient && home.scheduleSection) {
       // Set schedule section gradient variables
-      document.documentElement.style.setProperty('--schedule-gradient-top', home.scheduleSection.scheduleGradientTop || '#ffffff');
-      document.documentElement.style.setProperty('--schedule-gradient-bottom', home.scheduleSection.scheduleGradientBottom || '#f1f5f9');
+      document.documentElement.style.setProperty(
+        "--schedule-gradient-top",
+        home.scheduleSection.scheduleGradientTop || "#ffffff"
+      );
+      document.documentElement.style.setProperty(
+        "--schedule-gradient-bottom",
+        home.scheduleSection.scheduleGradientBottom || "#f1f5f9"
+      );
     }
   }, [isClient, home.scheduleSection]);
-  
+
   // Debug log to check button styles
   useEffect(() => {
     if (isClient) {
       // Wait for 1 second before showing alert
       setTimeout(() => {
-        console.log('BUTTON DEBUG:', {
-          'Schedule Button Properties': {
+        console.log("BUTTON DEBUG:", {
+          "Schedule Button Properties": {
             scheduleButtonColor: home.scheduleButtonColor,
             scheduleButtonText: home.scheduleButtonText,
             scheduleButtonTextColor: home.scheduleButtonTextColor,
             heroScheduleButtonColor: home.heroScheduleButtonColor,
-            heroScheduleButtonTextColor: home.heroScheduleButtonTextColor
+            heroScheduleButtonTextColor: home.heroScheduleButtonTextColor,
           },
-          'Contact Button Properties': {
+          "Contact Button Properties": {
             contactButtonColor: home.contactButtonColor,
             contactButtonText: home.contactButtonText,
             contactButtonTextColor: home.contactButtonTextColor,
             heroContactButtonColor: home.heroContactButtonColor,
             heroContactButtonTextColor: home.heroContactButtonTextColor,
-            heroContactButtonBorderColor: home.heroContactButtonBorderColor
-          }
+            heroContactButtonBorderColor: home.heroContactButtonBorderColor,
+          },
         });
       }, 1000);
     }
   }, [isClient, home]);
 
+  // Only render content when both the component and config are fully hydrated
+  if (!isHydrated || !isConfigHydrated) {
+    return null; // Return nothing during server-side rendering or before hydration
+  }
+
   return (
     <div className="min-h-screen" suppressHydrationWarning>
       {/* Header (no config prop) */}
       <Header />
-      
+
       {/* Instructions Modal */}
-      <Modal 
-        isOpen={showInstructions} 
+      <Modal
+        isOpen={showInstructions}
         onClose={() => setShowInstructions(false)}
         title="Services Information"
       >
@@ -127,61 +227,73 @@ export default function Home() {
           ))}
         </div>
       </Modal>
-      
+
       {/* Hero Section using component */}
-      <HeroSection 
-        backgroundImage={home.heroImage || ''}
-        title={home.title || 'Welcome to our Site'}
-        subtitle={home.subtitle2 || 'We provide the best services'}
-        content={home.content || ''}
-        location={home.location || ''}
-        badge={home.badge || ''}
-        heroBadgeColor={home.heroBadgeColor || '#1787c9'}
-        heroBadgeTitleColor={home.heroBadgeTitleColor || '#fff'}
-        heroTitleColor={home.heroTitleColor || '#fff'}
-        heroLocationColor={home.heroLocationColor || '#38bdf8'}
-        heroContentColor={home.heroContentColor || '#fff'}
-        heroSubtitleColor={home.heroSubtitleColor || '#fff'}
-        scheduleButtonText={home.scheduleButtonText || 'Schedule Now'}
-        scheduleButtonColor={home.heroScheduleButtonColor || '#c9ba18'}
-        scheduleButtonTextColor={home.heroScheduleButtonTextColor || '#ffffff'}
-        contactButtonText={home.contactButtonText || 'Contact Us'}
-        contactButtonColor={home.heroContactButtonColor || '#ffffff'}
-        contactButtonTextColor={home.heroContactButtonTextColor || '#4fc917'}
-        heroContactButtonBorderColor={home.heroContactButtonBorderColor || '#ffffff'}
-        heroCard1Text={home.heroCard1Text || 'Hero Card 1'}
-        heroCard2Text={home.heroCard2Text || 'Hero Card 2'}
-        heroCard3Text={home.heroCard3Text || 'Hero Card 3'}
-        heroBox1BgColor={home.heroBox1BgColor || '#25647a'}
-        heroBox1TextColor={home.heroBox1TextColor || '#fff'}
-        heroBox1BorderColor={home.heroBox1BorderColor || '#25647a'}
-        heroBox1IconBgColor={home.heroBox1IconBgColor || 'rgba(255,255,255,0.1)'}
-        heroBox1IconColor={home.heroBox1IconColor || '#fff'}
-        heroBox2BgColor={home.heroBox2BgColor || '#25647a'}
-        heroBox2TextColor={home.heroBox2TextColor || '#fff'}
-        heroBox2BorderColor={home.heroBox2BorderColor || '#25647a'}
-        heroBox2IconBgColor={home.heroBox2IconBgColor || 'rgba(255,255,255,0.1)'}
-        heroBox2IconColor={home.heroBox2IconColor || '#fff'}
-        heroBox3BgColor={home.heroBox3BgColor || '#25647a'}
-        heroBox3TextColor={home.heroBox3TextColor || '#fff'}
-        heroBox3BorderColor={home.heroBox3BorderColor || '#25647a'}
-        heroBox3IconBgColor={home.heroBox3IconBgColor || 'rgba(255,255,255,0.1)'}
-        heroBox3IconColor={home.heroBox3IconColor || '#fff'}
+      <HeroSection
+        backgroundImage={home.heroImage || ""}
+        title={home.title || "Welcome to our Site"}
+        subtitle={home.subtitle2 || "We provide the best services"}
+        content={home.content || ""}
+        location={home.location || ""}
+        badge={home.badge || ""}
+        heroBadgeColor={home.heroBadgeColor || "#1787c9"}
+        heroBadgeTitleColor={home.heroBadgeTitleColor || "#fff"}
+        heroTitleColor={home.heroTitleColor || "#fff"}
+        heroLocationColor={home.heroLocationColor || "#38bdf8"}
+        heroContentColor={home.heroContentColor || "#fff"}
+        heroSubtitleColor={home.heroSubtitleColor || "#fff"}
+        scheduleButtonText={home.scheduleButtonText || "Schedule Now"}
+        scheduleButtonColor={home.heroScheduleButtonColor || "#c9ba18"}
+        scheduleButtonTextColor={home.heroScheduleButtonTextColor || "#ffffff"}
+        contactButtonText={home.contactButtonText || "Contact Us"}
+        contactButtonColor={home.heroContactButtonColor || "#ffffff"}
+        contactButtonTextColor={home.heroContactButtonTextColor || "#4fc917"}
+        heroContactButtonBorderColor={
+          home.heroContactButtonBorderColor || "#ffffff"
+        }
+        heroCard1Text={home.heroCard1Text || "Hero Card 1"}
+        heroCard2Text={home.heroCard2Text || "Hero Card 2"}
+        heroCard3Text={home.heroCard3Text || "Hero Card 3"}
+        heroBox1BgColor={home.heroBox1BgColor || "#25647a"}
+        heroBox1TextColor={home.heroBox1TextColor || "#fff"}
+        heroBox1BorderColor={home.heroBox1BorderColor || "#25647a"}
+        heroBox1IconBgColor={
+          home.heroBox1IconBgColor || "rgba(255,255,255,0.1)"
+        }
+        heroBox1IconColor={home.heroBox1IconColor || "#fff"}
+        heroBox2BgColor={home.heroBox2BgColor || "#25647a"}
+        heroBox2TextColor={home.heroBox2TextColor || "#fff"}
+        heroBox2BorderColor={home.heroBox2BorderColor || "#25647a"}
+        heroBox2IconBgColor={
+          home.heroBox2IconBgColor || "rgba(255,255,255,0.1)"
+        }
+        heroBox2IconColor={home.heroBox2IconColor || "#fff"}
+        heroBox3BgColor={home.heroBox3BgColor || "#25647a"}
+        heroBox3TextColor={home.heroBox3TextColor || "#fff"}
+        heroBox3BorderColor={home.heroBox3BorderColor || "#25647a"}
+        heroBox3IconBgColor={
+          home.heroBox3IconBgColor || "rgba(255,255,255,0.1)"
+        }
+        heroBox3IconColor={home.heroBox3IconColor || "#fff"}
         heroGradientTop={home.heroGradientTop}
         heroGradientBottom={home.heroGradientBottom}
         heroGradientLeft={home.heroGradientLeft || home.heroGradientBottom}
-        heroRadialColor={home.heroRadialColor || '#38bdf8'}
+        heroRadialColor={home.heroRadialColor || "#38bdf8"}
         onShowInstructions={() => setShowInstructions(true)}
       />
 
       {/* Schedule Section */}
-      <section className="py-16 bg-gradient-to-b" 
-        style={{ 
-          background: `linear-gradient(to bottom, ${home.scheduleSection?.scheduleGradientTop || '#ffffff'}, ${home.scheduleSection?.scheduleGradientBottom || '#f1f5f9'})`
-        }}>
+      <section
+        className="py-16 bg-gradient-to-b"
+        style={{
+          background: `linear-gradient(to bottom, ${
+            home.scheduleSection?.scheduleGradientTop || "#ffffff"
+          }, ${home.scheduleSection?.scheduleGradientBottom || "#f1f5f9"})`,
+        }}
+      >
         <div className="container mx-auto px-4">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -192,9 +304,12 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="inline-block px-4 py-1.5 mb-3 text-sm font-semibold tracking-wider uppercase bg-primary-50/80 backdrop-blur-sm rounded-full shadow-sm border border-primary-100/50"
-              style={{ 
-                background: home.scheduleSection?.scheduleSectionBadgeColor || '#e0e7ff',
-                color: home.scheduleSection?.scheduleSectionBadgeTextColor || '#4f46e5'
+              style={{
+                background:
+                  home.scheduleSection?.scheduleSectionBadgeColor || "#e0e7ff",
+                color:
+                  home.scheduleSection?.scheduleSectionBadgeTextColor ||
+                  "#4f46e5",
               }}
             >
               {home.scheduleSection?.scheduleSectionTitle || "OUR SCHEDULE"}
@@ -205,52 +320,122 @@ export default function Home() {
             {/* Left: Info */}
             <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-start">
               <div className="flex items-center mb-8">
-                <div className="w-16 h-16 rounded-full flex items-center justify-center mr-6 shadow-lg"
-                  style={{ 
-                    backgroundColor: home.scheduleSection?.scheduleIconBgColor || "#2563eb"
-                  }}>
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center mr-6 shadow-lg"
+                  style={{
+                    backgroundColor:
+                      home.scheduleSection?.scheduleIconBgColor || "#2563eb",
+                  }}
+                >
                   {/* Clock icon */}
                   <svg width="32" height="32" fill="none" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="12" fill={home.scheduleSection?.scheduleIconColor || "#ffffff"}/>
-                    <path d="M12 7v6m0 0l-2-2m2 2l2-2" stroke={home.scheduleSection?.scheduleIconBgColor || "#2563eb"} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="12"
+                      fill={
+                        home.scheduleSection?.scheduleIconColor || "#ffffff"
+                      }
+                    />
+                    <path
+                      d="M12 7v6m0 0l-2-2m2 2l2-2"
+                      stroke={
+                        home.scheduleSection?.scheduleIconBgColor || "#2563eb"
+                      }
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </div>
                 <div>
-                  <div className="uppercase text-xs font-semibold tracking-widest mb-1"
-                    style={{ color: home.scheduleSection?.bookingTitleColor || "#6b7280" }}>
+                  <div
+                    className="uppercase text-xs font-semibold tracking-widest mb-1"
+                    style={{
+                      color:
+                        home.scheduleSection?.bookingTitleColor || "#6b7280",
+                    }}
+                  >
                     {home.scheduleSection?.bookingTitle || "BOOK YOUR SERVICE"}
                   </div>
                   <div className="text-2xl md:text-3xl font-extrabold text-gray-900 leading-tight mb-1 text-left">
-                    <span style={{ color: home.scheduleSection?.scheduleTitlePart1Color || "#333333" }}>
-                      {home.scheduleSection?.scheduleTitlePart1 || "Schedule Your "}
+                    <span
+                      style={{
+                        color:
+                          home.scheduleSection?.scheduleTitlePart1Color ||
+                          "#333333",
+                      }}
+                    >
+                      {home.scheduleSection?.scheduleTitlePart1 ||
+                        "Schedule Your "}
                     </span>
-                    <span style={{ color: home.scheduleSection?.scheduleTitlePart2Color || "#e69999" }}>
-                      {home.scheduleSection?.scheduleTitlePart2 || "Auto Estimate"}
+                    <span
+                      style={{
+                        color:
+                          home.scheduleSection?.scheduleTitlePart2Color ||
+                          "#e69999",
+                      }}
+                    >
+                      {home.scheduleSection?.scheduleTitlePart2 ||
+                        "Auto Estimate"}
                     </span>
                   </div>
                 </div>
               </div>
-              <div className="flex items-center gap-2 font-semibold mb-2 text-base" style={{ color: home.scheduleSection?.scheduleAddressColor || "#2563eb" }}>
-                <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 2C7.03 2 3 6.03 3 11c0 5.25 7.5 11 9 11s9-5.75 9-11c0-4.97-4.03-9-9-9zm0 13.5c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z" fill={home.scheduleSection?.scheduleAddressColor || "#2563eb"}/></svg>
-                <span className="font-bold">{home.scheduleSection?.scheduleAddress || "2785 Buford Hwy STE 101, Duluth, GA 30096"}</span>
+              <div
+                className="flex items-center gap-2 font-semibold mb-2 text-base"
+                style={{
+                  color:
+                    home.scheduleSection?.scheduleAddressColor || "#2563eb",
+                }}
+              >
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+                  <path
+                    d="M12 2C7.03 2 3 6.03 3 11c0 5.25 7.5 11 9 11s9-5.75 9-11c0-4.97-4.03-9-9-9zm0 13.5c-2.48 0-4.5-2.02-4.5-4.5s2.02-4.5 4.5-4.5 4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5z"
+                    fill={
+                      home.scheduleSection?.scheduleAddressColor || "#2563eb"
+                    }
+                  />
+                </svg>
+                <span className="font-bold">
+                  {home.scheduleSection?.scheduleAddress ||
+                    "2785 Buford Hwy STE 101, Duluth, GA 30096"}
+                </span>
               </div>
-              <div className="text-base leading-relaxed mt-2 text-left" style={{ color: home.scheduleSection?.scheduleContentColor || "#6b7280" }}>
-                {home.scheduleSection?.scheduleContent || "Book your appointment with our expert technicians. We'll get your vehicle back to its best condition."}
+              <div
+                className="text-base leading-relaxed mt-2 text-left"
+                style={{
+                  color:
+                    home.scheduleSection?.scheduleContentColor || "#6b7280",
+                }}
+              >
+                {home.scheduleSection?.scheduleContent ||
+                  "Book your appointment with our expert technicians. We'll get your vehicle back to its best condition."}
               </div>
-          </div>
+            </div>
             {/* Right: Custom Calendar CTA */}
             <div className="w-full md:w-1/2 flex items-center justify-center p-4 md:p-8">
-              <div className="relative w-full flex items-center justify-center" style={{ minHeight: '520px', minWidth: '420px', height: '520px', maxWidth: '520px' }}>
+              <div
+                className="relative w-full flex items-center justify-center"
+                style={{
+                  minHeight: "520px",
+                  minWidth: "420px",
+                  height: "520px",
+                  maxWidth: "520px",
+                }}
+              >
                 {/* Animated Ripple Gradient Background */}
                 <div
                   className="absolute inset-0 rounded-2xl calendar-ripple-bg"
                   style={{
                     background: `linear-gradient(120deg, ${
-                      home.scheduleSection?.calendarRippleStartColor || '#4f46e5'
+                      home.scheduleSection?.calendarRippleStartColor ||
+                      "#4f46e5"
                     } 0%, ${
-                      home.scheduleSection?.calendarRippleEndColor || '#818cf8'
+                      home.scheduleSection?.calendarRippleEndColor || "#818cf8"
                     } 100%)`,
-                    opacity: home.scheduleSection?.calendarRippleOpacity || 0.15,
+                    opacity:
+                      home.scheduleSection?.calendarRippleOpacity || 0.15,
                     zIndex: 0,
                   }}
                 ></div>
@@ -260,35 +445,56 @@ export default function Home() {
                 </div>
                 {/* Calendar SVG Illustration */}
                 <div className="w-full h-full flex items-center justify-center relative z-20">
-                  <svg width="320" height="320" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="30" y="60" width="260" height="220" rx="32" fill={
-                      home.scheduleSection?.calendarBgColor || "#f9fafb"
-                    } stroke={
-                      home.scheduleSection?.calendarBorderColor || "#4f46e5"
-                    } strokeWidth="6"/>
-                    <rect x="30" y="60" width="260" height="44" rx="16" fill={
-                      home.scheduleSection?.calendarAccentColor || "#4f46e5"
-                    }/>
+                  <svg
+                    width="320"
+                    height="320"
+                    viewBox="0 0 320 320"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      x="30"
+                      y="60"
+                      width="260"
+                      height="220"
+                      rx="32"
+                      fill={home.scheduleSection?.calendarBgColor || "#f9fafb"}
+                      stroke={
+                        home.scheduleSection?.calendarBorderColor || "#4f46e5"
+                      }
+                      strokeWidth="6"
+                    />
+                    <rect
+                      x="30"
+                      y="60"
+                      width="260"
+                      height="44"
+                      rx="16"
+                      fill={
+                        home.scheduleSection?.calendarAccentColor || "#4f46e5"
+                      }
+                    />
                   </svg>
                 </div>
                 {/* Tap to Book Button Overlay */}
                 <button
                   className="absolute inset-0 w-full h-full flex flex-col items-center justify-center rounded-2xl group focus:outline-none overflow-hidden"
-                  style={{ 
-                    cursor: 'pointer', 
-                    zIndex: 20 
+                  style={{
+                    cursor: "pointer",
+                    zIndex: 20,
                   }}
                   onClick={() => {
                     if (home.scheduleSection?.calendlyUrl) {
-                      window.open(home.scheduleSection.calendlyUrl, '_blank');
+                      window.open(home.scheduleSection.calendlyUrl, "_blank");
                     }
                   }}
                   aria-label="Book Now"
                 >
-                  <span 
-                    className="relative z-10 text-white text-2xl font-bold mb-4 drop-shadow-lg pulse-cta" 
-                    style={{ 
-                      color: home.scheduleSection?.tapToBookTextColor || "#ffffff"
+                  <span
+                    className="relative z-10 text-white text-2xl font-bold mb-4 drop-shadow-lg pulse-cta"
+                    style={{
+                      color:
+                        home.scheduleSection?.tapToBookTextColor || "#ffffff",
                     }}
                   >
                     {home.scheduleSection?.tapToBookText || "Tap to Book"}
@@ -301,23 +507,30 @@ export default function Home() {
       </section>
 
       {/* Guarantee Section */}
-      <section className="pt-8 pb-20 relative overflow-hidden" 
-        style={{ 
-          background: `linear-gradient(to bottom, ${home.guaranteeSection?.guaranteeBgGradientTop || '#ffffff'}, ${home.guaranteeSection?.guaranteeBgGradientBottom || '#f0f9ff'})`
-        }}>
+      <section
+        className="pt-8 pb-20 relative overflow-hidden"
+        style={{
+          background: `linear-gradient(to bottom, ${
+            home.guaranteeSection?.guaranteeBgGradientTop || "#ffffff"
+          }, ${home.guaranteeSection?.guaranteeBgGradientBottom || "#f0f9ff"})`,
+        }}
+      >
         {/* Enhanced decorative elements */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-sky-200/30 to-primary-200/30 rounded-full blur-[128px] mix-blend-multiply"></div>
           <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-primary-200/30 to-sky-200/30 rounded-full blur-[128px] mix-blend-multiply"></div>
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)`,
-            opacity: 0.8
-          }}></div>
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%)`,
+              opacity: 0.8,
+            }}
+          ></div>
         </div>
 
         <div className="container mx-auto px-4">
           {/* Section Header */}
-          <motion.div 
+          <motion.div
             className="text-center mb-16"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -328,16 +541,18 @@ export default function Home() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="inline-block px-4 py-1.5 mb-3 text-sm font-semibold tracking-wider uppercase bg-primary-50/80 backdrop-blur-sm rounded-full shadow-sm border border-primary-100/50"
-              style={{ 
-                background: home.guaranteeSection?.guaranteeBadgeColor || '#e0e7ff',
-                color: home.guaranteeSection?.guaranteeBadgeTextColor || '#4f46e5'
+              style={{
+                background:
+                  home.guaranteeSection?.guaranteeBadgeColor || "#e0e7ff",
+                color:
+                  home.guaranteeSection?.guaranteeBadgeTextColor || "#4f46e5",
               }}
             >
               {home.guaranteeSection?.guaranteeTitle || "Our Guarantee"}
             </motion.div>
           </motion.div>
 
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 md:grid-cols-5 items-center justify-items-center gap-16 relative"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -354,16 +569,29 @@ export default function Home() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
-                  style={{ 
-                    background: `linear-gradient(to bottom right, ${home.guaranteeSection?.guaranteeIconBgColor1 || home.guaranteeSection?.guaranteeIconBgColor || '#ffffff'}, #fafcff)`,
-                    borderColor: home.guaranteeSection?.guaranteeIconBorderColor1 || home.guaranteeSection?.guaranteeIconBorderColor || '#e0e7ff'
+                <div
+                  className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeIconBgColor1 ||
+                      home.guaranteeSection?.guaranteeIconBgColor ||
+                      "#ffffff"
+                    }, #fafcff)`,
+                    borderColor:
+                      home.guaranteeSection?.guaranteeIconBorderColor1 ||
+                      home.guaranteeSection?.guaranteeIconBorderColor ||
+                      "#e0e7ff",
                   }}
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Image
-                    src={`/icons/${home.guaranteeSection?.guaranteeIcon1 || 'access.png'}`}
-                    alt={home.guaranteeSection?.guaranteeTitle1 || "Lifetime Warranty"}
+                    src={`/images/${
+                      home.guaranteeSection?.guaranteeIcon1 || "access.png"
+                    }`}
+                    alt={
+                      home.guaranteeSection?.guaranteeTitle1 ||
+                      "Lifetime Warranty"
+                    }
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
@@ -376,11 +604,28 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-xl font-semibold mb-2" style={{ color: home.guaranteeSection?.guaranteeTitleTextColor1 || home.guaranteeSection?.guaranteeTitleTextColor || '#111827' }}>
-                  {home.guaranteeSection?.guaranteeTitle1 || "Lifetime Warranty"}
+                <h3
+                  className="text-xl font-semibold mb-2"
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeTitleTextColor1 ||
+                      home.guaranteeSection?.guaranteeTitleTextColor ||
+                      "#111827",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeTitle1 ||
+                    "Lifetime Warranty"}
                 </h3>
-                <p style={{ color: home.guaranteeSection?.guaranteeSubtitleTextColor1 || home.guaranteeSection?.guaranteeSubtitleTextColor || '#6b7280' }}>
-                  {home.guaranteeSection?.guaranteeSubtitle1 || "On All Services"}
+                <p
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeSubtitleTextColor1 ||
+                      home.guaranteeSection?.guaranteeSubtitleTextColor ||
+                      "#6b7280",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeSubtitle1 ||
+                    "On All Services"}
                 </p>
               </motion.div>
             </motion.div>
@@ -395,16 +640,28 @@ export default function Home() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 via-sky-400/20 to-primary-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
-                  style={{ 
-                    background: `linear-gradient(to bottom right, ${home.guaranteeSection?.guaranteeIconBgColor2 || home.guaranteeSection?.guaranteeIconBgColor || '#ffffff'}, #fafcff)`,
-                    borderColor: home.guaranteeSection?.guaranteeIconBorderColor2 || home.guaranteeSection?.guaranteeIconBorderColor || '#e0e7ff'
+                <div
+                  className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeIconBgColor2 ||
+                      home.guaranteeSection?.guaranteeIconBgColor ||
+                      "#ffffff"
+                    }, #fafcff)`,
+                    borderColor:
+                      home.guaranteeSection?.guaranteeIconBorderColor2 ||
+                      home.guaranteeSection?.guaranteeIconBorderColor ||
+                      "#e0e7ff",
                   }}
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500/10 to-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Image
-                    src={`/icons/${home.guaranteeSection?.guaranteeIcon2 || 'free.png'}`}
-                    alt={home.guaranteeSection?.guaranteeTitle2 || "Free Estimates"}
+                    src={`/images/${
+                      home.guaranteeSection?.guaranteeIcon2 || "free.png"
+                    }`}
+                    alt={
+                      home.guaranteeSection?.guaranteeTitle2 || "Free Estimates"
+                    }
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
@@ -417,11 +674,27 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-xl font-semibold mb-2" style={{ color: home.guaranteeSection?.guaranteeTitleTextColor2 || home.guaranteeSection?.guaranteeTitleTextColor || '#111827' }}>
+                <h3
+                  className="text-xl font-semibold mb-2"
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeTitleTextColor2 ||
+                      home.guaranteeSection?.guaranteeTitleTextColor ||
+                      "#111827",
+                  }}
+                >
                   {home.guaranteeSection?.guaranteeTitle2 || "Free Estimates"}
                 </h3>
-                <p style={{ color: home.guaranteeSection?.guaranteeSubtitleTextColor2 || home.guaranteeSection?.guaranteeSubtitleTextColor || '#6b7280' }}>
-                  {home.guaranteeSection?.guaranteeSubtitle2 || "Quick & Accurate"}
+                <p
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeSubtitleTextColor2 ||
+                      home.guaranteeSection?.guaranteeSubtitleTextColor ||
+                      "#6b7280",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeSubtitle2 ||
+                    "Quick & Accurate"}
                 </p>
               </motion.div>
             </motion.div>
@@ -435,15 +708,25 @@ export default function Home() {
               className="relative group"
             >
               <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-2xl blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
-              <div className="w-56 h-auto relative bg-gradient-to-br from-white via-sky-50/50 to-white rounded-2xl p-8 backdrop-blur-sm border border-sky-100/50 shadow-lg transform group-hover:scale-105 transition-all duration-500"
-                style={{ 
-                  background: `linear-gradient(to bottom right, ${home.guaranteeSection?.guaranteeCenterBgColor || home.guaranteeSection?.guaranteeIconBgColor || '#ffffff'}, #fafcff)`,
-                  borderColor: home.guaranteeSection?.guaranteeCenterBorderColor || home.guaranteeSection?.guaranteeIconBorderColor || '#e0e7ff'
+              <div
+                className="w-56 h-auto relative bg-gradient-to-br from-white via-sky-50/50 to-white rounded-2xl p-8 backdrop-blur-sm border border-sky-100/50 shadow-lg transform group-hover:scale-105 transition-all duration-500"
+                style={{
+                  background: `linear-gradient(to bottom right, ${
+                    home.guaranteeSection?.guaranteeCenterBgColor ||
+                    home.guaranteeSection?.guaranteeIconBgColor ||
+                    "#ffffff"
+                  }, #fafcff)`,
+                  borderColor:
+                    home.guaranteeSection?.guaranteeCenterBorderColor ||
+                    home.guaranteeSection?.guaranteeIconBorderColor ||
+                    "#e0e7ff",
                 }}
               >
                 <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-500/5 to-primary-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <Image
-                  src={`/images/${home.guaranteeSection?.guaranteeCenterLogo || 'PPG.png'}`}
+                  src={`/images/${
+                    home.guaranteeSection?.guaranteeCenterLogo || "PPG.png"
+                  }`}
                   alt="Paint Company Logo"
                   width={200}
                   height={200}
@@ -462,16 +745,29 @@ export default function Home() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-sky-400/20 via-primary-400/20 to-sky-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
-                  style={{ 
-                    background: `linear-gradient(to bottom right, ${home.guaranteeSection?.guaranteeIconBgColor4 || home.guaranteeSection?.guaranteeIconBgColor || '#ffffff'}, #fafcff)`,
-                    borderColor: home.guaranteeSection?.guaranteeIconBorderColor4 || home.guaranteeSection?.guaranteeIconBorderColor || '#e0e7ff'
+                <div
+                  className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeIconBgColor4 ||
+                      home.guaranteeSection?.guaranteeIconBgColor ||
+                      "#ffffff"
+                    }, #fafcff)`,
+                    borderColor:
+                      home.guaranteeSection?.guaranteeIconBorderColor4 ||
+                      home.guaranteeSection?.guaranteeIconBorderColor ||
+                      "#e0e7ff",
                   }}
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/10 to-primary-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Image
-                    src={`/icons/${home.guaranteeSection?.guaranteeIcon4 || 'calculator.png'}`}
-                    alt={home.guaranteeSection?.guaranteeTitle4 || "Insurance Approved"}
+                    src={`/images/${
+                      home.guaranteeSection?.guaranteeIcon4 || "calculator.png"
+                    }`}
+                    alt={
+                      home.guaranteeSection?.guaranteeTitle4 ||
+                      "Insurance Approved"
+                    }
                     width={48}
                     height={48}
                     className="w-12 h-12 transform group-hover:rotate-12 transition-transform duration-500"
@@ -484,11 +780,28 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-xl font-semibold mb-2" style={{ color: home.guaranteeSection?.guaranteeTitleTextColor4 || home.guaranteeSection?.guaranteeTitleTextColor || '#111827' }}>
-                  {home.guaranteeSection?.guaranteeTitle4 || "Insurance Approved"}
+                <h3
+                  className="text-xl font-semibold mb-2"
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeTitleTextColor4 ||
+                      home.guaranteeSection?.guaranteeTitleTextColor ||
+                      "#111827",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeTitle4 ||
+                    "Insurance Approved"}
                 </h3>
-                <p style={{ color: home.guaranteeSection?.guaranteeSubtitleTextColor4 || home.guaranteeSection?.guaranteeSubtitleTextColor || '#6b7280' }}>
-                  {home.guaranteeSection?.guaranteeSubtitle4 || "All Major & Minor Companies"}
+                <p
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeSubtitleTextColor4 ||
+                      home.guaranteeSection?.guaranteeSubtitleTextColor ||
+                      "#6b7280",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeSubtitle4 ||
+                    "All Major & Minor Companies"}
                 </p>
               </motion.div>
             </motion.div>
@@ -503,16 +816,28 @@ export default function Home() {
             >
               <div className="relative">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary-400/20 via-sky-400/20 to-primary-400/20 rounded-full blur-2xl transform group-hover:scale-110 transition-transform duration-500"></div>
-                <div className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
-                  style={{ 
-                    background: `linear-gradient(to bottom right, ${home.guaranteeSection?.guaranteeIconBgColor5 || home.guaranteeSection?.guaranteeIconBgColor || '#ffffff'}, #fafcff)`,
-                    borderColor: home.guaranteeSection?.guaranteeIconBorderColor5 || home.guaranteeSection?.guaranteeIconBorderColor || '#e0e7ff'
+                <div
+                  className="w-32 h-32 rounded-full bg-gradient-to-br from-white via-sky-50 to-white flex items-center justify-center mb-6 mx-auto relative shadow-lg backdrop-blur-sm border border-sky-100/50 transform group-hover:scale-105 transition-all duration-500"
+                  style={{
+                    background: `linear-gradient(to bottom right, ${
+                      home.guaranteeSection?.guaranteeIconBgColor5 ||
+                      home.guaranteeSection?.guaranteeIconBgColor ||
+                      "#ffffff"
+                    }, #fafcff)`,
+                    borderColor:
+                      home.guaranteeSection?.guaranteeIconBorderColor5 ||
+                      home.guaranteeSection?.guaranteeIconBorderColor ||
+                      "#e0e7ff",
                   }}
                 >
                   <div className="absolute inset-0 rounded-full bg-gradient-to-br from-primary-500/10 to-sky-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                   <Image
-                    src={`/icons/${home.guaranteeSection?.guaranteeIcon5 || 'shipping.png'}`}
-                    alt={home.guaranteeSection?.guaranteeTitle5 || "Towing Service"}
+                    src={`/images/${
+                      home.guaranteeSection?.guaranteeIcon5 || "shipping.png"
+                    }`}
+                    alt={
+                      home.guaranteeSection?.guaranteeTitle5 || "Towing Service"
+                    }
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
@@ -525,11 +850,27 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
               >
-                <h3 className="text-xl font-semibold mb-2" style={{ color: home.guaranteeSection?.guaranteeTitleTextColor5 || home.guaranteeSection?.guaranteeTitleTextColor || '#111827' }}>
+                <h3
+                  className="text-xl font-semibold mb-2"
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeTitleTextColor5 ||
+                      home.guaranteeSection?.guaranteeTitleTextColor ||
+                      "#111827",
+                  }}
+                >
                   {home.guaranteeSection?.guaranteeTitle5 || "Towing Service"}
                 </h3>
-                <p style={{ color: home.guaranteeSection?.guaranteeSubtitleTextColor5 || home.guaranteeSection?.guaranteeSubtitleTextColor || '#6b7280' }}>
-                  {home.guaranteeSection?.guaranteeSubtitle5 || "24/7 Available"}
+                <p
+                  style={{
+                    color:
+                      home.guaranteeSection?.guaranteeSubtitleTextColor5 ||
+                      home.guaranteeSection?.guaranteeSubtitleTextColor ||
+                      "#6b7280",
+                  }}
+                >
+                  {home.guaranteeSection?.guaranteeSubtitle5 ||
+                    "24/7 Available"}
                 </p>
               </motion.div>
             </motion.div>
@@ -538,7 +879,12 @@ export default function Home() {
       </section>
 
       {/* Services Overview Section */}
-      <section className="py-2 relative overflow-hidden" style={{ background: home.servicesSection?.servicesBgColor || '#ffffff' }}>
+      <section
+        className="py-2 relative overflow-hidden"
+        style={{
+          background: home.servicesSection?.servicesBgColor || "#ffffff",
+        }}
+      >
         {/* Decorative background elements */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-primary-50/30 via-transparent to-transparent"></div>
@@ -546,33 +892,59 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 relative pt-20">
-          <motion.div 
+          <motion.div
             className="max-w-3xl mx-auto text-center mb-8"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
-            <span 
+            <span
               className="inline-block px-4 py-1 mb-2 text-sm font-semibold tracking-wider uppercase rounded-full shadow-sm"
-              style={{ 
-                background: home.servicesSection?.servicesBadgeColor || '#e0e7ff', 
-                color: home.servicesSection?.servicesBadgeTextColor || '#4f46e5' 
+              style={{
+                background:
+                  home.servicesSection?.servicesBadgeColor || "#e0e7ff",
+                color:
+                  home.servicesSection?.servicesBadgeTextColor || "#4f46e5",
               }}
             >
               {home.servicesSection?.servicesBadgeText || "Our Expertise"}
             </span>
-            <h2 className="text-4xl md:text-5xl font-display font-bold mb-4" style={{ color: home.servicesSection?.servicesTitleColor || '#111827' }}>
-              {(home.servicesSection?.servicesTitle || "Expert Auto Body Repair Services").split(home.servicesSection?.servicesHighlightText || "Repair Services")[0]}
+            <h2
+              className="text-4xl md:text-5xl font-display font-bold mb-4"
+              style={{
+                color: home.servicesSection?.servicesTitleColor || "#111827",
+              }}
+            >
+              {
+                (
+                  home.servicesSection?.servicesTitle ||
+                  "Expert Auto Body Repair Services"
+                ).split(
+                  home.servicesSection?.servicesHighlightText ||
+                    "Repair Services"
+                )[0]
+              }
               <span className="relative inline-block">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r" 
-                  style={{ 
-                    backgroundImage: `linear-gradient(to right, ${home.servicesSection?.servicesHighlightColor || '#4f46e5'}, ${home.servicesSection?.servicesHighlightColor || '#4f46e5'})` 
+                <span
+                  className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r"
+                  style={{
+                    backgroundImage: `linear-gradient(to right, ${
+                      home.servicesSection?.servicesHighlightColor || "#4f46e5"
+                    }, ${
+                      home.servicesSection?.servicesHighlightColor || "#4f46e5"
+                    })`,
                   }}
                 >
-                  {home.servicesSection?.servicesHighlightText || "Repair Services"}
+                  {home.servicesSection?.servicesHighlightText ||
+                    "Repair Services"}
                 </span>
-                <span className="absolute -bottom-2 left-0 w-full h-2.5 -rotate-1" 
-                  style={{ background: home.servicesSection?.servicesHighlightUnderlineColor || '#e0e7ff' }}
+                <span
+                  className="absolute -bottom-2 left-0 w-full h-2.5 -rotate-1"
+                  style={{
+                    background:
+                      home.servicesSection?.servicesHighlightUnderlineColor ||
+                      "#e0e7ff",
+                  }}
                 ></span>
               </span>
             </h2>
@@ -581,37 +953,54 @@ export default function Home() {
 
         <div className="py-8">
           <div className="container mx-auto px-4 mb-6">
-            <motion.p 
+            <motion.p
               className="text-lg leading-relaxed max-w-2xl mx-auto text-center"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              style={{ color: home.servicesSection?.servicesDescriptionColor || '#6b7280' }}
+              style={{
+                color:
+                  home.servicesSection?.servicesDescriptionColor || "#6b7280",
+              }}
             >
-              {home.servicesSection?.servicesDescription || "We specialize in comprehensive auto body repair services, from collision repair and dent removal to expert paint matching and structural repairs."}
+              {home.servicesSection?.servicesDescription ||
+                "We specialize in comprehensive auto body repair services, from collision repair and dent removal to expert paint matching and structural repairs."}
             </motion.p>
           </div>
 
           <ServiceReel />
-          
+
           <div className="text-center mt-6">
-            <motion.a 
-              href={home.servicesSection?.servicesButtonUrl || "/services"} 
+            <motion.a
+              href={home.servicesSection?.servicesButtonUrl || "/services"}
               className="inline-flex items-center gap-3 px-8 py-3.5 rounded-xl font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/30 group relative overflow-hidden"
               style={{
-                background: `linear-gradient(to right, ${home.servicesSection?.servicesButtonStartColor || '#4f46e5'}, ${home.servicesSection?.servicesButtonEndColor || '#4338ca'})`,
-                color: home.servicesSection?.servicesButtonTextColor || '#ffffff'
+                background: `linear-gradient(to right, ${
+                  home.servicesSection?.servicesButtonStartColor || "#4f46e5"
+                }, ${
+                  home.servicesSection?.servicesButtonEndColor || "#4338ca"
+                })`,
+                color:
+                  home.servicesSection?.servicesButtonTextColor || "#ffffff",
               }}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <span className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
+              <span
+                className="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-300"
                 style={{
-                  background: `linear-gradient(to right, ${home.servicesSection?.servicesButtonEndColor || '#4338ca'}, ${home.servicesSection?.servicesButtonStartColor || '#4f46e5'})`
+                  background: `linear-gradient(to right, ${
+                    home.servicesSection?.servicesButtonEndColor || "#4338ca"
+                  }, ${
+                    home.servicesSection?.servicesButtonStartColor || "#4f46e5"
+                  })`,
                 }}
               ></span>
-              <span className="relative">{home.servicesSection?.servicesButtonText || "Explore Our Services"}</span>
+              <span className="relative">
+                {home.servicesSection?.servicesButtonText ||
+                  "Explore Our Services"}
+              </span>
               <ArrowRightIcon className="w-5 h-5 relative group-hover:translate-x-1 transition-transform" />
             </motion.a>
           </div>
@@ -619,168 +1008,342 @@ export default function Home() {
       </section>
 
       {/* Reviews Preview Section */}
-      <section className="py-24 relative overflow-hidden" 
-        style={{ 
-          background: `linear-gradient(to bottom right, ${home.reviewsSection?.reviewsBgStartColor || '#4f46e5'}, ${home.reviewsSection?.reviewsBgMiddleColor || '#4338ca'}, ${home.reviewsSection?.reviewsBgEndColor || '#3730a3'})` 
+      <section
+        className="py-24 relative overflow-hidden"
+        style={{
+          background: `linear-gradient(to bottom right, ${
+            home.reviewsSection?.reviewsBgStartColor || "#4f46e5"
+          }, ${home.reviewsSection?.reviewsBgMiddleColor || "#4338ca"}, ${
+            home.reviewsSection?.reviewsBgEndColor || "#3730a3"
+          })`,
         }}
       >
         <div className="container mx-auto px-4 relative">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <div className="inline-block mb-6">
-              <div className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-sm border"
-                style={{ 
-                  background: home.reviewsSection?.reviewsBadgeColor || 'rgba(255, 255, 255, 0.1)',
-                  borderColor: home.reviewsSection?.reviewsBadgeColor || 'rgba(255, 255, 255, 0.2)'
+              <div
+                className="flex items-center gap-3 px-4 py-2 rounded-full backdrop-blur-sm border"
+                style={{
+                  background:
+                    home.reviewsSection?.reviewsBadgeColor ||
+                    "rgba(255, 255, 255, 0.1)",
+                  borderColor:
+                    home.reviewsSection?.reviewsBadgeColor ||
+                    "rgba(255, 255, 255, 0.2)",
                 }}
               >
-                <Image 
-                  src="/google.svg" 
-                  alt="Google" 
-                  width={20} 
+                <Image
+                  src="/google.svg"
+                  alt="Google"
+                  width={20}
                   height={20}
                   className="w-5 h-5"
                 />
-                <span className="text-sm font-medium" style={{ color: home.reviewsSection?.reviewsBadgeTextColor || '#ffffff' }}>
-                  {home.reviewsSection?.reviewsBadgeText || "Verified Google Reviews"}
+                <span
+                  className="text-sm font-medium"
+                  style={{
+                    color:
+                      home.reviewsSection?.reviewsBadgeTextColor || "#ffffff",
+                  }}
+                >
+                  {home.reviewsSection?.reviewsBadgeText ||
+                    "Verified Google Reviews"}
                 </span>
-                <svg className="w-5 h-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                <svg
+                  className="w-5 h-5 text-blue-400"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clipRule="evenodd"
+                  />
                 </svg>
               </div>
             </div>
             {/* Section title, highlight, and subtitle from config */}
-            <motion.h2 
+            <motion.h2
               className="text-4xl md:text-5xl font-display font-bold mb-6"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
             >
-              <span style={{ color: home.reviewsSection?.reviewsTitleColor || '#ffffff' }}>
-                {home.reviewsSection?.reviewsTitle || reviewsConfig?.title || "What Our Customers "}
-              </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r" 
-                style={{ 
-                  backgroundImage: `linear-gradient(to right, ${home.reviewsSection?.reviewsHighlightColor || '#93c5fd'}, ${home.reviewsSection?.reviewsHighlightColor || '#93c5fd'}80)` 
+              <span
+                style={{
+                  color: home.reviewsSection?.reviewsTitleColor || "#ffffff",
                 }}
               >
-                {home.reviewsSection?.reviewsHighlight || reviewsConfig?.highlight || "Are Saying"}
+                {home.reviewsSection?.reviewsTitle ||
+                  reviewsConfig?.title ||
+                  "What Our Customers "}
+              </span>
+              <span
+                className="text-transparent bg-clip-text bg-gradient-to-r"
+                style={{
+                  backgroundImage: `linear-gradient(to right, ${
+                    home.reviewsSection?.reviewsHighlightColor || "#93c5fd"
+                  }, ${
+                    home.reviewsSection?.reviewsHighlightColor || "#93c5fd"
+                  }80)`,
+                }}
+              >
+                {home.reviewsSection?.reviewsHighlight ||
+                  reviewsConfig?.highlight ||
+                  "Are Saying"}
               </span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               className="text-lg md:text-xl leading-relaxed mx-auto"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              style={{ color: home.reviewsSection?.reviewsSubtitleColor || '#e0f2fe' }}
+              style={{
+                color: home.reviewsSection?.reviewsSubtitleColor || "#e0f2fe",
+              }}
             >
-              {home.reviewsSection?.reviewsSubtitle || reviewsConfig?.subtitle || "See what our satisfied customers have to say about our service."}
+              {home.reviewsSection?.reviewsSubtitle ||
+                reviewsConfig?.subtitle ||
+                "See what our satisfied customers have to say about our service."}
             </motion.p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
-            {(isClient && reviews.length > 0) ? reviews.slice(0, 3).map((review: { text: string; author: string; rating: number }, index: number) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="group relative backdrop-blur-sm rounded-xl p-6 border transition-all duration-200"
-                style={{
-                  background: home.reviewsSection?.reviewCardBgColor || 'rgba(255, 255, 255, 0.1)',
-                  borderColor: home.reviewsSection?.reviewCardBorderColor || 'rgba(255, 255, 255, 0.2)',
-                  '--hover-border-color': home.reviewsSection?.reviewCardHoverBorderColor || 'rgba(255, 255, 255, 0.3)'
-                } as React.CSSProperties}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.borderColor = home.reviewsSection?.reviewCardHoverBorderColor || 'rgba(255, 255, 255, 0.3)';
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.borderColor = home.reviewsSection?.reviewCardBorderColor || 'rgba(255, 255, 255, 0.2)';
-                }}
-              >
-                <div className="flex mb-4">
-                  {[...Array(review?.rating || 5)].map((_, i) => (
-                    <StarIcon key={i} className="h-5 w-5" style={{ color: home.reviewsSection?.reviewStarColor || '#fbbf24' }} />
-                  ))}
-                </div>
-                <p className="mb-6 leading-relaxed" style={{ color: home.reviewsSection?.reviewTextColor || 'rgba(255, 255, 255, 0.9)' }}>
-                  "{review?.text}"
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center text-white font-medium">
-                    {review?.author[0]}
-                  </div>
-                  <div>
-                    <p className="font-medium" style={{ color: home.reviewsSection?.reviewAuthorColor || '#ffffff' }}>
-                      {review?.author}
-                    </p>
-                    <p className="text-sm" style={{ color: home.reviewsSection?.reviewVerifiedColor || '#93c5fd' }}>
-                      Verified Customer
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            )) : (
+            {isClient && !reviewsLoaded ? (
+              // Loading state
               <>
-                {(home.reviewsSection?.defaultReviews || [
-                  {
-                    text: "Absolutely phenomenal work! My car looks even better than before the accident. The attention to detail and craftsmanship is top-notch. I highly recommend their services.",
-                    author: "Jennifer R.",
-                    rating: 5
-                  },
-                  {
-                    text: "Fast, professional service from start to finish. They handled my insurance claim seamlessly and kept me updated throughout the entire repair process. Couldn't be happier with the results!",
-                    author: "Michael S.",
-                    rating: 5
-                  },
-                  {
-                    text: "The team truly went above and beyond my expectations. Not only was my car repaired perfectly, but they also detailed it before returning it to me. Excellent customer service and quality work.",
-                    author: "David W.",
-                    rating: 5
-                  }
-                ]).map((review: { text: string; author: string; rating: number }, index: number) => (
-                  <motion.div
+                {[...Array(3)].map((_, index) => (
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="group relative backdrop-blur-sm rounded-xl p-6 border transition-all duration-200"
+                    className="relative backdrop-blur-sm rounded-xl p-6 border"
                     style={{
-                      background: home.reviewsSection?.reviewCardBgColor || 'rgba(255, 255, 255, 0.1)',
-                      borderColor: home.reviewsSection?.reviewCardBorderColor || 'rgba(255, 255, 255, 0.2)',
-                      '--hover-border-color': home.reviewsSection?.reviewCardHoverBorderColor || 'rgba(255, 255, 255, 0.3)'
-                    } as React.CSSProperties}
-                    onMouseOver={(e) => {
-                      e.currentTarget.style.borderColor = home.reviewsSection?.reviewCardHoverBorderColor || 'rgba(255, 255, 255, 0.3)';
-                    }}
-                    onMouseOut={(e) => {
-                      e.currentTarget.style.borderColor = home.reviewsSection?.reviewCardBorderColor || 'rgba(255, 255, 255, 0.2)';
+                      background:
+                        home.reviewsSection?.reviewCardBgColor ||
+                        "rgba(255, 255, 255, 0.1)",
+                      borderColor:
+                        home.reviewsSection?.reviewCardBorderColor ||
+                        "rgba(255, 255, 255, 0.2)",
                     }}
                   >
                     <div className="flex mb-4">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <StarIcon key={i} className="h-5 w-5" style={{ color: home.reviewsSection?.reviewStarColor || '#fbbf24' }} />
+                      {[...Array(5)].map((_, i) => (
+                        <div
+                          key={i}
+                          className="h-5 w-5 rounded-full bg-gray-300/30 mr-1"
+                        ></div>
                       ))}
                     </div>
-                    <p className="mb-6 leading-relaxed" style={{ color: home.reviewsSection?.reviewTextColor || 'rgba(255, 255, 255, 0.9)' }}>
-                      "{review.text}"
+                    <div className="h-4 bg-gray-300/30 rounded mb-2 w-3/4"></div>
+                    <div className="h-4 bg-gray-300/30 rounded mb-2 w-5/6"></div>
+                    <div className="h-4 bg-gray-300/30 rounded mb-4 w-2/3"></div>
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-full bg-gray-300/30"></div>
+                      <div>
+                        <div className="h-4 bg-gray-300/30 rounded mb-1 w-24"></div>
+                        <div className="h-3 bg-gray-300/30 rounded w-32"></div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            ) : isClient && reviewsLoaded && apiReviews.length > 0 ? (
+              apiReviews.map(
+                (
+                  review: { text: string; author: string; rating: number },
+                  index: number
+                ) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="group relative backdrop-blur-sm rounded-xl p-6 border transition-all duration-200"
+                    style={
+                      {
+                        background:
+                          home.reviewsSection?.reviewCardBgColor ||
+                          "rgba(255, 255, 255, 0.1)",
+                        borderColor:
+                          home.reviewsSection?.reviewCardBorderColor ||
+                          "rgba(255, 255, 255, 0.2)",
+                        "--hover-border-color":
+                          home.reviewsSection?.reviewCardHoverBorderColor ||
+                          "rgba(255, 255, 255, 0.3)",
+                      } as React.CSSProperties
+                    }
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.borderColor =
+                        home.reviewsSection?.reviewCardHoverBorderColor ||
+                        "rgba(255, 255, 255, 0.3)";
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.borderColor =
+                        home.reviewsSection?.reviewCardBorderColor ||
+                        "rgba(255, 255, 255, 0.2)";
+                    }}
+                  >
+                    <div className="flex mb-4">
+                      {[...Array(review?.rating || 5)].map((_, i) => (
+                        <StarIcon
+                          key={i}
+                          className="h-5 w-5"
+                          style={{
+                            color:
+                              home.reviewsSection?.reviewStarColor || "#fbbf24",
+                          }}
+                        />
+                      ))}
+                    </div>
+                    <p
+                      className="mb-6 leading-relaxed"
+                      style={{
+                        color:
+                          home.reviewsSection?.reviewTextColor ||
+                          "rgba(255, 255, 255, 0.9)",
+                      }}
+                    >
+                      "{review?.text}"
                     </p>
                     <div className="flex items-center gap-4">
                       <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center text-white font-medium">
-                        {review.author[0]}
+                        {review?.author[0]}
                       </div>
                       <div>
-                        <p className="font-medium" style={{ color: home.reviewsSection?.reviewAuthorColor || '#ffffff' }}>
-                          {review.author}
+                        <p
+                          className="font-medium"
+                          style={{
+                            color:
+                              home.reviewsSection?.reviewAuthorColor ||
+                              "#ffffff",
+                          }}
+                        >
+                          {review?.author}
                         </p>
-                        <p className="text-sm" style={{ color: home.reviewsSection?.reviewVerifiedColor || '#93c5fd' }}>
+                        <p
+                          className="text-sm"
+                          style={{
+                            color:
+                              home.reviewsSection?.reviewVerifiedColor ||
+                              "#93c5fd",
+                          }}
+                        >
                           Verified Customer
                         </p>
                       </div>
                     </div>
                   </motion.div>
-                ))}
+                )
+              )
+            ) : (
+              <>
+                {(
+                  home.reviewsSection?.defaultReviews || [
+                    {
+                      text: "Absolutely phenomenal work! My car looks even better than before the accident. The attention to detail and craftsmanship is top-notch. I highly recommend their services.",
+                      author: "Jennifer R.",
+                      rating: 5,
+                    },
+                    {
+                      text: "Fast, professional service from start to finish. They handled my insurance claim seamlessly and kept me updated throughout the entire repair process. Couldn't be happier with the results!",
+                      author: "Michael S.",
+                      rating: 5,
+                    },
+                    {
+                      text: "The team truly went above and beyond my expectations. Not only was my car repaired perfectly, but they also detailed it before returning it to me. Excellent customer service and quality work.",
+                      author: "David W.",
+                      rating: 5,
+                    },
+                  ]
+                ).map(
+                  (
+                    review: { text: string; author: string; rating: number },
+                    index: number
+                  ) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="group relative backdrop-blur-sm rounded-xl p-6 border transition-all duration-200"
+                      style={
+                        {
+                          background:
+                            home.reviewsSection?.reviewCardBgColor ||
+                            "rgba(255, 255, 255, 0.1)",
+                          borderColor:
+                            home.reviewsSection?.reviewCardBorderColor ||
+                            "rgba(255, 255, 255, 0.2)",
+                          "--hover-border-color":
+                            home.reviewsSection?.reviewCardHoverBorderColor ||
+                            "rgba(255, 255, 255, 0.3)",
+                        } as React.CSSProperties
+                      }
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.borderColor =
+                          home.reviewsSection?.reviewCardHoverBorderColor ||
+                          "rgba(255, 255, 255, 0.3)";
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.borderColor =
+                          home.reviewsSection?.reviewCardBorderColor ||
+                          "rgba(255, 255, 255, 0.2)";
+                      }}
+                    >
+                      <div className="flex mb-4">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <StarIcon
+                            key={i}
+                            className="h-5 w-5"
+                            style={{
+                              color:
+                                home.reviewsSection?.reviewStarColor ||
+                                "#fbbf24",
+                            }}
+                          />
+                        ))}
+                      </div>
+                      <p
+                        className="mb-6 leading-relaxed"
+                        style={{
+                          color:
+                            home.reviewsSection?.reviewTextColor ||
+                            "rgba(255, 255, 255, 0.9)",
+                        }}
+                      >
+                        "{review.text}"
+                      </p>
+                      <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary-400 to-primary-500 flex items-center justify-center text-white font-medium">
+                          {review.author[0]}
+                        </div>
+                        <div>
+                          <p
+                            className="font-medium"
+                            style={{
+                              color:
+                                home.reviewsSection?.reviewAuthorColor ||
+                                "#ffffff",
+                            }}
+                          >
+                            {review.author}
+                          </p>
+                          <p
+                            className="text-sm"
+                            style={{
+                              color:
+                                home.reviewsSection?.reviewVerifiedColor ||
+                                "#93c5fd",
+                            }}
+                          >
+                            Verified Customer
+                          </p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  )
+                )}
               </>
             )}
           </div>
@@ -790,16 +1353,22 @@ export default function Home() {
               href="/reviews"
               className="inline-flex items-center gap-2 px-6 py-3 border backdrop-blur-sm rounded-lg font-medium transition-all duration-200 hover:scale-105 group"
               style={{
-                background: home.reviewsSection?.viewAllButtonBgColor || 'rgba(255, 255, 255, 0.1)',
-                color: home.reviewsSection?.viewAllButtonTextColor || '#ffffff',
-                borderColor: home.reviewsSection?.viewAllButtonBorderColor || 'rgba(255, 255, 255, 0.2)'
+                background:
+                  home.reviewsSection?.viewAllButtonBgColor ||
+                  "rgba(255, 255, 255, 0.1)",
+                color: home.reviewsSection?.viewAllButtonTextColor || "#ffffff",
+                borderColor:
+                  home.reviewsSection?.viewAllButtonBorderColor ||
+                  "rgba(255, 255, 255, 0.2)",
               }}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              whileHover={{ 
-                y: -2, 
-                backgroundColor: home.reviewsSection?.viewAllButtonHoverBgColor || 'rgba(255, 255, 255, 0.2)' 
+              whileHover={{
+                y: -2,
+                backgroundColor:
+                  home.reviewsSection?.viewAllButtonHoverBgColor ||
+                  "rgba(255, 255, 255, 0.2)",
               }}
             >
               {home.reviewsSection?.viewAllButtonText || "View All Reviews"}
@@ -812,7 +1381,7 @@ export default function Home() {
       {/* Footer (no config prop) */}
       <Footer />
     </div>
-  )
+  );
 }
 
 /* Add shimmer animation to globals.css if not present */

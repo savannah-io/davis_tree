@@ -23,39 +23,13 @@ const localConfig: LocalConfig = {
     message: "",
   },
 
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  //
   /*=============================================
   =                  NAVIGATION BAR                 =
   =============================================*/
   // Nav Bar
   navBar: {
     backgroundColor: "#000000S",
-    textColor: "#110505",
+    textColor: "#000000",
     logo: "TC-TITLE.png",
     // Title
     siteTitle: "Davis Tree Service",
@@ -88,60 +62,91 @@ const localConfig: LocalConfig = {
   },
 
   /*=============================================
-  =                CUSTOM CURSOR                =
+  =                  CURSOR                    =
   =============================================*/
+  // Custom Cursor
   cursor: {
-    // Enable/disable custom cursor
-    enabled: true,
+    enabled: true, // Explicitly enabled for desktop
+    mobileEnabled: false, // Disabled for mobile
+    cursorImage: "blkcursor.png", // Cursor for background/non-interactive areas
+    elementCursorImage: "blucursor.png", // Cursor for interactive elements (buttons, links, etc.)
+  },
 
-    // Main cursor dot
-    main: {
-      size: 20, // in pixels
-      color: "#66bf9b",
-      backgroundColor: "#66bf9b",
-      opacity: 1,
+  /*=============================================
+  =                LOADING SCREEN              =
+  =============================================*/
+  // Loading screen shown before site is fully loaded
+  loadingScreen: {
+    enabled: true, // Set to false to disable the loading screen
+    backgroundColor: "#FFFFFF", // Background color of loading overlay
+    logoImage: "TC-TITLE.png", // Logo displayed in the loading screen (from /public/images/)
+    logoWidth: 280, // Width of the logo in pixels
+    logoAlt: "Davis Tree Service", // Alt text for the logo
+
+    // Spinner configuration
+    spinner: {
+      enabled: true, // Set to false to hide the spinner
+      color: "#66bf9b", // Color of the spinner
+      size: 60, // Size in pixels
+      thickness: 4, // Border thickness in pixels
     },
 
-    // Trailing circle
-    trail: {
-      size: 40, // in pixels
-      borderColor: "#53a584",
-      borderWidth: 2, // in pixels
-      opacity: 0.7,
-    },
-
-    // Outer glow
-    glow: {
-      size: 60, // in pixels
-      color: "#3d725d",
-      opacity: 0.4,
-    },
-
-    // Hover effects
-    hover: {
-      scale: 1.5,
-      color: "#84cbaf",
-      trailBorderColor: "#84cbaf",
-      glowColor: "#53a584",
-      glowOpacity: 0.8,
-    },
-
-    // Click effects
-    click: {
-      scale: 0.8,
-    },
-
-    // Animation settings
-    animation: {
-      type: "spring",
-      mainDamping: 20,
-      mainStiffness: 400,
-      trailDamping: 30,
-      trailStiffness: 200,
-      glowDamping: 40,
-      glowStiffness: 150,
+    // Timing configuration
+    timing: {
+      minimumDisplayTime: 800, // Minimum time in ms to show the loading screen
+      fadeOutDuration: 500, // Duration of the fade out animation in ms
     },
   },
+
+  /*=============================================
+  =             BROWSER & FAVICON              =
+  =============================================*/
+  // Browser tab title and favicon
+  browser: {
+    title: "Davis Tree Service - Professional Tree Care in Athens, GA",
+    shortTitle: "Davis Tree", // Used in smaller browser tabs
+    faviconFolder: "favicon", // Folder containing all favicon files (relative to /public)
+    themeColor: "#66bf9b", // Browser theme color for mobile devices
+  },
+
+  /*=============================================
+  =          LEGAL & BUSINESS INFO (Privacy/ Terms)             =
+  =============================================*/
+  // Business information and legal pages styling
+  businessInfo: {
+    // Primary business information
+    name: "Davis Tree Service", // Used throughout the site
+    llcType: "LLC", // Type of business entity (LLC, Inc., etc.)
+
+    // Contact information used in privacy policy/terms
+    contactEmail: "Jimmy@DavisTree.com",
+    contactPhone: "(706) 296-3318",
+
+    // Legal pages styling
+    legalPages: {
+      // Privacy Policy settings
+      privacyPolicy: {
+        headerColor: "#387e62", // Section headers color
+        linkColor: "#66bf9b", // Links within privacy policy
+        backgroundColor: "#ffffff", // Background color
+        textColor: "#1f1f1f", // Text color
+        borderColor: "#e5e7eb", // Border color
+        iconColor: "#66bf9b", // Icons in the privacy policy
+      },
+
+      // Terms of Service settings
+      termsOfService: {
+        headerColor: "#387e62", // Section headers color
+        linkColor: "#66bf9b", // Links within terms
+        backgroundColor: "#ffffff", // Background color
+        textColor: "#1f1f1f", // Text color
+        borderColor: "#e5e7eb", // Border color
+        disclaimerBgColor: "#f9fafb", // Background for disclaimer sections
+        disclaimerTextColor: "#374151", // Text color for disclaimers
+      },
+    },
+  },
+
   /*=============================================
   =                    PAGES                    =
   =============================================*/
@@ -222,12 +227,11 @@ const localConfig: LocalConfig = {
       heroLocationColor: "#363636",
 
       // Subtitle 1
-      content: "Where our prices won't stump you!!!",
+      content: "hongroochen@gmail.com",
       heroContentColor: "#1aaa07",
 
       // Subtitle 2
-      subtitle2:
-        "No job is too big or too small—our team is equipped to handle it all!",
+      subtitle2: "Family Owned & Operated",
       heroSubtitleColor: "#1aaa07",
 
       // Hero Image
@@ -393,7 +397,7 @@ const localConfig: LocalConfig = {
         guaranteeSubtitleTextColor1: "#6b7280",
 
         // Guarantee Icon 2
-        guaranteeIcon2: "free.png",
+        guaranteeIcon2: "ppg.png",
         guaranteeTitle2: "Free Estimates",
         guaranteeSubtitle2: "Quick & Accurate",
         guaranteeIconBgColor2: "#ffffff",
@@ -1293,6 +1297,9 @@ const localConfig: LocalConfig = {
         ==========================================================================================*/
       // Content
 
+      // Header Position
+      heroPaddingTop: "150px", // Controls the top padding of the hero section (use pixel values)
+
       //Hero Background Colors
       heroBgGradientFrom: "#26126e",
       heroBgGradientVia: "#8c3bf6",
@@ -1307,6 +1314,14 @@ const localConfig: LocalConfig = {
       //Pattern
       heroPatternColor: "#ffffff",
       heroPatternOpacity: 0.3,
+
+      //Wave Separator
+      waveSeparatorColor: "#0060c0", // Color of the wave
+      waveSeparatorHeight: "250px", // Height of the wave SVG
+
+      //App Form BG
+      applicationSectionBgColor: "#ffffff", // Background color behind the application form
+      applicationFormShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.35)", // Shadow for the application form
 
       //Badge
       hireBadgeText: "We're hiring passionate professionals",
@@ -1396,6 +1411,65 @@ const localConfig: LocalConfig = {
       errorMessageBgColor: "#fef2f2",
       errorMessageBorderColor: "#fecaca",
       errorMessageTextColor: "#991b1b",
+
+      /*==========================================================================================
+        =                 Mobile Overlay            =                Mobile Overlay
+        ==========================================================================================*/
+      mobileOverlay: {
+        // Enable/disable the mobile overlay feature
+        enabled: true,
+
+        // Screen width threshold (in pixels) below which the overlay appears
+        mobileBreakpoint: 663,
+
+        // Content configuration
+        title: "Desktop View Required",
+        message:
+          "Our job application form requires a larger screen. Please visit this page on a desktop or laptop computer for the best experience.",
+        buttonText: "Back to Home Page",
+        buttonLink: "/",
+        footerText:
+          "If you're already on a desktop device, please increase your browser window size.",
+
+        // Visual styling
+        backgroundOpacity: 0.9,
+        overlayZIndex: 50,
+
+        // Card styling
+        cardBackgroundColor: "#ffffff",
+        cardBorderRadius: "2xl",
+        cardBorderTopWidth: 4,
+        cardBoxShadow: "2xl",
+
+        // Icon styling
+        iconBackgroundOpacity: 0.3,
+        iconWidth: 20,
+        iconHeight: 20,
+
+        // Title styling
+        titleFontSize: "2xl",
+        titleFontWeight: "bold",
+
+        // Message styling
+        messageColor: "#4b5563", // gray-600
+
+        // Button styling
+        buttonWidth: "full",
+        buttonPadding: "py-3 px-4",
+        buttonTextColor: "#ffffff",
+        buttonFontWeight: "medium",
+        buttonBorderRadius: "lg",
+        buttonShadow: "md",
+        buttonHoverScale: 1.05,
+        buttonTapScale: 0.95,
+
+        // Footer styling
+        footerMarginTop: 6,
+        footerPaddingTop: 6,
+        footerBorderColor: "#e5e7eb", // gray-200
+        footerTextColor: "#6b7280", // gray-500
+        footerTextSize: "sm",
+      },
     },
     Contact: {
       /*=======================================================================================================================================
