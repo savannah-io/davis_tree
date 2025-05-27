@@ -12,10 +12,11 @@ import {
 import { motion } from "framer-motion";
 import ServiceReel from "../components/ServiceReel";
 import Image from "next/image";
+import OptimizedImage from "../components/OptimizedImage";
 import Script from "next/script";
 import { useConfig } from "../context/ConfigContext";
 import { useConfigHydration } from "../context/ConfigContext";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { disableReloadWarning } from "../utils/preventReloadWarning";
 import Modal from "../components/Modal";
 import HeroSection from "@/components/HeroSection";
@@ -124,7 +125,7 @@ export default function Home() {
   }, [isClient]);
 
   // Debug log to see what config is loaded
-  console.log("Config in Home:", config);
+  // console.log("Config in Home:", config);
   // Home page content from config
   const home = config?.pages?.Home || {};
   // Reviews page content from config
@@ -181,23 +182,23 @@ export default function Home() {
     if (isClient) {
       // Wait for 1 second before showing alert
       setTimeout(() => {
-        console.log("BUTTON DEBUG:", {
-          "Schedule Button Properties": {
-            scheduleButtonColor: home.scheduleButtonColor,
-            scheduleButtonText: home.scheduleButtonText,
-            scheduleButtonTextColor: home.scheduleButtonTextColor,
-            heroScheduleButtonColor: home.heroScheduleButtonColor,
-            heroScheduleButtonTextColor: home.heroScheduleButtonTextColor,
-          },
-          "Contact Button Properties": {
-            contactButtonColor: home.contactButtonColor,
-            contactButtonText: home.contactButtonText,
-            contactButtonTextColor: home.contactButtonTextColor,
-            heroContactButtonColor: home.heroContactButtonColor,
-            heroContactButtonTextColor: home.heroContactButtonTextColor,
-            heroContactButtonBorderColor: home.heroContactButtonBorderColor,
-          },
-        });
+        // console.log("BUTTON DEBUG:", {
+        //   "Schedule Button Properties": {
+        //     scheduleButtonColor: home.scheduleButtonColor,
+        //     scheduleButtonText: home.scheduleButtonText,
+        //     scheduleButtonTextColor: home.scheduleButtonTextColor,
+        //     heroScheduleButtonColor: home.heroScheduleButtonColor,
+        //     heroScheduleButtonTextColor: home.heroScheduleButtonTextColor,
+        //   },
+        //   "Contact Button Properties": {
+        //     contactButtonColor: home.contactButtonColor,
+        //     contactButtonText: home.contactButtonText,
+        //     contactButtonTextColor: home.contactButtonTextColor,
+        //     heroContactButtonColor: home.heroContactButtonColor,
+        //     heroContactButtonTextColor: home.heroContactButtonTextColor,
+        //     heroContactButtonBorderColor: home.heroContactButtonBorderColor,
+        //   },
+        // });
       }, 1000);
     }
   }, [isClient, home]);
@@ -738,10 +739,8 @@ export default function Home() {
                       opacity: 0.1,
                     }}
                   ></div>
-                  <Image
-                    src={`/images/${
-                      home.guaranteeSection?.guaranteeIcon1 || "access.png"
-                    }`}
+                  <OptimizedImage
+                    src={home.guaranteeSection?.guaranteeIcon1 || "access.png"}
                     alt={
                       home.guaranteeSection?.guaranteeTitle1 ||
                       "Lifetime Warranty"
@@ -749,6 +748,7 @@ export default function Home() {
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
+                    quality={90}
                   />
                 </div>
               </div>
@@ -836,16 +836,15 @@ export default function Home() {
                       opacity: 0.1,
                     }}
                   ></div>
-                  <Image
-                    src={`/images/${
-                      home.guaranteeSection?.guaranteeIcon2 || "free.png"
-                    }`}
+                  <OptimizedImage
+                    src={home.guaranteeSection?.guaranteeIcon2 || "free.png"}
                     alt={
                       home.guaranteeSection?.guaranteeTitle2 || "Free Estimates"
                     }
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
+                    quality={90}
                   />
                 </div>
               </div>
@@ -931,14 +930,15 @@ export default function Home() {
                     opacity: 0.05,
                   }}
                 ></div>
-                <Image
-                  src={`/images/${
-                    home.guaranteeSection?.guaranteeCenterLogo || "PPG.png"
-                  }`}
+                <OptimizedImage
+                  src={home.guaranteeSection?.guaranteeCenterLogo || "PPG.png"}
                   alt="Paint Company Logo"
                   width={200}
                   height={200}
                   className="object-contain relative transform group-hover:scale-105 transition-transform duration-500"
+                  quality={90}
+                  priority={true}
+                  blurEffect={true}
                 />
               </div>
             </motion.div>
@@ -995,10 +995,10 @@ export default function Home() {
                       opacity: 0.1,
                     }}
                   ></div>
-                  <Image
-                    src={`/images/${
+                  <OptimizedImage
+                    src={
                       home.guaranteeSection?.guaranteeIcon4 || "calculator.png"
-                    }`}
+                    }
                     alt={
                       home.guaranteeSection?.guaranteeTitle4 ||
                       "Insurance Approved"
@@ -1006,6 +1006,7 @@ export default function Home() {
                     width={48}
                     height={48}
                     className="w-12 h-12 transform group-hover:rotate-12 transition-transform duration-500"
+                    quality={90}
                   />
                 </div>
               </div>
@@ -1093,16 +1094,17 @@ export default function Home() {
                       opacity: 0.1,
                     }}
                   ></div>
-                  <Image
-                    src={`/images/${
+                  <OptimizedImage
+                    src={
                       home.guaranteeSection?.guaranteeIcon5 || "shipping.png"
-                    }`}
+                    }
                     alt={
                       home.guaranteeSection?.guaranteeTitle5 || "Towing Service"
                     }
                     width={56}
                     height={56}
                     className="w-14 h-14 transform group-hover:rotate-12 transition-transform duration-500"
+                    quality={90}
                   />
                 </div>
               </div>

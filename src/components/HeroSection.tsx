@@ -6,7 +6,8 @@ import {
   ClockIcon,
   ArrowRightIcon,
 } from "@heroicons/react/24/solid";
-import React from "react";
+import React, { useState, useEffect } from "react";
+import OptimizedImage from "./OptimizedImage";
 
 interface HeroSectionProps {
   title?: string;
@@ -97,6 +98,14 @@ export default function HeroSection({
   heroRadialColor = "#38bdf8",
   onShowInstructions = () => {},
 }: HeroSectionProps) {
+  // State to track if the component has mounted
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure client-side rendering for background image
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Function to ensure image URLs are properly formatted
   const getImageUrl = (src: string) => {
     if (!src) return "";
@@ -137,26 +146,40 @@ export default function HeroSection({
   const finalGradientLeft = heroGradientLeft || finalGradientBottom;
   const finalRadialColor = heroRadialColor || "#f5d6d6";
 
-  console.log("Hero Gradient Colors:", {
-    top: finalGradientTop,
-    bottom: finalGradientBottom,
-    left: finalGradientLeft,
-    radial: finalRadialColor,
-  });
+  // console.log("Hero Gradient Colors:", {
+  //   top: finalGradientTop,
+  //   bottom: finalGradientBottom,
+  //   left: finalGradientLeft,
+  //   radial: finalRadialColor,
+  // });
 
   return (
     <section
       className="hero-section relative overflow-hidden"
-      style={
-        backgroundImage
-          ? {
-              backgroundImage: `url(${getImageUrl(backgroundImage)})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }
-          : {}
-      }
+      style={{
+        position: "relative",
+        minHeight: "90vh",
+      }}
     >
+      {/* Hero Background Image with Optimized Image */}
+      {mounted && backgroundImage && (
+        <div className="absolute inset-0">
+          <OptimizedImage
+            src={backgroundImage}
+            alt="Background"
+            fill
+            priority={true}
+            quality={85}
+            blurEffect={true}
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+              zIndex: 0,
+            }}
+          />
+        </div>
+      )}
+
       {/* Top dark blue gradient overlay for navbar transition */}
       <div
         className="absolute top-0 left-0 w-full h-16 z-30 pointer-events-none"
@@ -179,6 +202,7 @@ export default function HeroSection({
             finalGradientBottom,
             0.4
           )} 100%)`,
+          zIndex: 1,
         }}
       ></div>
 
@@ -189,11 +213,12 @@ export default function HeroSection({
             finalGradientLeft,
             0.3
           )} 0%, transparent 100%)`,
+          zIndex: 1,
         }}
       ></div>
 
       {/* Tech pattern overlay */}
-      <div className="absolute inset-0 opacity-20">
+      <div className="absolute inset-0 opacity-20" style={{ zIndex: 2 }}>
         <div
           className="absolute inset-0"
           style={{
@@ -222,7 +247,10 @@ export default function HeroSection({
         ></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-20 h-full flex items-center">
+      <div
+        className="container mx-auto px-4 relative z-20 h-full flex items-center"
+        style={{ minHeight: "90vh" }}
+      >
         <motion.div
           className="hero-content max-w-3xl md:py-12 w-full pt-6 sm:pt-10 md:pt-0"
           initial={{ opacity: 0, x: -20 }}

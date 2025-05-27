@@ -7,8 +7,8 @@ import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ConfigProvider } from "@/context/ConfigContext";
 import CursorProvider from "@/components/CursorProvider";
+import ClientConfigApplier from "@/components/ClientConfigApplier";
 import localConfig from "../config/localConfig";
-import { headers } from "next/headers";
 
 // Custom cursor styles are now entirely in cursor.css which is imported in globals.css
 // This avoids hydration issues with inline styles and quote escaping
@@ -65,7 +65,6 @@ export const generateMetadata = (): Metadata => {
     title: browserConfig.title || "Davis Tree Service",
     description:
       localConfig.description || "Professional tree removal services",
-    themeColor: browserConfig.themeColor || localConfig.themeColor || "#66bf9b",
     icons: {
       icon: [
         { url: `/${faviconFolder}/favicon.ico`, type: "image/x-icon" },
@@ -91,12 +90,14 @@ export const generateMetadata = (): Metadata => {
   };
 };
 
-// Server-side mobile detection
-function isMobileDevice(userAgent: string): boolean {
-  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-    userAgent
-  );
-}
+// Generate viewport configuration
+export const generateViewport = () => {
+  const browserConfig = localConfig.browser || {};
+
+  return {
+    themeColor: browserConfig.themeColor || localConfig.themeColor || "#66bf9b",
+  };
+};
 
 export default function RootLayout({
   children,
@@ -113,29 +114,12 @@ export default function RootLayout({
   // Check if loading screen is enabled
   const isLoadingEnabled = loadingConfig.enabled !== false;
 
-  // Server-side mobile detection
-  const headersList = headers();
-  const userAgent = headersList.get("user-agent") || "";
-  const isMobile = isMobileDevice(userAgent);
-
-  // Define class names for HTML element
-  const htmlClasses = `${spaceGrotesk.variable} ${montserrat.variable} ${
-    inter.variable
-  } ${outfit.variable} scroll-smooth ${isMobile ? "mobile-device" : ""}`;
+  // Define class names for HTML element (without server-side mobile detection)
+  const htmlClasses = `${spaceGrotesk.variable} ${montserrat.variable} ${inter.variable} ${outfit.variable} scroll-smooth`;
 
   return (
-    <html
-      lang="en"
-      className={htmlClasses}
-      data-is-mobile={isMobile ? "true" : "false"}
-      style={{
-        // Set theme color variables at the root level
-        ["--theme-color" as any]: themeColor,
-        ["--theme-color-light" as any]: themeColorLight,
-      }}
-    >
+    <html lang="en" className={htmlClasses}>
       <head>
-        {/* Instead of inline styles, add CSS classes for the loading overlay */}
         {/* Script for client-side detection to add data attribute */}
         <script
           dangerouslySetInnerHTML={{
@@ -151,88 +135,29 @@ export default function RootLayout({
                   
                   if (isIOS || isAndroid || isMobile) {
                     document.documentElement.setAttribute('data-is-mobile', 'true');
+                    document.documentElement.classList.add('mobile-device');
+                  } else {
+                    document.documentElement.setAttribute('data-is-mobile', 'false');
+                    document.documentElement.classList.remove('mobile-device');
                   }
                   
                   // Add resize listener to update attribute based on width
                   window.addEventListener('resize', function() {
                     if (window.innerWidth < 663) {
                       document.documentElement.setAttribute('data-is-mobile', 'true');
+                      document.documentElement.classList.add('mobile-device');
                     } else if (!isIOS && !isAndroid && !isMobile) {
                       document.documentElement.setAttribute('data-is-mobile', 'false');
+                      document.documentElement.classList.remove('mobile-device');
                     }
                   });
                   
-                  // Add loading overlay styles dynamically to avoid hydration mismatches
-                  var style = document.createElement('style');
-                  style.textContent = \`
-                    .loading-overlay {
-                      position: fixed;
-                      top: 0;
-                      left: 0;
-                      width: 100%;
-                      height: 100%;
-                      background-color: ${loadingConfig.backgroundColor};
-                      z-index: 9999;
-                      display: flex;
-                      flex-direction: column;
-                      justify-content: center;
-                      align-items: center;
-                      transition: opacity ${
-                        loadingConfig.timing.fadeOutDuration
-                      }ms ease-out;
-                    }
-                    
-                    .loading-overlay.hidden {
-                      opacity: 0;
-                      pointer-events: none;
-                    }
-                    
-                    /* Hide all content until JavaScript removes the no-js class */
-                    .no-js .site-content {
-                      display: none;
-                    }
-                    
-                    /* Spinner animation */
-                    .spinner {
-                      width: ${loadingConfig.spinner.size}px;
-                      height: ${loadingConfig.spinner.size}px;
-                      margin: 24px auto;
-                      border-radius: 50%;
-                      border: ${
-                        loadingConfig.spinner.thickness
-                      }px solid transparent;
-                      border-top-color: ${loadingConfig.spinner.color};
-                      border-bottom-color: ${loadingConfig.spinner.color};
-                      animation: spin 1.2s linear infinite;
-                      display: ${
-                        loadingConfig.spinner.enabled ? "block" : "none"
-                      };
-                    }
-                    
-                    @keyframes spin {
-                      0% { transform: rotate(0deg); }
-                      100% { transform: rotate(360deg); }
-                    }
-                    
-                    /* Logo container */
-                    .logo-container {
-                      max-width: ${loadingConfig.logoWidth}px;
-                      margin-bottom: 20px;
-                    }
-                    
-                    .logo-container img {
-                      width: 100%;
-                      height: auto;
-                    }
-                  \`;
-                  document.head.appendChild(style);
+                  // Add no-js class to html element
+                  document.documentElement.classList.add('no-js');
                 } catch (e) {
                   console.error('Error in mobile detection script:', e);
                 }
               })();
-              
-              // Add no-js class to html element
-              document.documentElement.classList.add('no-js');
             `,
           }}
         />
@@ -254,7 +179,10 @@ export default function RootLayout({
         {/* Actual site content */}
         <div className="site-content">
           <ConfigProvider>
-            <CursorProvider>{children}</CursorProvider>
+            <CursorProvider>
+              <ClientConfigApplier />
+              {children}
+            </CursorProvider>
           </ConfigProvider>
         </div>
 
@@ -267,6 +195,15 @@ export default function RootLayout({
               // We already added the no-js class in the head script
               // Now we can remove it when JS is available
               document.documentElement.classList.remove('no-js');
+              
+              // Set loading configuration CSS variables (using default values, will be overridden by React)
+              document.documentElement.style.setProperty('--loading-bg-color', '#FFFFFF');
+              document.documentElement.style.setProperty('--loading-fade-duration', '500ms');
+              document.documentElement.style.setProperty('--spinner-size', '60px');
+              document.documentElement.style.setProperty('--spinner-thickness', '4px');
+              document.documentElement.style.setProperty('--spinner-color', '#66bf9b');
+              document.documentElement.style.setProperty('--spinner-display', 'block');
+              document.documentElement.style.setProperty('--logo-width', '280px');
               
               // Add a cursor fix script to ensure all elements have cursor: none on desktop
               function enforceCursorNone() {
@@ -299,9 +236,9 @@ export default function RootLayout({
                       // Remove it completely after transition
                       setTimeout(() => {
                         overlay.style.display = 'none';
-                      }, ${loadingConfig.timing.fadeOutDuration});
+                      }, 500);
                     }
-                  }, ${loadingConfig.timing.minimumDisplayTime});
+                  }, 800);
                 }
               }
               
@@ -312,29 +249,12 @@ export default function RootLayout({
                 window.addEventListener('load', hideLoadingOverlay);
               }
               
-              // Apply the theme color from config to CSS variables
-              const themeColor = ${JSON.stringify(themeColor)};
-              const themeColorLight = ${JSON.stringify(themeColorLight)};
+              // Apply default theme colors (will be overridden by React components)
+              document.documentElement.style.setProperty('--theme-color', '#66bf9b');
+              document.documentElement.style.setProperty('--theme-color-light', '#66bf9b22');
               
-              document.documentElement.style.setProperty('--theme-color', themeColor);
-              document.documentElement.style.setProperty('--theme-color-light', themeColorLight);
-              
-              // Store config for components to access
-              window.__CURRENT_CONFIG__ = ${JSON.stringify(config)};
-              
-              // Set the browser title dynamically
-              const browserConfig = ${JSON.stringify(config.browser || {})};
-              if (browserConfig.title) {
-                document.title = browserConfig.title;
-              }
-              
-              // Handle smaller browser tabs using shortTitle
-              if (browserConfig.shortTitle) {
-                const handleVisibilityChange = () => {
-                  document.title = document.hidden ? browserConfig.shortTitle : browserConfig.title;
-                };
-                document.addEventListener('visibilitychange', handleVisibilityChange);
-              }
+              // Set default browser title
+              document.title = 'Davis Tree Service';
             }
           } catch (e) {
             console.error('Error in initialization script:', e);
