@@ -16,7 +16,7 @@
   /* Only apply custom cursors on main site or in preview iframe, NOT in config pages */
   html[data-preview="true"] body,
   body:not([data-config-page="true"]):not([data-preview-content="false"]) {
-    cursor: url("/cursor/cursor_blu/favicon-32x32.png"), auto;
+    cursor: url("/cursor/blucursor.png") 0 0, auto;
   }
 
   /* Links and interactive elements on white backgrounds */
@@ -43,10 +43,50 @@
     select,
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     .cursor-pointer {
-    cursor: url("/cursor/cursor_blu/favicon-32x32.png"), pointer !important;
+    cursor: url("/cursor/blucursor.png") 0 0, pointer !important;
   }
 
   /* Blue backgrounds - use black cursors */
+  html[data-preview="true"] .bg-primary-600,
+  html[data-preview="true"] .bg-primary-700,
+  html[data-preview="true"] .bg-primary-800,
+  html[data-preview="true"] .bg-primary-900,
+  html[data-preview="true"] .bg-sky-600,
+  html[data-preview="true"] .bg-sky-700,
+  html[data-preview="true"] .bg-sky-800,
+  html[data-preview="true"] .bg-sky-900,
+  html[data-preview="true"] [class*="from-primary-"],
+  html[data-preview="true"] [class*="via-primary-"],
+  html[data-preview="true"] [class*="to-primary-"],
+  html[data-preview="true"] .bg-gradient-to-br,
+  html[data-preview="true"] .bg-gradient-to-r,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-primary-600,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-primary-700,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-primary-800,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-primary-900,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-sky-600,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-sky-700,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-sky-800,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-sky-900,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    [class*="from-primary-"],
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    [class*="via-primary-"],
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    [class*="to-primary-"],
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-gradient-to-br,
+  body:not([data-config-page="true"]):not([data-preview-content="false"])
+    .bg-gradient-to-r,
+  /* Target child elements of gradient backgrounds */
   html[data-preview="true"] .bg-primary-600 *,
   html[data-preview="true"] .bg-primary-700 *,
   html[data-preview="true"] .bg-primary-800 *,
@@ -99,7 +139,7 @@
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     .bg-gradient-to-r
     * {
-    cursor: url("/cursor/cursor_blk/favicon-32x32.png"), auto !important;
+    cursor: url("/cursor/blkcursor.png") 0 0, auto !important;
   }
 
   /* Links and interactive elements on blue backgrounds */
@@ -138,6 +178,58 @@
   html[data-preview="true"] [class*="to-primary-"] [role="button"],
   html[data-preview="true"] .bg-gradient-to-br [role="button"],
   html[data-preview="true"] .bg-gradient-to-r [role="button"],
+  html[data-preview="true"] .bg-primary-600 input[type="submit"],
+  html[data-preview="true"] .bg-primary-700 input[type="submit"],
+  html[data-preview="true"] .bg-primary-800 input[type="submit"],
+  html[data-preview="true"] .bg-primary-900 input[type="submit"],
+  html[data-preview="true"] .bg-sky-600 input[type="submit"],
+  html[data-preview="true"] .bg-sky-700 input[type="submit"],
+  html[data-preview="true"] .bg-sky-800 input[type="submit"],
+  html[data-preview="true"] .bg-sky-900 input[type="submit"],
+  html[data-preview="true"] [class*="from-primary-"] input[type="submit"],
+  html[data-preview="true"] [class*="via-primary-"] input[type="submit"],
+  html[data-preview="true"] [class*="to-primary-"] input[type="submit"],
+  html[data-preview="true"] .bg-gradient-to-br input[type="submit"],
+  html[data-preview="true"] .bg-gradient-to-r input[type="submit"],
+  html[data-preview="true"] .bg-primary-600 input[type="button"],
+  html[data-preview="true"] .bg-primary-700 input[type="button"],
+  html[data-preview="true"] .bg-primary-800 input[type="button"],
+  html[data-preview="true"] .bg-primary-900 input[type="button"],
+  html[data-preview="true"] .bg-sky-600 input[type="button"],
+  html[data-preview="true"] .bg-sky-700 input[type="button"],
+  html[data-preview="true"] .bg-sky-800 input[type="button"],
+  html[data-preview="true"] .bg-sky-900 input[type="button"],
+  html[data-preview="true"] [class*="from-primary-"] input[type="button"],
+  html[data-preview="true"] [class*="via-primary-"] input[type="button"],
+  html[data-preview="true"] [class*="to-primary-"] input[type="button"],
+  html[data-preview="true"] .bg-gradient-to-br input[type="button"],
+  html[data-preview="true"] .bg-gradient-to-r input[type="button"],
+  html[data-preview="true"] .bg-primary-600 input[type="reset"],
+  html[data-preview="true"] .bg-primary-700 input[type="reset"],
+  html[data-preview="true"] .bg-primary-800 input[type="reset"],
+  html[data-preview="true"] .bg-primary-900 input[type="reset"],
+  html[data-preview="true"] .bg-sky-600 input[type="reset"],
+  html[data-preview="true"] .bg-sky-700 input[type="reset"],
+  html[data-preview="true"] .bg-sky-800 input[type="reset"],
+  html[data-preview="true"] .bg-sky-900 input[type="reset"],
+  html[data-preview="true"] [class*="from-primary-"] input[type="reset"],
+  html[data-preview="true"] [class*="via-primary-"] input[type="reset"],
+  html[data-preview="true"] [class*="to-primary-"] input[type="reset"],
+  html[data-preview="true"] .bg-gradient-to-br input[type="reset"],
+  html[data-preview="true"] .bg-gradient-to-r input[type="reset"],
+  html[data-preview="true"] .bg-primary-600 select,
+  html[data-preview="true"] .bg-primary-700 select,
+  html[data-preview="true"] .bg-primary-800 select,
+  html[data-preview="true"] .bg-primary-900 select,
+  html[data-preview="true"] .bg-sky-600 select,
+  html[data-preview="true"] .bg-sky-700 select,
+  html[data-preview="true"] .bg-sky-800 select,
+  html[data-preview="true"] .bg-sky-900 select,
+  html[data-preview="true"] [class*="from-primary-"] select,
+  html[data-preview="true"] [class*="via-primary-"] select,
+  html[data-preview="true"] [class*="to-primary-"] select,
+  html[data-preview="true"] .bg-gradient-to-br select,
+  html[data-preview="true"] .bg-gradient-to-r select,
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     .bg-primary-600
     a,
@@ -243,14 +335,14 @@
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     .bg-gradient-to-r
     [role="button"] {
-    cursor: url("/cursor/cursor_blk/favicon-32x32.png"), pointer !important;
+    cursor: url("/cursor/blkcursor.png") 0 0, pointer !important;
   }
 
   /* Override any inline styles */
   html[data-preview="true"] [style*="cursor"],
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     [style*="cursor"] {
-    cursor: url("/cursor/cursor_blu/favicon-32x32.png"), auto !important;
+    cursor: url("/cursor/blucursor.png") 0 0, auto !important;
   }
 
   html[data-preview="true"] [style*="cursor"].bg-primary-600,
@@ -292,7 +384,7 @@
     [style*="cursor"].bg-gradient-to-br,
   body:not([data-config-page="true"]):not([data-preview-content="false"])
     [style*="cursor"].bg-gradient-to-r {
-    cursor: url("/cursor/cursor_blk/favicon-32x32.png"), auto !important;
+    cursor: url("/cursor/blkcursor.png") 0 0, auto !important;
   }
 
   /* Configuration Page - always use standard system cursor */

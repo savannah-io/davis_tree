@@ -193,7 +193,7 @@ const CustomCursor: React.FC<CustomCursorProps> = ({
             style={{
               left: `${cursorPos.x}px`,
               top: `${cursorPos.y}px`,
-              transform: "translate(-50%, -50%)",
+              transform: "translate(0, 0)",
             }}
           >
             <Image

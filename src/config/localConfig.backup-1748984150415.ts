@@ -1,5 +1,5 @@
 // Define the type for the localConfig object
-// Last updated: 2025-06-03T21:13:27.815Z
+// Last updated: 2025-06-03T20:55:50.386Z
 //supapass:RemovalTreeDavis321!
 // Link For Hex Colors: https://www.color-hex.com/
 
@@ -9,7 +9,7 @@ import { SiteConfig } from "./configFixTypes";
 export type LocalConfig = SiteConfig;
 
 const localConfig: LocalConfig = {
-  "showLogo": false,
+  "showLogo": true,
   "infoBar": {
     "backgroundColor": "#53a584",
     "phone": "(706)-296-3318",
@@ -938,9 +938,9 @@ const localConfig: LocalConfig = {
   "joinTeamLink": "/careers",
   "copyright": "© 2025 Davis Tree Service. All rights reserved.",
   "footerStyle": {
-    "backgroundColor": "#ffffff",
-    "gradientFromColor": "#9effcd",
-    "gradientToColor": "#ffffff",
+    "backgroundColor": "#000000",
+    "gradientFromColor": "#0f3622",
+    "gradientToColor": "#050505",
     "titleColor": "#000000",
     "textColor": "#000000",
     "linkColor": "#000000",
@@ -963,7 +963,7 @@ const localConfig: LocalConfig = {
   "schedulingButtonText": "Schedule Now",
   "themeColor": "#f5d6d6",
   "_timestamp": "2025-05-13T06:08:37.910Z",
-  "_lastUpdated": "2025-06-03T21:13:27.815Z",
+  "_lastUpdated": "2025-06-03T20:55:50.386Z",
   "themeLink": "",
   "companyName": "Davis Tree Service"
 };
