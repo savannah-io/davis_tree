@@ -6,13 +6,12 @@ export async function POST(request: NextRequest) {
   try {
     const newConfig = await request.json();
 
-    // Add timestamp for tracking
-    const timestamp = new Date().toISOString();
-    newConfig._lastUpdated = timestamp;
+    // Remove any timestamp fields to prevent merge conflicts
+    delete newConfig._lastUpdated;
+    delete newConfig._timestamp;
 
     // Generate the TypeScript file content
     const configContent = `// Define the type for the localConfig object
-// Last updated: ${timestamp}
 //supapass:RemovalTreeDavis321!
 // Link For Hex Colors: https://www.color-hex.com/
 
@@ -46,7 +45,6 @@ export default localConfig;`;
     return NextResponse.json({
       success: true,
       message: "Configuration updated successfully",
-      timestamp,
     });
   } catch (error) {
     console.error("Error updating config:", error);
