@@ -53,6 +53,12 @@ export interface NavBarConfig {
   scheduleButtonText?: string;
   scheduleButtonColor?: string;
   activeTabColor?: string;
+  hamburgerIconColor?: string;
+  hamburgerIconHoverBgColor?: string;
+  mobileMenuBgColor?: string;
+  mobileNavTextColor?: string;
+  mobileActiveTabBgColor?: string;
+  mobileActiveTabTextColor?: string;
 }
 
 export interface NavLink {
