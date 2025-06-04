@@ -5,6 +5,7 @@
 
 SHARED_BRANCH="shared-dev"
 CURRENT_USER=$(git config user.name)
+REQUIRED_OWNER="savannah-io"
 
 # Colors for output
 GREEN='\033[0;32m'
@@ -44,6 +45,25 @@ check_auth() {
     REPO_URL=$(git remote get-url origin)
     print_status "Repository: $REPO_URL"
     
+    # Verify we're using the correct repository owner
+    REPO_OWNER=$(git remote get-url origin | grep -o 'github.com/[^/]*' | cut -d'/' -f2)
+    if [ "$REPO_OWNER" != "$REQUIRED_OWNER" ]; then
+        print_error "Wrong repository owner detected!"
+        print_status "This project must use the $REQUIRED_OWNER repository."
+        print_status "Current repository: $REPO_OWNER"
+        print_status "Required repository: $REQUIRED_OWNER"
+        echo ""
+        echo "📋 HOW TO FIX:"
+        echo "   1. Open GitHub Desktop → File → Options → Accounts"
+        echo "      Sign out and sign in with the $REQUIRED_OWNER account"
+        echo ""
+        echo "   2. Or run these commands:"
+        echo "      git remote set-url origin https://github.com/$REQUIRED_OWNER/davis_tree.git"
+        echo "      git config --global credential.helper manager-core"
+        echo ""
+        return 1
+    fi
+    
     # Try a simple fetch to test authentication
     print_status "Testing authentication..."
     if git fetch origin --dry-run 2>/dev/null; then
@@ -54,21 +74,16 @@ check_auth() {
         print_status "Common causes and solutions:"
         echo ""
         echo "🔑 AUTHENTICATION ISSUE DETECTED:"
-        echo "   Your git is configured for a different GitHub account"
-        echo "   Repository owner: savannah-io"  
-        echo "   Your current account: $(git remote get-url origin | grep -o 'github.com/[^/]*' | cut -d'/' -f2 || echo 'unknown')"
+        echo "   You need to authenticate with the $REQUIRED_OWNER account"
         echo ""
         echo "📋 QUICK FIXES:"
         echo "   1. Open GitHub Desktop → File → Options → Accounts"
-        echo "      Sign out and sign in with the correct account"
+        echo "      Sign out and sign in with the $REQUIRED_OWNER account"
         echo ""
         echo "   2. Or run these commands:"
         echo "      git config --global credential.helper manager-core"
         echo "      git push origin shared-dev"
         echo "      (This will prompt for correct credentials)"
-        echo ""
-        echo "   3. If you're a collaborator on savannah-io/davis_tree:"
-        echo "      Make sure you have push access to the repository"
         echo ""
         return 1
     fi
