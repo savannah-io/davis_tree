@@ -100,6 +100,16 @@ get_project_info() {
         GITHUB_USERNAME="$2"
     fi
     
+    # Prompt for destination folder
+    DEFAULT_DESKTOP="${HOME}/Desktop"
+    echo -e "${YELLOW}Enter the folder where you want to save the new project (default: $DEFAULT_DESKTOP):${NC}"
+    read -r DEST_FOLDER
+    if [ -z "$DEST_FOLDER" ]; then
+        DEST_FOLDER="$DEFAULT_DESKTOP"
+    fi
+    # Expand ~ if used
+    DEST_FOLDER="${DEST_FOLDER/#\~/$HOME}"
+    
     # Validate inputs
     if [ -z "$PROJECT_NAME" ] || [ -z "$GITHUB_USERNAME" ]; then
         print_error "Project name and GitHub username are required!"
@@ -108,13 +118,13 @@ get_project_info() {
     
     # Set project directory path
     CURRENT_DIR=$(pwd)
-    PARENT_DIR=$(dirname "$CURRENT_DIR")
-    PROJECT_DIR="$PARENT_DIR/$PROJECT_NAME"
+    PROJECT_DIR="$DEST_FOLDER/$PROJECT_NAME"
     
     print_info "Project Name: $PROJECT_NAME"
     print_info "GitHub Username: $GITHUB_USERNAME"
     print_info "Current Directory: $CURRENT_DIR"
     print_info "New Project Directory: $PROJECT_DIR"
+    print_info "Destination Folder: $DEST_FOLDER"
 }
 
 # Copy current project to new directory
