@@ -5,7 +5,7 @@
 - **Config Editor**: http://localhost:3000/config-editor?section=infoBar
 - **Local Config File**: `src/config/localConfig.ts`
 - **Live Site**: http://localhost:3000
-- **Color Hex Finder**: https://www.color-hex.com/color/387e62
+- **Color Hex Finder**: https://www.color-hex.com/color-palette/1294
 
 ## 📋 Setup Instructions
 
