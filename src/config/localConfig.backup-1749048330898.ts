@@ -1,5 +1,4 @@
 // Define the type for the localConfig object
-// Last updated: 2025-06-03T21:09:58.248Z
 //supapass:RemovalTreeDavis321!
 // Link For Hex Colors: https://www.color-hex.com/
 
@@ -11,12 +10,12 @@ export type LocalConfig = SiteConfig;
 const localConfig: LocalConfig = {
   "showLogo": false,
   "infoBar": {
-    "backgroundColor": "#53a584",
-    "phone": "(706)-296-3318",
+    "backgroundColor": "#0280c2",
+    "phone": "(000) 000-0000",
     "address": "ADDRESS CURRENTLY UNAVAILABLE",
     "hours": "Monday - Friday: 9AM - 5PM",
     "textColor": "#000000",
-    "message": ""
+    "message": "dsfddfs"
   },
   "navBar": {
     "backgroundColor": "#000000S",
@@ -27,8 +26,8 @@ const localConfig: LocalConfig = {
     "siteTitleGradientFrom": "#367658",
     "siteTitleGradientTo": "#0c2217",
     "scheduleButtonText": "Schedule Now",
-    "scheduleButtonColor": "#387e62",
-    "activeTabColor": "#66bf9b",
+    "scheduleButtonColor": "#1d4ed8",
+    "activeTabColor": "#1d4ed8",
     "hamburgerIconColor": "#387e62",
     "hamburgerIconHoverBgColor": "#66bf9b20",
     "mobileMenuBgColor": "#ffffff",
@@ -73,7 +72,7 @@ const localConfig: LocalConfig = {
       "thickness": 4
     },
     "timing": {
-      "minimumDisplayTime": 800,
+      "minimumDisplayTime": 801,
       "fadeOutDuration": 500
     }
   },
@@ -939,7 +938,7 @@ const localConfig: LocalConfig = {
   "copyright": "© 2025 Davis Tree Service. All rights reserved.",
   "footerStyle": {
     "backgroundColor": "#ffffff",
-    "gradientFromColor": "#a5fdd0",
+    "gradientFromColor": "#9effcd",
     "gradientToColor": "#ffffff",
     "titleColor": "#000000",
     "textColor": "#000000",
@@ -962,8 +961,6 @@ const localConfig: LocalConfig = {
   },
   "schedulingButtonText": "Schedule Now",
   "themeColor": "#f5d6d6",
-  "_timestamp": "2025-05-13T06:08:37.910Z",
-  "_lastUpdated": "2025-06-03T21:09:58.248Z",
   "themeLink": "",
   "companyName": "Davis Tree Service"
 };
