@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   InfoBarSection,
   NavigationSection,
@@ -143,17 +144,70 @@ const configSections: ConfigSection[] = [
 ];
 
 export default function ConfigEditorComponent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [config, setConfig] = useState<any>(null);
   const [activeSection, setActiveSection] = useState<string>("infoBar");
   const [isLoading, setIsLoading] = useState(true);
   const [saveStatus, setSaveStatus] = useState<
     "idle" | "saving" | "saved" | "error"
   >("idle");
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  // Initialize active section from URL params or localStorage
+  useEffect(() => {
+    const urlSection = searchParams.get("section");
+    const savedSection = localStorage.getItem("configEditor-activeSection");
+
+    // Priority: URL param > localStorage > default
+    const initialSection = urlSection || savedSection || "infoBar";
+
+    if (configSections.find((s) => s.id === initialSection)) {
+      setActiveSection(initialSection);
+      // Update URL if different
+      if (urlSection !== initialSection) {
+        const newUrl = new URL(window.location.href);
+        newUrl.searchParams.set("section", initialSection);
+        router.replace(newUrl.pathname + newUrl.search, { scroll: false });
+      }
+    }
+  }, [searchParams, router]);
+
+  // Update URL and localStorage when section changes
+  const handleSectionChange = (sectionId: string) => {
+    setActiveSection(sectionId);
+    localStorage.setItem("configEditor-activeSection", sectionId);
+
+    // Update URL to persist through reloads
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.set("section", sectionId);
+    router.replace(newUrl.pathname + newUrl.search, { scroll: false });
+  };
 
   // Load config on mount
   useEffect(() => {
     loadConfig();
   }, []);
+
+  // Debug: Log section changes to console
+  useEffect(() => {
+    console.log(`Config Editor: Active section changed to: ${activeSection}`);
+  }, [activeSection]);
+
+  // Add Ctrl+S save functionality
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+        if (hasUnsavedChanges && config) {
+          saveConfig(config);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [hasUnsavedChanges, config]);
 
   const loadConfig = async () => {
     try {
@@ -169,19 +223,26 @@ export default function ConfigEditorComponent() {
     }
   };
 
-  const updateConfig = async (newConfig: any) => {
+  // Update config without saving (for real-time editing)
+  const updateConfig = (newConfig: any) => {
     setConfig(newConfig);
+    setHasUnsavedChanges(true);
+  };
+
+  // Save config to server
+  const saveConfig = async (configToSave: any) => {
     setSaveStatus("saving");
 
     try {
       const response = await fetch("/api/update-config", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newConfig),
+        body: JSON.stringify(configToSave),
       });
 
       if (response.ok) {
         setSaveStatus("saved");
+        setHasUnsavedChanges(false);
         setTimeout(() => setSaveStatus("idle"), 2000);
       } else {
         setSaveStatus("error");
@@ -257,14 +318,18 @@ export default function ConfigEditorComponent() {
   return (
     <div className="max-w-7xl mx-auto">
       {/* Save Status */}
-      {saveStatus !== "idle" && (
+      {(saveStatus !== "idle" || hasUnsavedChanges) && (
         <div
           className={`fixed top-4 right-4 z-50 px-4 py-2 rounded-lg shadow-lg transition-all duration-300 ${
             saveStatus === "saving"
               ? "bg-blue-500 text-white"
               : saveStatus === "saved"
               ? "bg-green-500 text-white"
-              : "bg-red-500 text-white"
+              : saveStatus === "error"
+              ? "bg-red-500 text-white"
+              : hasUnsavedChanges
+              ? "bg-yellow-500 text-white"
+              : "bg-gray-500 text-white"
           }`}
         >
           {saveStatus === "saving" && (
@@ -275,6 +340,15 @@ export default function ConfigEditorComponent() {
           )}
           {saveStatus === "saved" && "✅ Saved!"}
           {saveStatus === "error" && "❌ Error saving"}
+          {saveStatus === "idle" && hasUnsavedChanges && (
+            <div className="flex items-center gap-2">
+              <span>⚠️ Unsaved changes</span>
+              <kbd className="px-2 py-1 bg-white/20 rounded text-xs">
+                Ctrl+S
+              </kbd>
+              <span>to save</span>
+            </div>
+          )}
         </div>
       )}
 
@@ -291,7 +365,7 @@ export default function ConfigEditorComponent() {
               {configSections.map((section) => (
                 <button
                   key={section.id}
-                  onClick={() => setActiveSection(section.id)}
+                  onClick={() => handleSectionChange(section.id)}
                   className={`w-full text-left p-4 rounded-xl transition-all duration-200 ${
                     activeSection === section.id
                       ? `bg-gradient-to-r ${section.color} text-white shadow-md transform scale-105`
@@ -324,6 +398,31 @@ export default function ConfigEditorComponent() {
               </h3>
               <div className="space-y-2">
                 <button
+                  onClick={() => config && saveConfig(config)}
+                  disabled={!hasUnsavedChanges}
+                  className={`w-full p-3 rounded-lg transition-all duration-200 ${
+                    hasUnsavedChanges
+                      ? "bg-gradient-to-r from-green-500 to-green-600 text-white hover:from-green-600 hover:to-green-700 shadow-md"
+                      : "bg-gradient-to-r from-gray-200 to-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
+                >
+                  {saveStatus === "saving" ? (
+                    <>
+                      <span className="animate-spin inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
+                      Saving...
+                    </>
+                  ) : (
+                    <>
+                      💾 Save Changes{" "}
+                      {hasUnsavedChanges && (
+                        <kbd className="ml-2 px-1 bg-white/20 rounded text-xs">
+                          Ctrl+S
+                        </kbd>
+                      )}
+                    </>
+                  )}
+                </button>
+                <button
                   onClick={() => window.open("/", "_blank")}
                   className="w-full p-3 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 rounded-lg hover:from-blue-100 hover:to-blue-200 transition-all duration-200"
                 >
@@ -342,6 +441,26 @@ export default function ConfigEditorComponent() {
 
         {/* Main Content Area */}
         <div className="lg:col-span-3">
+          {/* Instructions Header */}
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-200 p-4 mb-6">
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">💡</span>
+              <div>
+                <h3 className="font-semibold text-blue-900">
+                  How to Use This Editor
+                </h3>
+                <p className="text-blue-700 text-sm">
+                  Make your changes and press{" "}
+                  <kbd className="px-2 py-1 bg-blue-200 rounded text-xs font-mono">
+                    Ctrl+S
+                  </kbd>{" "}
+                  to save, or click the "Save Changes" button. No more
+                  auto-reloading!
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
             {renderSection()}
           </div>
