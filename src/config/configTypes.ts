@@ -84,9 +84,13 @@ export interface PageConfig {
   heroBadgeTitleColor?: string;
   heroScheduleButtonColor?: string;
   heroScheduleButtonTextColor?: string;
+  heroScheduleButtonHoverColor?: string;
   heroContactButtonColor?: string;
   heroContactButtonTextColor?: string;
   heroContactButtonBorderColor?: string;
+  heroContactButtonHoverColor?: string;
+  heroContactButtonHoverTextColor?: string;
+  heroContactButtonHoverBorderColor?: string;
   heroBox1BgColor?: string;
   heroBox1TextColor?: string;
   heroBox1BorderColor?: string;

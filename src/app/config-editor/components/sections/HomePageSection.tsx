@@ -279,6 +279,14 @@ export function HomePageSection({
                   }
                   description="Schedule button text color"
                 />
+                <ColorPicker
+                  label="Schedule Button Hover"
+                  value={homePage.heroScheduleButtonHoverColor || "#2d5a47"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroScheduleButtonHoverColor", value)
+                  }
+                  description="Schedule button hover background"
+                />
                 <TextInput
                   label="Contact Button Text"
                   value={homePage.contactButtonText || "Contact Us"}
@@ -311,6 +319,32 @@ export function HomePageSection({
                     updateHomePage("heroContactButtonBorderColor", value)
                   }
                   description="Contact button border color"
+                />
+                <ColorPicker
+                  label="Contact Button Hover Color"
+                  value={homePage.heroContactButtonHoverColor || "#ffffff20"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroContactButtonHoverColor", value)
+                  }
+                  description="Contact button hover background"
+                />
+                <ColorPicker
+                  label="Contact Button Hover Text"
+                  value={homePage.heroContactButtonHoverTextColor || "#000000"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroContactButtonHoverTextColor", value)
+                  }
+                  description="Contact button hover text color"
+                />
+                <ColorPicker
+                  label="Contact Button Hover Border"
+                  value={
+                    homePage.heroContactButtonHoverBorderColor || "#000000"
+                  }
+                  onChange={(value: string) =>
+                    updateHomePage("heroContactButtonHoverBorderColor", value)
+                  }
+                  description="Contact button hover border color"
                 />
               </div>
             </div>
@@ -874,6 +908,31 @@ export function HomePageSection({
                     updateServicesSection("servicesButtonEndColor", value)
                   }
                   description="Button gradient end"
+                />
+                <ColorPicker
+                  label="Button Hover Start"
+                  value={
+                    homePage.servicesSection?.servicesButtonHoverStartColor ||
+                    "#246043"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "servicesButtonHoverStartColor",
+                      value
+                    )
+                  }
+                  description="Button hover gradient start"
+                />
+                <ColorPicker
+                  label="Button Hover End"
+                  value={
+                    homePage.servicesSection?.servicesButtonHoverEndColor ||
+                    "#246043"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesButtonHoverEndColor", value)
+                  }
+                  description="Button hover gradient end"
                 />
                 <ColorPicker
                   label="Gradient From Color"
