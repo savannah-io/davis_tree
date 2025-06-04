@@ -15,6 +15,7 @@ interface HeroSectionProps {
   content?: string;
   location?: string;
   backgroundImage?: string;
+  mobileBackgroundImage?: string;
   badge?: string;
   heroBadgeColor?: string;
   heroBadgeTitleColor?: string;
@@ -60,6 +61,7 @@ export default function HeroSection({
   content = "",
   location = "",
   backgroundImage = "",
+  mobileBackgroundImage = "",
   badge = "",
   heroBadgeColor = "#1787c9",
   heroBadgeTitleColor = "#fff",
@@ -100,10 +102,20 @@ export default function HeroSection({
 }: HeroSectionProps) {
   // State to track if the component has mounted
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Ensure client-side rendering for background image
+  // Ensure client-side rendering for background image and detect mobile
   useEffect(() => {
     setMounted(true);
+
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768); // 768px is typical mobile breakpoint
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   // Function to ensure image URLs are properly formatted
@@ -162,21 +174,38 @@ export default function HeroSection({
       }}
     >
       {/* Hero Background Image with Optimized Image */}
-      {mounted && backgroundImage && (
+      {mounted && (
         <div className="absolute inset-0">
-          <OptimizedImage
-            src={backgroundImage}
-            alt="Background"
-            fill
-            priority={true}
-            quality={85}
-            blurEffect={true}
-            style={{
-              objectFit: "cover",
-              objectPosition: "center",
-              zIndex: 0,
-            }}
-          />
+          {/* Desktop/Mobile Image Logic */}
+          {isMobile && mobileBackgroundImage ? (
+            <OptimizedImage
+              src={getImageUrl(mobileBackgroundImage)}
+              alt="Background"
+              fill
+              priority={true}
+              quality={85}
+              blurEffect={true}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                zIndex: 0,
+              }}
+            />
+          ) : backgroundImage ? (
+            <OptimizedImage
+              src={getImageUrl(backgroundImage)}
+              alt="Background"
+              fill
+              priority={true}
+              quality={85}
+              blurEffect={true}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                zIndex: 0,
+              }}
+            />
+          ) : null}
         </div>
       )}
 

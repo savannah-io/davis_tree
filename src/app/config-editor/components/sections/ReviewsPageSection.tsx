@@ -16,6 +16,7 @@ export function ReviewsPageSection({
     [key: string]: boolean;
   }>({
     hero: true,
+    background: false,
     reviews: false,
     share: false,
     cta: false,
@@ -57,7 +58,8 @@ export function ReviewsPageSection({
               Reviews Page Settings
             </h2>
             <p className="text-gray-600">
-              Configure your reviews page hero, review display, and interactions
+              Configure your reviews page hero, review display, styling, and
+              interactions
             </p>
           </div>
         </div>
@@ -76,7 +78,7 @@ export function ReviewsPageSection({
                 Hero Section
               </h3>
               <p className="text-sm text-blue-600">
-                Hero banner, title, and statistics
+                Hero content, title, badge, and statistics
               </p>
             </div>
           </div>
@@ -115,7 +117,7 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("title", value)
                   }
-                  placeholder="Community Reviews"
+                  placeholder="Customer Reviews"
                   icon="📋"
                 />
                 <ColorPicker
@@ -181,11 +183,27 @@ export function ReviewsPageSection({
                 />
                 <ColorPicker
                   label="Badge Icon Color"
-                  value={reviewsPage.heroBadgeIconColor || "#60a5fa"}
+                  value={reviewsPage.heroBadgeIconColor || "#93c5fd"}
                   onChange={(value: string) =>
                     updateReviewsPage("heroBadgeIconColor", value)
                   }
                   description="Badge icon color"
+                />
+                <ColorPicker
+                  label="Badge Checkmark Color"
+                  value={reviewsPage.heroBadgeCheckmarkColor || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroBadgeCheckmarkColor", value)
+                  }
+                  description="Badge checkmark color"
+                />
+                <ColorPicker
+                  label="Badge Border Color"
+                  value={reviewsPage.heroBadgeBorderColor || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroBadgeBorderColor", value)
+                  }
+                  description="Badge border color"
                 />
               </div>
             </div>
@@ -203,15 +221,15 @@ export function ReviewsPageSection({
                     updateReviewsPage("statsCard1Title", value)
                   }
                   placeholder="Verified Reviews"
-                  icon="1️⃣"
+                  icon="🏆"
                 />
                 <ColorPicker
                   label="Stats Card 1 Icon Color"
-                  value={reviewsPage.statsCard1IconColor || "#60a5fa"}
+                  value={reviewsPage.statsCard1IconColor || "#93c5fd"}
                   onChange={(value: string) =>
                     updateReviewsPage("statsCard1IconColor", value)
                   }
-                  description="Stats card 1 icon color"
+                  description="First stats card icon color"
                 />
                 <TextInput
                   label="Stats Card 2 Title"
@@ -220,7 +238,7 @@ export function ReviewsPageSection({
                     updateReviewsPage("statsCard2Title", value)
                   }
                   placeholder="Average Rating"
-                  icon="2️⃣"
+                  icon="🏆"
                 />
                 <ColorPicker
                   label="Stats Card 2 Icon Color"
@@ -228,15 +246,98 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("statsCard2IconColor", value)
                   }
-                  description="Stats card 2 icon color"
+                  description="Second stats card icon color"
+                />
+                <ColorPicker
+                  label="Stats Card Background"
+                  value={reviewsPage.statsCardBgColor || "#ffffff10"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("statsCardBgColor", value)
+                  }
+                  description="Stats card background color"
+                />
+                <ColorPicker
+                  label="Stats Card Text Color"
+                  value={reviewsPage.statsCardTextColor || "#f3f4f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("statsCardTextColor", value)
+                  }
+                  description="Stats card text color"
+                />
+                <ColorPicker
+                  label="Stats Card Title Color"
+                  value={reviewsPage.statsCardTitleColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("statsCardTitleColor", value)
+                  }
+                  description="Stats card title color"
+                />
+                <ColorPicker
+                  label="Stats Card Border Color"
+                  value={reviewsPage.statsCardBorderColor || "#ffffff20"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("statsCardBorderColor", value)
+                  }
+                  description="Stats card border color"
+                />
+                <ColorPicker
+                  label="Stats Card Hover Border"
+                  value={reviewsPage.statsCardHoverBorderColor || "#ffffff30"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("statsCardHoverBorderColor", value)
+                  }
+                  description="Stats card hover border color"
                 />
               </div>
             </div>
+          </div>
+        )}
+      </div>
 
+      {/* Background & Decorative Elements */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("background")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🎨</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-purple-800">
+                Background & Decorative Elements
+              </h3>
+              <p className="text-sm text-purple-600">
+                Hero background, gradients, patterns, and decorative elements
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.background ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.background && (
+          <div className="p-6 space-y-6">
             {/* Hero Background */}
-            <div className="bg-cyan-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-cyan-800 mb-4 flex items-center gap-2">
-                🎨 Hero Background
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🖼️ Hero Background
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TextInput
@@ -245,32 +346,98 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("heroImage", value)
                   }
-                  placeholder="/images/reviews-hero.jpg"
+                  placeholder="/images/auto-reviews-hero.jpg"
                   icon="🖼️"
                 />
                 <ColorPicker
                   label="Background Gradient From"
-                  value={reviewsPage.heroBgGradientFrom || "#367658"}
+                  value={reviewsPage.heroBgGradientFrom || "#1e40af"}
                   onChange={(value: string) =>
                     updateReviewsPage("heroBgGradientFrom", value)
                   }
-                  description="Background gradient start"
+                  description="Hero background gradient start"
                 />
                 <ColorPicker
                   label="Background Gradient Via"
-                  value={reviewsPage.heroBgGradientVia || "#11492d"}
+                  value={reviewsPage.heroBgGradientVia || "#1e3a8a"}
                   onChange={(value: string) =>
                     updateReviewsPage("heroBgGradientVia", value)
                   }
-                  description="Background gradient middle"
+                  description="Hero background gradient middle"
                 />
                 <ColorPicker
                   label="Background Gradient To"
-                  value={reviewsPage.heroBgGradientTo || "#0c2217"}
+                  value={reviewsPage.heroBgGradientTo || "#1d4ed8"}
                   onChange={(value: string) =>
                     updateReviewsPage("heroBgGradientTo", value)
                   }
-                  description="Background gradient end"
+                  description="Hero background gradient end"
+                />
+              </div>
+            </div>
+
+            {/* Hero Decorative Elements */}
+            <div className="bg-pink-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-pink-800 mb-4 flex items-center gap-2">
+                ✨ Hero Decorative Elements
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Blurred Circle 1 Color"
+                  value={reviewsPage.heroBlurredCircle1Color || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroBlurredCircle1Color", value)
+                  }
+                  description="First decorative circle color"
+                />
+                <ColorPicker
+                  label="Blurred Circle 2 Color"
+                  value={reviewsPage.heroBlurredCircle2Color || "#60a5fa"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroBlurredCircle2Color", value)
+                  }
+                  description="Second decorative circle color"
+                />
+                <ColorPicker
+                  label="Blurred Circle 3 Color"
+                  value={reviewsPage.heroBlurredCircle3Color || "#93c5fd"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroBlurredCircle3Color", value)
+                  }
+                  description="Third decorative circle color"
+                />
+                <ColorPicker
+                  label="Light Beam 1 Color"
+                  value={reviewsPage.heroLightBeam1Color || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroLightBeam1Color", value)
+                  }
+                  description="First light beam color"
+                />
+                <ColorPicker
+                  label="Light Beam 2 Color"
+                  value={reviewsPage.heroLightBeam2Color || "#60a5fa"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroLightBeam2Color", value)
+                  }
+                  description="Second light beam color"
+                />
+                <ColorPicker
+                  label="Pattern Color"
+                  value={reviewsPage.heroPatternColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroPatternColor", value)
+                  }
+                  description="Background pattern color"
+                />
+                <TextInput
+                  label="Pattern Opacity"
+                  value={reviewsPage.heroPatternOpacity?.toString() || "0.1"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("heroPatternOpacity", parseFloat(value))
+                  }
+                  placeholder="0.1"
+                  icon="🎨"
                 />
               </div>
             </div>
@@ -278,20 +445,20 @@ export function ReviewsPageSection({
         )}
       </div>
 
-      {/* Reviews Display */}
+      {/* Reviews Section */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("reviews")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-yellow-50 to-orange-50 hover:from-yellow-100 hover:to-orange-100 transition-colors"
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <span className="text-2xl">💬</span>
+            <span className="text-2xl">⭐</span>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-yellow-800">
-                Reviews Display
+              <h3 className="text-lg font-semibold text-amber-800">
+                Reviews Display & Styling
               </h3>
-              <p className="text-sm text-yellow-600">
-                Review cards, colors, and pagination
+              <p className="text-sm text-amber-600">
+                Review cards, pagination, avatar colors, and display options
               </p>
             </div>
           </div>
@@ -301,7 +468,7 @@ export function ReviewsPageSection({
             }`}
           >
             <svg
-              className="w-5 h-5 text-yellow-600"
+              className="w-5 h-5 text-amber-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -318,22 +485,48 @@ export function ReviewsPageSection({
 
         {expandedSections.reviews && (
           <div className="p-6 space-y-6">
-            {/* Review Cards */}
-            <div className="bg-yellow-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-yellow-800 mb-4 flex items-center gap-2">
-                💳 Review Cards
+            {/* Reviews Section Background */}
+            <div className="bg-amber-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-amber-800 mb-4 flex items-center gap-2">
+                🎯 Reviews Section Background
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
-                  label="Card Background"
+                  label="Reviews Section Background"
+                  value={reviewsPage.reviewsSectionBgColor || "#dbeafe2a"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewsSectionBgColor", value)
+                  }
+                  description="Reviews section background color"
+                />
+              </div>
+            </div>
+
+            {/* Review Cards Styling */}
+            <div className="bg-orange-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-orange-800 mb-4 flex items-center gap-2">
+                💳 Review Cards Styling
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Review Card Background"
                   value={reviewsPage.reviewCardBgColor || "#ffffff"}
                   onChange={(value: string) =>
                     updateReviewsPage("reviewCardBgColor", value)
                   }
-                  description="Review card background"
+                  description="Review card background color"
+                />
+                <TextInput
+                  label="Review Card Hover Shadow"
+                  value={reviewsPage.reviewCardHoverShadow || "lg"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewCardHoverShadow", value)
+                  }
+                  placeholder="lg"
+                  icon="💫"
                 />
                 <ColorPicker
-                  label="Card Border"
+                  label="Review Card Border"
                   value={reviewsPage.reviewCardBorderColor || "#e5e7eb"}
                   onChange={(value: string) =>
                     updateReviewsPage("reviewCardBorderColor", value)
@@ -341,7 +534,7 @@ export function ReviewsPageSection({
                   description="Review card border color"
                 />
                 <ColorPicker
-                  label="Card Text Color"
+                  label="Review Text Color"
                   value={reviewsPage.reviewCardTextColor || "#4b5563"}
                   onChange={(value: string) =>
                     updateReviewsPage("reviewCardTextColor", value)
@@ -354,7 +547,15 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("reviewCardAuthorNameColor", value)
                   }
-                  description="Author name color"
+                  description="Review author name color"
+                />
+                <ColorPicker
+                  label="Source Color"
+                  value={reviewsPage.reviewCardSourceColor || "#6b7280"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewCardSourceColor", value)
+                  }
+                  description="Review source text color"
                 />
                 <ColorPicker
                   label="Star Color"
@@ -365,20 +566,44 @@ export function ReviewsPageSection({
                   description="Review star color"
                 />
                 <ColorPicker
-                  label="Star Empty Color"
+                  label="Empty Star Color"
                   value={reviewsPage.reviewCardStarEmptyColor || "#d1d5db"}
                   onChange={(value: string) =>
                     updateReviewsPage("reviewCardStarEmptyColor", value)
                   }
                   description="Empty star color"
                 />
+                <ColorPicker
+                  label="Show More Color"
+                  value={reviewsPage.reviewCardShowMoreColor || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewCardShowMoreColor", value)
+                  }
+                  description="Show more button color"
+                />
+                <ColorPicker
+                  label="Show More Hover Color"
+                  value={reviewsPage.reviewCardShowMoreHoverColor || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewCardShowMoreHoverColor", value)
+                  }
+                  description="Show more button hover color"
+                />
+                <ColorPicker
+                  label="Card Gradient Color"
+                  value={reviewsPage.reviewCardGradientColor || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("reviewCardGradientColor", value)
+                  }
+                  description="Review card gradient accent color"
+                />
               </div>
             </div>
 
             {/* Review Avatars */}
-            <div className="bg-orange-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-orange-800 mb-4 flex items-center gap-2">
-                👤 Review Avatars
+            <div className="bg-yellow-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-yellow-800 mb-4 flex items-center gap-2">
+                👤 Review Avatar Colors
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
@@ -390,40 +615,33 @@ export function ReviewsPageSection({
                   description="Avatar text color"
                 />
                 <div className="md:col-span-2">
-                  <p className="text-sm text-orange-700 mb-2">
-                    Avatar Background Colors (8 colors for variety)
-                  </p>
-                  <div className="grid grid-cols-4 gap-2">
-                    {(reviewsPage.reviewAvatarColors || []).map(
-                      (color: string, index: number) => (
-                        <ColorPicker
-                          key={index}
-                          label={`Color ${index + 1}`}
-                          value={color}
-                          onChange={(value: string) => {
-                            const colors = [
-                              ...(reviewsPage.reviewAvatarColors || []),
-                            ];
-                            colors[index] = value;
-                            updateReviewsPage("reviewAvatarColors", colors);
-                          }}
-                          description={`Avatar color ${index + 1}`}
-                        />
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Avatar Background Colors (comma-separated hex values)
+                  </label>
+                  <TextInput
+                    label=""
+                    value={reviewsPage.reviewAvatarColors?.join(", ") || ""}
+                    onChange={(value: string) =>
+                      updateReviewsPage(
+                        "reviewAvatarColors",
+                        value.split(", ").map((c) => c.trim())
                       )
-                    )}
-                  </div>
+                    }
+                    placeholder="#3b82f6, #10b981, #f59e0b, #ef4444, #8b5cf6, #ec4899, #6366f1, #14b8a6"
+                    icon="🎨"
+                  />
                 </div>
               </div>
             </div>
 
             {/* Pagination */}
-            <div className="bg-red-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-red-800 mb-4 flex items-center gap-2">
-                📄 Pagination
+            <div className="bg-emerald-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-emerald-800 mb-4 flex items-center gap-2">
+                📄 Pagination Controls
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
-                  label="Button Background"
+                  label="Pagination Button Background"
                   value={reviewsPage.paginationButtonBgColor || "#2563eb"}
                   onChange={(value: string) =>
                     updateReviewsPage("paginationButtonBgColor", value)
@@ -431,12 +649,27 @@ export function ReviewsPageSection({
                   description="Pagination button background"
                 />
                 <ColorPicker
-                  label="Button Text Color"
+                  label="Pagination Button Text Color"
                   value={reviewsPage.paginationButtonTextColor || "#ffffff"}
                   onChange={(value: string) =>
                     updateReviewsPage("paginationButtonTextColor", value)
                   }
                   description="Pagination button text color"
+                />
+                <TextInput
+                  label="Disabled Button Opacity"
+                  value={
+                    reviewsPage.paginationButtonDisabledOpacity?.toString() ||
+                    "0.5"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsPage(
+                      "paginationButtonDisabledOpacity",
+                      parseFloat(value)
+                    )
+                  }
+                  placeholder="0.5"
+                  icon="🎨"
                 />
                 <ColorPicker
                   label="Pagination Text Color"
@@ -452,20 +685,20 @@ export function ReviewsPageSection({
         )}
       </div>
 
-      {/* Share Experience */}
+      {/* Share Experience Section */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("share")}
           className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 transition-colors"
         >
           <div className="flex items-center gap-3">
-            <span className="text-2xl">📝</span>
+            <span className="text-2xl">✍️</span>
             <div className="text-left">
               <h3 className="text-lg font-semibold text-green-800">
-                Share Experience
+                Share Experience Section
               </h3>
               <p className="text-sm text-green-600">
-                Write review section styling
+                Write review section styling and button configuration
               </p>
             </div>
           </div>
@@ -495,11 +728,11 @@ export function ReviewsPageSection({
             {/* Share Experience Content */}
             <div className="bg-green-50 rounded-xl p-6">
               <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
-                📝 Share Content
+                📝 Share Experience Content
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TextInput
-                  label="Section Title"
+                  label="Share Experience Title"
                   value={reviewsPage.shareExperienceTitle || ""}
                   onChange={(value: string) =>
                     updateReviewsPage("shareExperienceTitle", value)
@@ -513,11 +746,11 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("shareExperienceTitleColor", value)
                   }
-                  description="Share section title color"
+                  description="Share experience title color"
                 />
                 <div className="md:col-span-2">
                   <TextInput
-                    label="Section Subtitle"
+                    label="Share Experience Subtitle"
                     value={reviewsPage.shareExperienceSubtitle || ""}
                     onChange={(value: string) =>
                       updateReviewsPage("shareExperienceSubtitle", value)
@@ -532,15 +765,81 @@ export function ReviewsPageSection({
                   onChange={(value: string) =>
                     updateReviewsPage("shareExperienceSubtitleColor", value)
                   }
-                  description="Share section subtitle color"
+                  description="Share experience subtitle color"
+                />
+              </div>
+            </div>
+
+            {/* Share Experience Styling */}
+            <div className="bg-emerald-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-emerald-800 mb-4 flex items-center gap-2">
+                🎨 Share Experience Styling
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Background Color"
+                  value={reviewsPage.shareExperienceBgColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareExperienceBgColor", value)
+                  }
+                  description="Share experience background color"
+                />
+                <ColorPicker
+                  label="Border Color"
+                  value={reviewsPage.shareExperienceBorderColor || "#e5e7eb"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareExperienceBorderColor", value)
+                  }
+                  description="Share experience border color"
+                />
+                <TextInput
+                  label="Shadow"
+                  value={reviewsPage.shareExperienceShadow || "sm"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareExperienceShadow", value)
+                  }
+                  placeholder="sm"
+                  icon="💫"
+                />
+                <TextInput
+                  label="Hover Shadow"
+                  value={reviewsPage.shareExperienceHoverShadow || "md"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareExperienceHoverShadow", value)
+                  }
+                  placeholder="md"
+                  icon="💫"
+                />
+                <ColorPicker
+                  label="Gradient Color"
+                  value={reviewsPage.shareExperienceGradientColor || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareExperienceGradientColor", value)
+                  }
+                  description="Share experience gradient accent"
+                />
+                <TextInput
+                  label="Gradient Opacity"
+                  value={
+                    reviewsPage.shareExperienceGradientOpacity?.toString() ||
+                    "0.5"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsPage(
+                      "shareExperienceGradientOpacity",
+                      parseFloat(value)
+                    )
+                  }
+                  placeholder="0.5"
+                  icon="🎨"
                 />
               </div>
             </div>
 
             {/* Share Button */}
-            <div className="bg-emerald-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-emerald-800 mb-4 flex items-center gap-2">
-                🔘 Share Button
+            <div className="bg-teal-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-teal-800 mb-4 flex items-center gap-2">
+                🔘 Share Button Configuration
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TextInput
@@ -563,11 +862,11 @@ export function ReviewsPageSection({
                 />
                 <ColorPicker
                   label="Button Background"
-                  value={reviewsPage.shareButtonBgColor || "#0f3622"}
+                  value={reviewsPage.shareButtonBgColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateReviewsPage("shareButtonBgColor", value)
                   }
-                  description="Share button background"
+                  description="Share button background color"
                 />
                 <ColorPicker
                   label="Button Text Color"
@@ -577,25 +876,53 @@ export function ReviewsPageSection({
                   }
                   description="Share button text color"
                 />
+                <ColorPicker
+                  label="Button Hover Background"
+                  value={reviewsPage.shareButtonHoverBgColor || "#f3f4f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareButtonHoverBgColor", value)
+                  }
+                  description="Share button hover background"
+                />
+                <TextInput
+                  label="Button Shadow"
+                  value={reviewsPage.shareButtonShadow || "sm"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareButtonShadow", value)
+                  }
+                  placeholder="sm"
+                  icon="💫"
+                />
+                <TextInput
+                  label="Button Hover Shadow"
+                  value={reviewsPage.shareButtonHoverShadow || "md"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("shareButtonHoverShadow", value)
+                  }
+                  placeholder="md"
+                  icon="💫"
+                />
               </div>
             </div>
           </div>
         )}
       </div>
 
-      {/* Call to Action */}
+      {/* Call to Action Section */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("cta")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 transition-colors"
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-violet-50 to-purple-50 hover:from-violet-100 hover:to-purple-100 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span className="text-2xl">📢</span>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-indigo-800">
-                Call to Action
+              <h3 className="text-lg font-semibold text-violet-800">
+                Call to Action Section
               </h3>
-              <p className="text-sm text-indigo-600">Bottom CTA section</p>
+              <p className="text-sm text-violet-600">
+                CTA background, content, and button styling
+              </p>
             </div>
           </div>
           <div
@@ -604,7 +931,7 @@ export function ReviewsPageSection({
             }`}
           >
             <svg
-              className="w-5 h-5 text-indigo-600"
+              className="w-5 h-5 text-violet-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -621,9 +948,76 @@ export function ReviewsPageSection({
 
         {expandedSections.cta && (
           <div className="p-6 space-y-6">
+            {/* CTA Background */}
+            <div className="bg-violet-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-violet-800 mb-4 flex items-center gap-2">
+                🎨 CTA Background & Styling
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Background Gradient From"
+                  value={reviewsPage.ctaBgGradientFrom || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaBgGradientFrom", value)
+                  }
+                  description="CTA background gradient start"
+                />
+                <ColorPicker
+                  label="Background Gradient Via"
+                  value={reviewsPage.ctaBgGradientVia || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaBgGradientVia", value)
+                  }
+                  description="CTA background gradient middle"
+                />
+                <ColorPicker
+                  label="Background Gradient To"
+                  value={reviewsPage.ctaBgGradientTo || "#2563eb"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaBgGradientTo", value)
+                  }
+                  description="CTA background gradient end"
+                />
+                <ColorPicker
+                  label="Pattern Color"
+                  value={reviewsPage.ctaPatternColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaPatternColor", value)
+                  }
+                  description="CTA background pattern color"
+                />
+                <TextInput
+                  label="Pattern Opacity"
+                  value={reviewsPage.ctaPatternOpacity?.toString() || "0.05"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaPatternOpacity", parseFloat(value))
+                  }
+                  placeholder="0.05"
+                  icon="🎨"
+                />
+                <ColorPicker
+                  label="CTA Card Background"
+                  value={reviewsPage.ctaCardBgColor || "#ffffff0d"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaCardBgColor", value)
+                  }
+                  description="CTA card background color"
+                />
+                <TextInput
+                  label="CTA Card Blur Amount"
+                  value={reviewsPage.ctaCardBlurAmount || "2px"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaCardBlurAmount", value)
+                  }
+                  placeholder="2px"
+                  icon="💫"
+                />
+              </div>
+            </div>
+
             {/* CTA Content */}
-            <div className="bg-indigo-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-indigo-800 mb-4 flex items-center gap-2">
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
                 📝 CTA Content
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -667,8 +1061,8 @@ export function ReviewsPageSection({
             </div>
 
             {/* CTA Buttons */}
-            <div className="bg-purple-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
+            <div className="bg-pink-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-pink-800 mb-4 flex items-center gap-2">
                 🔘 CTA Buttons
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -689,6 +1083,22 @@ export function ReviewsPageSection({
                   }
                   description="Schedule button background"
                 />
+                <ColorPicker
+                  label="Schedule Button Text Color"
+                  value={reviewsPage.ctaScheduleButtonTextColor || "#2563eb"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaScheduleButtonTextColor", value)
+                  }
+                  description="Schedule button text color"
+                />
+                <ColorPicker
+                  label="Schedule Button Hover Background"
+                  value={reviewsPage.ctaScheduleButtonHoverBgColor || "#f3f4f6"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaScheduleButtonHoverBgColor", value)
+                  }
+                  description="Schedule button hover background"
+                />
                 <TextInput
                   label="Call Button Text"
                   value={reviewsPage.ctaCallButtonText || ""}
@@ -706,26 +1116,26 @@ export function ReviewsPageSection({
                   }
                   description="Call button background"
                 />
+                <ColorPicker
+                  label="Call Button Text Color"
+                  value={reviewsPage.ctaCallButtonTextColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaCallButtonTextColor", value)
+                  }
+                  description="Call button text color"
+                />
+                <ColorPicker
+                  label="Call Button Hover Background"
+                  value={reviewsPage.ctaCallButtonHoverBgColor || "#1d4ed8"}
+                  onChange={(value: string) =>
+                    updateReviewsPage("ctaCallButtonHoverBgColor", value)
+                  }
+                  description="Call button hover background"
+                />
               </div>
             </div>
           </div>
         )}
-      </div>
-
-      {/* Tips */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-        <h4 className="font-semibold text-yellow-800 mb-2 flex items-center gap-2">
-          💡 Pro Tips
-        </h4>
-        <ul className="text-sm text-yellow-700 space-y-1">
-          <li>
-            • Use high contrast colors for review text to ensure readability
-          </li>
-          <li>• Make star ratings visually prominent with bright colors</li>
-          <li>• Ensure avatar colors provide good contrast for initials</li>
-          <li>• Test the Google review link to make sure it works correctly</li>
-          <li>• Keep pagination buttons easily clickable and visible</li>
-        </ul>
       </div>
     </div>
   );

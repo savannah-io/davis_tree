@@ -12,9 +12,11 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
   const [expandedSections, setExpandedSections] = useState<{
     [key: string]: boolean;
   }>({
-    styling: true,
-    content: false,
+    content: true,
+    styling: false,
     links: false,
+    contact: false,
+    hours: false,
   });
 
   const toggleSection = (section: string) => {
@@ -43,7 +45,31 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
     updateConfig(newConfig);
   };
 
+  const updateContactInfo = (field: string, value: any) => {
+    const newConfig = {
+      ...config,
+      contactInfo: {
+        ...config.contactInfo,
+        [field]: value,
+      },
+    };
+    updateConfig(newConfig);
+  };
+
+  const updateHours = (field: string, value: any) => {
+    const newConfig = {
+      ...config,
+      hours: {
+        ...config.hours,
+        [field]: value,
+      },
+    };
+    updateConfig(newConfig);
+  };
+
   const footerStyle = config.footerStyle || {};
+  const contactInfo = config.contactInfo || {};
+  const hours = config.hours || {};
 
   return (
     <div className="space-y-6">
@@ -58,10 +84,282 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
               Footer Settings
             </h2>
             <p className="text-gray-600">
-              Configure your footer styling, content, and links
+              Configure your footer content, styling, contact info, and links
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Footer Content */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("content")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">📝</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-blue-800">
+                Footer Content
+              </h3>
+              <p className="text-sm text-blue-600">
+                Company name, description, and copyright information
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.content ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.content && (
+          <div className="p-6 space-y-6">
+            {/* Company Information */}
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-blue-800 mb-4 flex items-center gap-2">
+                🏢 Company Information
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Company Name"
+                  value={config.companyName || ""}
+                  onChange={(value: string) =>
+                    updateFooterField("companyName", value)
+                  }
+                  placeholder="Taylor's Collision"
+                  icon="🏢"
+                  description="Company name displayed in footer"
+                />
+                <TextInput
+                  label="Description"
+                  value={config.description || ""}
+                  onChange={(value: string) =>
+                    updateFooterField("description", value)
+                  }
+                  placeholder="Premier auto body shop in Duluth, GA - Expert collision repair"
+                  icon="📝"
+                  description="Company description in footer"
+                />
+                <TextInput
+                  label="Copyright Text"
+                  value={config.copyright || ""}
+                  onChange={(value: string) =>
+                    updateFooterField("copyright", value)
+                  }
+                  placeholder="© 2025 Taylor's Collision. All rights reserved."
+                  icon="©️"
+                  description="Footer copyright notice"
+                />
+              </div>
+            </div>
+
+            {/* Join Team Button */}
+            <div className="bg-green-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
+                👥 Join Team Button
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    checked={config.showJoinTeamButton !== false}
+                    onChange={(e) =>
+                      updateFooterField("showJoinTeamButton", e.target.checked)
+                    }
+                    className="rounded border-gray-300 text-green-600 focus:ring-green-500"
+                  />
+                  <label className="text-sm font-medium text-green-800">
+                    Show Join Team Button
+                  </label>
+                </div>
+                <TextInput
+                  label="Join Team Text"
+                  value={config.joinTeamText || ""}
+                  onChange={(value: string) =>
+                    updateFooterField("joinTeamText", value)
+                  }
+                  placeholder="Join Our Team"
+                  icon="👥"
+                  description="Text shown on join team button"
+                />
+                <TextInput
+                  label="Join Team Link"
+                  value={config.joinTeamLink || ""}
+                  onChange={(value: string) =>
+                    updateFooterField("joinTeamLink", value)
+                  }
+                  placeholder="/careers"
+                  icon="🔗"
+                  description="URL for join team button"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Contact Information */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("contact")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">📞</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-green-800">
+                Contact Information
+              </h3>
+              <p className="text-sm text-green-600">
+                Address, phone, email and contact details
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.contact ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-green-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.contact && (
+          <div className="p-6 space-y-6">
+            <div className="bg-green-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
+                📍 Contact Details
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Business Address"
+                  value={contactInfo.address || ""}
+                  onChange={(value: string) =>
+                    updateContactInfo("address", value)
+                  }
+                  placeholder="2785 Buford Hwy Ste 101-C, Duluth, GA 30096"
+                  icon="📍"
+                  description="Business address shown in footer"
+                />
+                <TextInput
+                  label="Phone Number"
+                  value={contactInfo.phone || ""}
+                  onChange={(value: string) =>
+                    updateContactInfo("phone", value)
+                  }
+                  placeholder="(770) 495-0050"
+                  icon="📞"
+                  description="Phone number with clickable tel: link"
+                />
+                <TextInput
+                  label="Email Address"
+                  value={contactInfo.email || ""}
+                  onChange={(value: string) =>
+                    updateContactInfo("email", value)
+                  }
+                  placeholder="support@taylorscollision.com"
+                  icon="📧"
+                  description="Email address with clickable mailto: link"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Business Hours */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("hours")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🕒</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-purple-800">
+                Business Hours
+              </h3>
+              <p className="text-sm text-purple-600">
+                Operating hours displayed in footer
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.hours ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.hours && (
+          <div className="p-6 space-y-6">
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                📅 Operating Hours
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Weekday Hours"
+                  value={hours.weekday || ""}
+                  onChange={(value: string) => updateHours("weekday", value)}
+                  placeholder="Monday - Friday: 8:30 AM - 6:00 PM"
+                  icon="📅"
+                  description="Hours for Monday through Friday"
+                />
+                <TextInput
+                  label="Weekend Hours"
+                  value={hours.weekend || ""}
+                  onChange={(value: string) => updateHours("weekend", value)}
+                  placeholder="Saturday - Sunday: Closed"
+                  icon="🏠"
+                  description="Hours for Saturday and Sunday"
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Footer Styling */}
@@ -120,7 +418,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Gradient From"
-                  value={footerStyle.gradientFromColor || "#9effcd"}
+                  value={footerStyle.gradientFromColor || "#dbeafe"}
                   onChange={(value: string) =>
                     updateFooterStyle("gradientFromColor", value)
                   }
@@ -136,7 +434,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Divider Color"
-                  value={footerStyle.dividerColor || "rgba(253, 201, 201, 0.2)"}
+                  value={footerStyle.dividerColor || "rgba(30, 64, 175, 0.2)"}
                   onChange={(value: string) =>
                     updateFooterStyle("dividerColor", value)
                   }
@@ -153,7 +451,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
                   label="Title Color"
-                  value={footerStyle.titleColor || "#000000"}
+                  value={footerStyle.titleColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("titleColor", value)
                   }
@@ -161,7 +459,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Text Color"
-                  value={footerStyle.textColor || "#000000"}
+                  value={footerStyle.textColor || "#111827"}
                   onChange={(value: string) =>
                     updateFooterStyle("textColor", value)
                   }
@@ -169,7 +467,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Link Color"
-                  value={footerStyle.linkColor || "#000000"}
+                  value={footerStyle.linkColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("linkColor", value)
                   }
@@ -177,7 +475,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Link Hover Color"
-                  value={footerStyle.linkHoverColor || "#53a584"}
+                  value={footerStyle.linkHoverColor || "#3b82f6"}
                   onChange={(value: string) =>
                     updateFooterStyle("linkHoverColor", value)
                   }
@@ -193,7 +491,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Social Icon Color"
-                  value={footerStyle.socialIconColor || "#7dd0ae"}
+                  value={footerStyle.socialIconColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("socialIconColor", value)
                   }
@@ -210,7 +508,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
                   label="Quick Links Title"
-                  value={footerStyle.quickLinksTitleColor || "#ffffff"}
+                  value={footerStyle.quickLinksTitleColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("quickLinksTitleColor", value)
                   }
@@ -218,7 +516,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Contact Info Title"
-                  value={footerStyle.contactInfoTitleColor || "#ffffff"}
+                  value={footerStyle.contactInfoTitleColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("contactInfoTitleColor", value)
                   }
@@ -226,7 +524,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Info Title Color"
-                  value={footerStyle.infoTitleColor || "#ffffff"}
+                  value={footerStyle.infoTitleColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("infoTitleColor", value)
                   }
@@ -234,7 +532,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Policy Link Color"
-                  value={footerStyle.policyLinkColor || "#f0f0f0"}
+                  value={footerStyle.policyLinkColor || "#6b7280"}
                   onChange={(value: string) =>
                     updateFooterStyle("policyLinkColor", value)
                   }
@@ -242,7 +540,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Policy Link Hover"
-                  value={footerStyle.policyLinkHoverColor || "#eebfbf"}
+                  value={footerStyle.policyLinkHoverColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("policyLinkHoverColor", value)
                   }
@@ -259,7 +557,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
                   label="Button Background"
-                  value={footerStyle.joinButtonBgColor || "#387e62"}
+                  value={footerStyle.joinButtonBgColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("joinButtonBgColor", value)
                   }
@@ -267,7 +565,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Button Text Color"
-                  value={footerStyle.joinButtonTextColor || "#030303"}
+                  value={footerStyle.joinButtonTextColor || "#ffffff"}
                   onChange={(value: string) =>
                     updateFooterStyle("joinButtonTextColor", value)
                   }
@@ -275,7 +573,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Button Hover Background"
-                  value={footerStyle.joinButtonHoverBgColor || "#7dd0ae"}
+                  value={footerStyle.joinButtonHoverBgColor || "#3b82f6"}
                   onChange={(value: string) =>
                     updateFooterStyle("joinButtonHoverBgColor", value)
                   }
@@ -293,7 +591,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 <ColorPicker
                   label="Card Background"
                   value={
-                    footerStyle.hoursCardBgColor || "rgba(245, 245, 245, 0.04)"
+                    footerStyle.hoursCardBgColor || "rgba(30, 64, 175, 0.04)"
                   }
                   onChange={(value: string) =>
                     updateFooterStyle("hoursCardBgColor", value)
@@ -302,7 +600,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Card Text Color"
-                  value={footerStyle.hoursCardTextColor || "#f5f5f5"}
+                  value={footerStyle.hoursCardTextColor || "#111827"}
                   onChange={(value: string) =>
                     updateFooterStyle("hoursCardTextColor", value)
                   }
@@ -310,7 +608,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                 />
                 <ColorPicker
                   label="Card Value Color"
-                  value={footerStyle.hoursCardValueColor || "#ffffff"}
+                  value={footerStyle.hoursCardValueColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateFooterStyle("hoursCardValueColor", value)
                   }
@@ -322,110 +620,19 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
         )}
       </div>
 
-      {/* Footer Content */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <button
-          onClick={() => toggleSection("content")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 transition-colors"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">📝</span>
-            <div className="text-left">
-              <h3 className="text-lg font-semibold text-blue-800">
-                Footer Content
-              </h3>
-              <p className="text-sm text-blue-600">
-                Text content and copyright information
-              </p>
-            </div>
-          </div>
-          <div
-            className={`transform transition-transform ${
-              expandedSections.content ? "rotate-180" : ""
-            }`}
-          >
-            <svg
-              className="w-5 h-5 text-blue-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
-        </button>
-
-        {expandedSections.content && (
-          <div className="p-6 space-y-6">
-            <div className="bg-blue-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                📄 Content Settings
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Copyright Text"
-                  value={config.copyright || ""}
-                  onChange={(value: string) =>
-                    updateFooterField("copyright", value)
-                  }
-                  placeholder="© 2025 Davis Tree Service. All rights reserved."
-                  icon="©️"
-                />
-                <div className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={config.showJoinTeamButton || false}
-                    onChange={(e) =>
-                      updateFooterField("showJoinTeamButton", e.target.checked)
-                    }
-                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                  />
-                  <label className="text-sm font-medium text-blue-800">
-                    Show Join Team Button
-                  </label>
-                </div>
-                <TextInput
-                  label="Join Team Text"
-                  value={config.joinTeamText || ""}
-                  onChange={(value: string) =>
-                    updateFooterField("joinTeamText", value)
-                  }
-                  placeholder="Join the Team"
-                  icon="👥"
-                />
-                <TextInput
-                  label="Join Team Link"
-                  value={config.joinTeamLink || ""}
-                  onChange={(value: string) =>
-                    updateFooterField("joinTeamLink", value)
-                  }
-                  placeholder="/careers"
-                  icon="🔗"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
       {/* Footer Links */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("links")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 transition-colors"
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span className="text-2xl">🔗</span>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-green-800">
+              <h3 className="text-lg font-semibold text-cyan-800">
                 Footer Links
               </h3>
-              <p className="text-sm text-green-600">
+              <p className="text-sm text-cyan-600">
                 Navigation and social media links
               </p>
             </div>
@@ -436,7 +643,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
             }`}
           >
             <svg
-              className="w-5 h-5 text-green-600"
+              className="w-5 h-5 text-cyan-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -453,8 +660,8 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
 
         {expandedSections.links && (
           <div className="p-6 space-y-6">
-            <div className="bg-green-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
+            <div className="bg-cyan-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-cyan-800 mb-4 flex items-center gap-2">
                 🔗 Social Media Links
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -469,6 +676,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                   }
                   placeholder="https://facebook.com/company"
                   icon="📘"
+                  description="Facebook page URL"
                 />
                 <TextInput
                   label="Twitter URL"
@@ -481,6 +689,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                   }
                   placeholder="https://twitter.com/company"
                   icon="🐦"
+                  description="Twitter/X profile URL"
                 />
                 <TextInput
                   label="LinkedIn URL"
@@ -493,6 +702,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                   }
                   placeholder="https://linkedin.com/company/company"
                   icon="💼"
+                  description="LinkedIn company page URL"
                 />
                 <TextInput
                   label="Instagram URL"
@@ -505,12 +715,13 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                   }
                   placeholder="https://instagram.com/company"
                   icon="📸"
+                  description="Instagram profile URL"
                 />
               </div>
             </div>
 
-            <div className="bg-emerald-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-emerald-800 mb-4 flex items-center gap-2">
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-blue-800 mb-4 flex items-center gap-2">
                 📋 Footer Navigation
               </h4>
               <div className="space-y-3">
@@ -540,7 +751,7 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
                     />
                   </div>
                 ))}
-                <p className="text-sm text-emerald-700 italic">
+                <p className="text-sm text-blue-700 italic">
                   Footer links are automatically synced with navigation links
                 </p>
               </div>
@@ -560,6 +771,8 @@ export function FooterSection({ config, updateConfig }: FooterSectionProps) {
           <li>• Test social media links to make sure they work correctly</li>
           <li>• Keep copyright information up to date</li>
           <li>• Consider using gradient backgrounds for visual appeal</li>
+          <li>• Update business hours when they change seasonally</li>
+          <li>• Verify contact information is accurate and up-to-date</li>
         </ul>
       </div>
     </div>

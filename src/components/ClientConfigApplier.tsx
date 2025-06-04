@@ -9,7 +9,7 @@ export default function ClientConfigApplier() {
     const loadingConfig = localConfig.loadingScreen || {
       backgroundColor: "#FFFFFF",
       timing: { fadeOutDuration: 500, minimumDisplayTime: 800 },
-      spinner: { size: 60, thickness: 4, color: "#66bf9b", enabled: true },
+      spinner: { size: 60, thickness: 4, color: "#1d4ed8", enabled: true },
       logoWidth: 280,
     };
 
@@ -43,7 +43,7 @@ export default function ClientConfigApplier() {
     );
 
     // Apply theme colors
-    const themeColor = localConfig.themeColor || "#66bf9b";
+    const themeColor = localConfig.themeColor || "#1e40af";
     const themeColorLight = `${themeColor}22`;
 
     document.documentElement.style.setProperty("--theme-color", themeColor);

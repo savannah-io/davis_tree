@@ -16,6 +16,7 @@ export function ServicesPageSection({
     [key: string]: boolean;
   }>({
     hero: true,
+    background: false,
     categories: false,
     cta: false,
   });
@@ -46,12 +47,34 @@ export function ServicesPageSection({
     field: string,
     value: any
   ) => {
-    const categories = [...(config.pages?.Services?.serviceCategories || [])];
-    categories[categoryIndex] = {
-      ...categories[categoryIndex],
+    const currentCategories = servicesPage.serviceCategories || [];
+    const updatedCategories = [...currentCategories];
+    updatedCategories[categoryIndex] = {
+      ...updatedCategories[categoryIndex],
       [field]: value,
     };
-    updateServicesPage("serviceCategories", categories);
+    updateServicesPage("serviceCategories", updatedCategories);
+  };
+
+  const updateCategoryService = (
+    categoryIndex: number,
+    serviceIndex: number,
+    field: string,
+    value: any
+  ) => {
+    const currentCategories = servicesPage.serviceCategories || [];
+    const updatedCategories = [...currentCategories];
+    const currentServices = updatedCategories[categoryIndex].services || [];
+    const updatedServices = [...currentServices];
+    updatedServices[serviceIndex] = {
+      ...updatedServices[serviceIndex],
+      [field]: value,
+    };
+    updatedCategories[categoryIndex] = {
+      ...updatedCategories[categoryIndex],
+      services: updatedServices,
+    };
+    updateServicesPage("serviceCategories", updatedCategories);
   };
 
   const servicesPage = config.pages?.Services || {};
@@ -59,9 +82,9 @@ export function ServicesPageSection({
   return (
     <div className="space-y-6">
       {/* Section Header */}
-      <div className="border-b border-cyan-200 pb-4">
+      <div className="border-b border-orange-200 pb-4">
         <div className="flex items-center gap-3 mb-2">
-          <div className="w-12 h-12 bg-gradient-to-r from-cyan-500 to-cyan-600 rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl flex items-center justify-center">
             <span className="text-2xl">🔧</span>
           </div>
           <div>
@@ -69,8 +92,7 @@ export function ServicesPageSection({
               Services Page Settings
             </h2>
             <p className="text-gray-600">
-              Configure your services page hero, categories, and call-to-action
-              sections
+              Configure your services page hero, categories, styling, and CTA
             </p>
           </div>
         </div>
@@ -80,239 +102,22 @@ export function ServicesPageSection({
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("hero")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 transition-colors"
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-orange-50 to-red-50 hover:from-orange-100 hover:to-red-100 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span className="text-2xl">🦸</span>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-cyan-800">
+              <h3 className="text-lg font-semibold text-orange-800">
                 Hero Section
               </h3>
-              <p className="text-sm text-cyan-600">
-                Main banner, title, and hero stats
+              <p className="text-sm text-orange-600">
+                Hero content, titles, badge, and stats cards
               </p>
             </div>
           </div>
           <div
             className={`transform transition-transform ${
               expandedSections.hero ? "rotate-180" : ""
-            }`}
-          >
-            <svg
-              className="w-5 h-5 text-cyan-600"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
-          </div>
-        </button>
-
-        {expandedSections.hero && (
-          <div className="p-6 space-y-6">
-            {/* Basic Hero Settings */}
-            <div className="bg-cyan-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-cyan-800 mb-4 flex items-center gap-2">
-                📝 Hero Content
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Page Title"
-                  value={servicesPage.title || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("title", value)
-                  }
-                  placeholder="Our Services"
-                  icon="📋"
-                />
-                <ColorPicker
-                  label="Title Color"
-                  value={servicesPage.heroTitleColor || "#ffffff"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroTitleColor", value)
-                  }
-                  description="Hero title text color"
-                />
-                <div className="md:col-span-2">
-                  <TextInput
-                    label="Subtitle"
-                    value={servicesPage.subtitle || ""}
-                    onChange={(value: string) =>
-                      updateServicesPage("subtitle", value)
-                    }
-                    placeholder="Explore our services below and let us help you cultivate a healthier, greener landscape."
-                    icon="💬"
-                  />
-                </div>
-                <ColorPicker
-                  label="Subtitle Color"
-                  value={servicesPage.heroSubtitleColor || "#ffffff"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroSubtitleColor", value)
-                  }
-                  description="Hero subtitle text color"
-                />
-              </div>
-            </div>
-
-            {/* Hero Badge */}
-            <div className="bg-blue-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                🏷️ Hero Badge
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Badge Text"
-                  value={servicesPage.badge || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("badge", value)
-                  }
-                  placeholder="Certified Arborists"
-                  icon="🏷️"
-                />
-                <ColorPicker
-                  label="Badge Background"
-                  value={servicesPage.heroBadgeBgColor || "#06ac143a"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBadgeBgColor", value)
-                  }
-                  description="Badge background color"
-                />
-                <ColorPicker
-                  label="Badge Text Color"
-                  value={servicesPage.heroBadgeTextColor || "#ffffff"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBadgeTextColor", value)
-                  }
-                  description="Badge text color"
-                />
-                <ColorPicker
-                  label="Badge Icon Color"
-                  value={servicesPage.heroBadgeIconColor || "#60a5fa"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBadgeIconColor", value)
-                  }
-                  description="Badge icon color"
-                />
-              </div>
-            </div>
-
-            {/* Hero Stats */}
-            <div className="bg-green-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
-                📊 Hero Statistics
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Card 1 Title"
-                  value={servicesPage.card1Title || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("card1Title", value)
-                  }
-                  placeholder="Years Experience"
-                  icon="1️⃣"
-                />
-                <TextInput
-                  label="Card 1 Value"
-                  value={servicesPage.card1Value || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("card1Value", value)
-                  }
-                  placeholder="20"
-                  icon="📊"
-                />
-                <TextInput
-                  label="Card 2 Title"
-                  value={servicesPage.card2Title || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("card2Title", value)
-                  }
-                  placeholder="Trees Removed"
-                  icon="2️⃣"
-                />
-                <TextInput
-                  label="Card 2 Value"
-                  value={servicesPage.card2Value || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("card2Value", value)
-                  }
-                  placeholder="400+"
-                  icon="📊"
-                />
-              </div>
-            </div>
-
-            {/* Hero Background */}
-            <div className="bg-purple-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
-                🎨 Hero Background
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <TextInput
-                  label="Hero Image"
-                  value={servicesPage.heroImage || ""}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroImage", value)
-                  }
-                  placeholder="/images/service-hero.jpg"
-                  icon="🖼️"
-                />
-                <ColorPicker
-                  label="Gradient From"
-                  value={servicesPage.heroBgGradientFrom || "#367658"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBgGradientFrom", value)
-                  }
-                  description="Background gradient start"
-                />
-                <ColorPicker
-                  label="Gradient Via"
-                  value={servicesPage.heroBgGradientVia || "#11492d"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBgGradientVia", value)
-                  }
-                  description="Background gradient middle"
-                />
-                <ColorPicker
-                  label="Gradient To"
-                  value={servicesPage.heroBgGradientTo || "#0c2217"}
-                  onChange={(value: string) =>
-                    updateServicesPage("heroBgGradientTo", value)
-                  }
-                  description="Background gradient end"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* Service Categories */}
-      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-        <button
-          onClick={() => toggleSection("categories")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-orange-50 to-yellow-50 hover:from-orange-100 hover:to-yellow-100 transition-colors"
-        >
-          <div className="flex items-center gap-3">
-            <span className="text-2xl">📂</span>
-            <div className="text-left">
-              <h3 className="text-lg font-semibold text-orange-800">
-                Service Categories
-              </h3>
-              <p className="text-sm text-orange-600">
-                Configure service category cards and styling
-              </p>
-            </div>
-          </div>
-          <div
-            className={`transform transition-transform ${
-              expandedSections.categories ? "rotate-180" : ""
             }`}
           >
             <svg
@@ -331,11 +136,417 @@ export function ServicesPageSection({
           </div>
         </button>
 
-        {expandedSections.categories && (
+        {expandedSections.hero && (
           <div className="p-6 space-y-6">
-            {/* Category Styling */}
+            {/* Hero Content */}
             <div className="bg-orange-50 rounded-xl p-6">
               <h4 className="text-md font-semibold text-orange-800 mb-4 flex items-center gap-2">
+                📝 Hero Content
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Page Title"
+                  value={servicesPage.title || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("title", value)
+                  }
+                  placeholder="Our Auto Body Services"
+                  icon="📋"
+                />
+                <ColorPicker
+                  label="Title Color"
+                  value={servicesPage.heroTitleColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroTitleColor", value)
+                  }
+                  description="Hero title color"
+                />
+                <div className="md:col-span-2">
+                  <TextInput
+                    label="Subtitle"
+                    value={servicesPage.subtitle || ""}
+                    onChange={(value: string) =>
+                      updateServicesPage("subtitle", value)
+                    }
+                    placeholder="Expert collision repair and auto body services in Duluth, GA. Quality work guaranteed."
+                    icon="💬"
+                  />
+                </div>
+                <ColorPicker
+                  label="Subtitle Color"
+                  value={servicesPage.heroSubtitleColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroSubtitleColor", value)
+                  }
+                  description="Hero subtitle color"
+                />
+              </div>
+            </div>
+
+            {/* Hero Badge */}
+            <div className="bg-red-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-red-800 mb-4 flex items-center gap-2">
+                🏷️ Hero Badge
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Badge Text"
+                  value={servicesPage.badge || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("badge", value)
+                  }
+                  placeholder="Certified Auto Body Shop"
+                  icon="🏷️"
+                />
+                <ColorPicker
+                  label="Badge Background"
+                  value={servicesPage.heroBadgeBgColor || "#1e40af3a"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBadgeBgColor", value)
+                  }
+                  description="Badge background color"
+                />
+                <ColorPicker
+                  label="Badge Text Color"
+                  value={servicesPage.heroBadgeTextColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBadgeTextColor", value)
+                  }
+                  description="Badge text color"
+                />
+                <ColorPicker
+                  label="Badge Icon Color"
+                  value={servicesPage.heroBadgeIconColor || "#93c5fd"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBadgeIconColor", value)
+                  }
+                  description="Badge icon color"
+                />
+                <ColorPicker
+                  label="Badge Checkmark Color"
+                  value={servicesPage.heroBadgeCheckmarkColor || "#60a5fa"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBadgeCheckmarkColor", value)
+                  }
+                  description="Badge checkmark color"
+                />
+                <ColorPicker
+                  label="Badge Medal Icon Color"
+                  value={servicesPage.heroBadgeMedalIconColor || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBadgeMedalIconColor", value)
+                  }
+                  description="Badge medal icon color"
+                />
+              </div>
+            </div>
+
+            {/* Hero Stats Cards */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                📊 Hero Statistics Cards
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Card 1 Title"
+                  value={servicesPage.card1Title || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("card1Title", value)
+                  }
+                  placeholder="Years Experience"
+                  icon="🏆"
+                />
+                <TextInput
+                  label="Card 1 Value"
+                  value={servicesPage.card1Value || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("card1Value", value)
+                  }
+                  placeholder="15+"
+                  icon="🔢"
+                />
+                <TextInput
+                  label="Card 2 Title"
+                  value={servicesPage.card2Title || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("card2Title", value)
+                  }
+                  placeholder="Cars Repaired"
+                  icon="🏆"
+                />
+                <TextInput
+                  label="Card 2 Value"
+                  value={servicesPage.card2Value || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("card2Value", value)
+                  }
+                  placeholder="5000+"
+                  icon="🔢"
+                />
+                <ColorPicker
+                  label="Stats Card Background"
+                  value={servicesPage.heroStatsCardBgColor || "#1e40af4f"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroStatsCardBgColor", value)
+                  }
+                  description="Stats card background color"
+                />
+                <ColorPicker
+                  label="Stats Card Text Color"
+                  value={servicesPage.heroStatsCardTextColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroStatsCardTextColor", value)
+                  }
+                  description="Stats card text color"
+                />
+                <ColorPicker
+                  label="Stats Card Value Color"
+                  value={servicesPage.heroStatsCardValueColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroStatsCardValueColor", value)
+                  }
+                  description="Stats card value color"
+                />
+                <ColorPicker
+                  label="Stats Card Icon Color"
+                  value={servicesPage.heroStatsCardIconColor || "#93c5fd"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroStatsCardIconColor", value)
+                  }
+                  description="Stats card icon color"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Background & Decorative Elements */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("background")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-purple-50 to-pink-50 hover:from-purple-100 hover:to-pink-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">🎨</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-purple-800">
+                Background & Decorative Elements
+              </h3>
+              <p className="text-sm text-purple-600">
+                Hero background, gradients, patterns, and decorative elements
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.background ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-purple-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.background && (
+          <div className="p-6 space-y-6">
+            {/* Hero Background */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🖼️ Hero Background
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Hero Image"
+                  value={servicesPage.heroImage || ""}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroImage", value)
+                  }
+                  placeholder="/images/auto-services-hero.jpg"
+                  icon="🖼️"
+                />
+                <ColorPicker
+                  label="Background Gradient From"
+                  value={servicesPage.heroBgGradientFrom || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBgGradientFrom", value)
+                  }
+                  description="Background gradient start color"
+                />
+                <ColorPicker
+                  label="Background Gradient Via"
+                  value={servicesPage.heroBgGradientVia || "#1e3a8a"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBgGradientVia", value)
+                  }
+                  description="Background gradient middle color"
+                />
+                <ColorPicker
+                  label="Background Gradient To"
+                  value={servicesPage.heroBgGradientTo || "#1d4ed8"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBgGradientTo", value)
+                  }
+                  description="Background gradient end color"
+                />
+              </div>
+            </div>
+
+            {/* Hero Decorative Elements */}
+            <div className="bg-pink-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-pink-800 mb-4 flex items-center gap-2">
+                ✨ Hero Decorative Elements
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Blurred Circle 1 Color"
+                  value={servicesPage.heroBlurredCircle1Color || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBlurredCircle1Color", value)
+                  }
+                  description="First decorative circle color"
+                />
+                <ColorPicker
+                  label="Blurred Circle 2 Color"
+                  value={servicesPage.heroBlurredCircle2Color || "#60a5fa"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroBlurredCircle2Color", value)
+                  }
+                  description="Second decorative circle color"
+                />
+                <ColorPicker
+                  label="Pattern Color"
+                  value={servicesPage.heroPatternColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroPatternColor", value)
+                  }
+                  description="Background pattern color"
+                />
+                <ColorPicker
+                  label="Light Beam 1 Color"
+                  value={servicesPage.heroLightBeam1Color || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroLightBeam1Color", value)
+                  }
+                  description="First light beam color"
+                />
+                <ColorPicker
+                  label="Light Beam 2 Color"
+                  value={servicesPage.heroLightBeam2Color || "#93c5fd"}
+                  onChange={(value: string) =>
+                    updateServicesPage("heroLightBeam2Color", value)
+                  }
+                  description="Second light beam color"
+                />
+              </div>
+            </div>
+
+            {/* Service Categories Background */}
+            <div className="bg-indigo-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-indigo-800 mb-4 flex items-center gap-2">
+                🎯 Service Categories Background
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Categories Background Color"
+                  value={servicesPage.serviceCategoriesBgColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("serviceCategoriesBgColor", value)
+                  }
+                  description="Service categories section background"
+                />
+                <ColorPicker
+                  label="Categories Gradient From"
+                  value={servicesPage.serviceCategoriesBgColorFrom || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("serviceCategoriesBgColorFrom", value)
+                  }
+                  description="Categories background gradient start"
+                />
+                <ColorPicker
+                  label="Categories Gradient To"
+                  value={servicesPage.serviceCategoriesBgColorTo || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateServicesPage("serviceCategoriesBgColorTo", value)
+                  }
+                  description="Categories background gradient end"
+                />
+                <TextInput
+                  label="Gradient Opacity"
+                  value={
+                    servicesPage.serviceCategoriesGradientOpacity?.toString() ||
+                    "0.7"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesPage(
+                      "serviceCategoriesGradientOpacity",
+                      parseFloat(value)
+                    )
+                  }
+                  placeholder="0.7"
+                  icon="🎨"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Service Categories */}
+      <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <button
+          onClick={() => toggleSection("categories")}
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-blue-50 to-indigo-50 hover:from-blue-100 hover:to-indigo-100 transition-colors"
+        >
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">📂</span>
+            <div className="text-left">
+              <h3 className="text-lg font-semibold text-blue-800">
+                Service Categories
+              </h3>
+              <p className="text-sm text-blue-600">
+                Configure service category cards, individual services, and
+                styling
+              </p>
+            </div>
+          </div>
+          <div
+            className={`transform transition-transform ${
+              expandedSections.categories ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-5 h-5 text-blue-600"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        {expandedSections.categories && (
+          <div className="p-6 space-y-6">
+            {/* Category Card Styling */}
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-blue-800 mb-4 flex items-center gap-2">
                 🎨 Category Card Styling
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -374,6 +585,16 @@ export function ServicesPageSection({
                   description="Category card border color"
                 />
                 <ColorPicker
+                  label="Card Button Color"
+                  value={
+                    servicesPage.serviceCategoryCardButtonColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesPage("serviceCategoryCardButtonColor", value)
+                  }
+                  description="Category card button text color"
+                />
+                <ColorPicker
                   label="Card Button Background"
                   value={
                     servicesPage.serviceCategoryCardButtonBgColor ||
@@ -387,50 +608,321 @@ export function ServicesPageSection({
                   }
                   description="Category card button background"
                 />
+                <ColorPicker
+                  label="Card Button Hover Background"
+                  value={
+                    servicesPage.serviceCategoryCardButtonHoverBgColor ||
+                    "#2ba99f"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesPage(
+                      "serviceCategoryCardButtonHoverBgColor",
+                      value
+                    )
+                  }
+                  description="Category card button hover background"
+                />
+                <ColorPicker
+                  label="Card Button Hover Color"
+                  value={
+                    servicesPage.serviceCategoryCardButtonHoverColor ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesPage(
+                      "serviceCategoryCardButtonHoverColor",
+                      value
+                    )
+                  }
+                  description="Category card button hover text color"
+                />
               </div>
             </div>
 
             {/* Service Categories List */}
-            <div className="bg-yellow-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-yellow-800 mb-4 flex items-center gap-2">
-                📋 Service Categories
+            <div className="bg-indigo-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-indigo-800 mb-4 flex items-center gap-2">
+                📋 Service Categories Configuration
               </h4>
-              <div className="space-y-4">
+              <div className="space-y-6">
                 {servicesPage.serviceCategories?.map(
-                  (category: any, index: number) => (
-                    <div key={index} className="bg-white rounded-lg p-4 border">
-                      <h5 className="font-medium text-gray-800 mb-3">
-                        Category {index + 1}
+                  (category: any, categoryIndex: number) => (
+                    <div
+                      key={categoryIndex}
+                      className="bg-white rounded-lg p-6 border border-gray-200"
+                    >
+                      <h5 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <span className="text-lg">🏷️</span>
+                        Category {categoryIndex + 1}:{" "}
+                        {category.title || "Untitled"}
                       </h5>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+
+                      {/* Category Basic Info */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                         <TextInput
                           label="Category Title"
                           value={category.title || ""}
                           onChange={(value: string) =>
-                            updateServiceCategory(index, "title", value)
+                            updateServiceCategory(categoryIndex, "title", value)
                           }
-                          placeholder="Emergency and Health Services"
+                          placeholder="Collision Services"
                           icon="📝"
                         />
                         <TextInput
-                          label="Background Image"
-                          value={category.bgImage || ""}
+                          label="Category ID"
+                          value={category.id || ""}
                           onChange={(value: string) =>
-                            updateServiceCategory(index, "bgImage", value)
+                            updateServiceCategory(categoryIndex, "id", value)
                           }
-                          placeholder="davis2.png"
-                          icon="🖼️"
+                          placeholder="collision"
+                          icon="🆔"
                         />
                         <div className="md:col-span-2">
                           <TextInput
                             label="Description"
                             value={category.description || ""}
                             onChange={(value: string) =>
-                              updateServiceCategory(index, "description", value)
+                              updateServiceCategory(
+                                categoryIndex,
+                                "description",
+                                value
+                              )
                             }
-                            placeholder="From storm damage to disease prevention, we're here to protect your trees and property 24/7."
+                            placeholder="Complete collision repair services to restore your vehicle to pre-accident condition"
                             icon="💬"
                           />
+                        </div>
+                        <TextInput
+                          label="Background Image"
+                          value={category.bgImage || ""}
+                          onChange={(value: string) =>
+                            updateServiceCategory(
+                              categoryIndex,
+                              "bgImage",
+                              value
+                            )
+                          }
+                          placeholder="collision-repair.jpg"
+                          icon="🖼️"
+                        />
+                        <TextInput
+                          label="Icon"
+                          value={category.icon || ""}
+                          onChange={(value: string) =>
+                            updateServiceCategory(categoryIndex, "icon", value)
+                          }
+                          placeholder="WrenchScrewdriverIcon"
+                          icon="🔧"
+                        />
+                      </div>
+
+                      {/* Category Styling */}
+                      <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                        <h6 className="font-medium text-gray-700 mb-3">
+                          Category Styling
+                        </h6>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <ColorPicker
+                            label="Title Color"
+                            value={category.titleColor || "#ffffff"}
+                            onChange={(value: string) =>
+                              updateServiceCategory(
+                                categoryIndex,
+                                "titleColor",
+                                value
+                              )
+                            }
+                            description="Category title color"
+                          />
+                          <ColorPicker
+                            label="Description Color"
+                            value={category.descriptionColor || "#ffffff"}
+                            onChange={(value: string) =>
+                              updateServiceCategory(
+                                categoryIndex,
+                                "descriptionColor",
+                                value
+                              )
+                            }
+                            description="Category description color"
+                          />
+                          <ColorPicker
+                            label="Icon Color"
+                            value={category.iconColor || "#ffffff"}
+                            onChange={(value: string) =>
+                              updateServiceCategory(
+                                categoryIndex,
+                                "iconColor",
+                                value
+                              )
+                            }
+                            description="Category icon color"
+                          />
+                          <ColorPicker
+                            label="Border Color"
+                            value={category.borderColor || "#1e40af"}
+                            onChange={(value: string) =>
+                              updateServiceCategory(
+                                categoryIndex,
+                                "borderColor",
+                                value
+                              )
+                            }
+                            description="Category border color"
+                          />
+                          <TextInput
+                            label="Color Gradient"
+                            value={category.color || ""}
+                            onChange={(value: string) =>
+                              updateServiceCategory(
+                                categoryIndex,
+                                "color",
+                                value
+                              )
+                            }
+                            placeholder="#1e40af-#3b82f6"
+                            icon="🎨"
+                          />
+                        </div>
+                      </div>
+
+                      {/* Individual Services */}
+                      <div className="bg-blue-50 rounded-lg p-4">
+                        <h6 className="font-medium text-blue-700 mb-3 flex items-center gap-2">
+                          <span>🛠️</span>
+                          Individual Services ({category.services?.length || 0})
+                        </h6>
+                        <div className="space-y-4">
+                          {category.services?.map(
+                            (service: any, serviceIndex: number) => (
+                              <div
+                                key={serviceIndex}
+                                className="bg-white rounded-md p-4 border"
+                              >
+                                <div className="font-medium text-gray-600 mb-3">
+                                  Service {serviceIndex + 1}:{" "}
+                                  {service.title || "Untitled"}
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                  <TextInput
+                                    label="Service Title"
+                                    value={service.title || ""}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "title",
+                                        value
+                                      )
+                                    }
+                                    placeholder="Collision Repair"
+                                    icon="📝"
+                                  />
+                                  <TextInput
+                                    label="Service Icon"
+                                    value={service.icon || ""}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "icon",
+                                        value
+                                      )
+                                    }
+                                    placeholder="WrenchScrewdriverIcon"
+                                    icon="🔧"
+                                  />
+                                  <div className="md:col-span-2">
+                                    <TextInput
+                                      label="Description"
+                                      value={service.description || ""}
+                                      onChange={(value: string) =>
+                                        updateCategoryService(
+                                          categoryIndex,
+                                          serviceIndex,
+                                          "description",
+                                          value
+                                        )
+                                      }
+                                      placeholder="Expert repair for all types of collision damage..."
+                                      icon="💬"
+                                    />
+                                  </div>
+                                  <ColorPicker
+                                    label="Icon Color"
+                                    value={service.iconColor || "#3b82f6"}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "iconColor",
+                                        value
+                                      )
+                                    }
+                                    description="Service icon color"
+                                  />
+                                  <ColorPicker
+                                    label="Title Color"
+                                    value={service.titleColor || "#111827"}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "titleColor",
+                                        value
+                                      )
+                                    }
+                                    description="Service title color"
+                                  />
+                                  <ColorPicker
+                                    label="Description Color"
+                                    value={
+                                      service.descriptionColor || "#6b7280"
+                                    }
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "descriptionColor",
+                                        value
+                                      )
+                                    }
+                                    description="Service description color"
+                                  />
+                                  <ColorPicker
+                                    label="Background Color"
+                                    value={service.bgColor || "#f9fafb"}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "bgColor",
+                                        value
+                                      )
+                                    }
+                                    description="Service background color"
+                                  />
+                                  <ColorPicker
+                                    label="Border Color"
+                                    value={service.borderColor || "#e5e7eb"}
+                                    onChange={(value: string) =>
+                                      updateCategoryService(
+                                        categoryIndex,
+                                        serviceIndex,
+                                        "borderColor",
+                                        value
+                                      )
+                                    }
+                                    description="Service border color"
+                                  />
+                                </div>
+                              </div>
+                            )
+                          ) || (
+                            <p className="text-gray-500 italic text-sm">
+                              No services configured for this category
+                            </p>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -446,20 +938,20 @@ export function ServicesPageSection({
         )}
       </div>
 
-      {/* Call to Action */}
+      {/* Call to Action Section */}
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <button
           onClick={() => toggleSection("cta")}
-          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-emerald-50 to-green-50 hover:from-emerald-100 hover:to-green-100 transition-colors"
+          className="w-full flex items-center justify-between p-6 bg-gradient-to-r from-green-50 to-emerald-50 hover:from-green-100 hover:to-emerald-100 transition-colors"
         >
           <div className="flex items-center gap-3">
             <span className="text-2xl">📢</span>
             <div className="text-left">
-              <h3 className="text-lg font-semibold text-emerald-800">
+              <h3 className="text-lg font-semibold text-green-800">
                 Call to Action Section
               </h3>
-              <p className="text-sm text-emerald-600">
-                Bottom section with action buttons
+              <p className="text-sm text-green-600">
+                CTA background, content, and button styling
               </p>
             </div>
           </div>
@@ -469,7 +961,7 @@ export function ServicesPageSection({
             }`}
           >
             <svg
-              className="w-5 h-5 text-emerald-600"
+              className="w-5 h-5 text-green-600"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -486,6 +978,63 @@ export function ServicesPageSection({
 
         {expandedSections.cta && (
           <div className="p-6 space-y-6">
+            {/* CTA Background */}
+            <div className="bg-green-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
+                🎨 CTA Background & Styling
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Background Gradient From"
+                  value={servicesPage.ctaBgGradientFrom || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaBgGradientFrom", value)
+                  }
+                  description="CTA background gradient start"
+                />
+                <ColorPicker
+                  label="Background Gradient Via"
+                  value={servicesPage.ctaBgGradientVia || "#3b82f6"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaBgGradientVia", value)
+                  }
+                  description="CTA background gradient middle"
+                />
+                <ColorPicker
+                  label="Background Gradient To"
+                  value={servicesPage.ctaBgGradientTo || "#2563eb"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaBgGradientTo", value)
+                  }
+                  description="CTA background gradient end"
+                />
+                <ColorPicker
+                  label="Background Pattern Color"
+                  value={servicesPage.ctaBgPatternColor || "#ffffff60"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaBgPatternColor", value)
+                  }
+                  description="CTA background pattern color"
+                />
+                <ColorPicker
+                  label="CTA Card Background"
+                  value={servicesPage.ctaCardBgColor || "#ffffff2f"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaCardBgColor", value)
+                  }
+                  description="CTA card background color"
+                />
+                <ColorPicker
+                  label="CTA Card Border"
+                  value={servicesPage.ctaCardBorderColor || "#ffffff20"}
+                  onChange={(value: string) =>
+                    updateServicesPage("ctaCardBorderColor", value)
+                  }
+                  description="CTA card border color"
+                />
+              </div>
+            </div>
+
             {/* CTA Content */}
             <div className="bg-emerald-50 rounded-xl p-6">
               <h4 className="text-md font-semibold text-emerald-800 mb-4 flex items-center gap-2">
@@ -498,7 +1047,7 @@ export function ServicesPageSection({
                   onChange={(value: string) =>
                     updateServicesPage("ctaTitle", value)
                   }
-                  placeholder="Ready to free estimate?"
+                  placeholder="Ready to Get Your Car Back to Perfect?"
                   icon="📋"
                 />
                 <ColorPicker
@@ -516,7 +1065,7 @@ export function ServicesPageSection({
                     onChange={(value: string) =>
                       updateServicesPage("ctaDescription", value)
                     }
-                    placeholder="Schedule your estimate today and experience the difference expert tree care makes."
+                    placeholder="Schedule your appointment today and experience the difference expert auto body repair makes."
                     icon="💬"
                   />
                 </div>
@@ -532,8 +1081,8 @@ export function ServicesPageSection({
             </div>
 
             {/* CTA Buttons */}
-            <div className="bg-green-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-green-800 mb-4 flex items-center gap-2">
+            <div className="bg-teal-50 rounded-xl p-6">
+              <h4 className="text-md font-semibold text-teal-800 mb-4 flex items-center gap-2">
                 🔘 CTA Buttons
               </h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -548,11 +1097,27 @@ export function ServicesPageSection({
                 />
                 <ColorPicker
                   label="Schedule Button Background"
-                  value={servicesPage.scheduleButtonBgColor || "#7dd0ae"}
+                  value={servicesPage.scheduleButtonBgColor || "#ffffff"}
                   onChange={(value: string) =>
                     updateServicesPage("scheduleButtonBgColor", value)
                   }
-                  description="Schedule button background color"
+                  description="Schedule button background"
+                />
+                <ColorPicker
+                  label="Schedule Button Text Color"
+                  value={servicesPage.scheduleButtonTextColor || "#1e40af"}
+                  onChange={(value: string) =>
+                    updateServicesPage("scheduleButtonTextColor", value)
+                  }
+                  description="Schedule button text color"
+                />
+                <ColorPicker
+                  label="Schedule Button Hover Background"
+                  value={servicesPage.scheduleButtonHoverBgColor || "#f3f4f6"}
+                  onChange={(value: string) =>
+                    updateServicesPage("scheduleButtonHoverBgColor", value)
+                  }
+                  description="Schedule button hover background"
                 />
                 <TextInput
                   label="Call Button Text"
@@ -565,71 +1130,32 @@ export function ServicesPageSection({
                 />
                 <ColorPicker
                   label="Call Button Background"
-                  value={servicesPage.callButtonBgColor || "#ffffff"}
+                  value={servicesPage.callButtonBgColor || "#1e40af"}
                   onChange={(value: string) =>
                     updateServicesPage("callButtonBgColor", value)
                   }
-                  description="Call button background color"
-                />
-              </div>
-            </div>
-
-            {/* CTA Background */}
-            <div className="bg-teal-50 rounded-xl p-6">
-              <h4 className="text-md font-semibold text-teal-800 mb-4 flex items-center gap-2">
-                🎨 CTA Background
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <ColorPicker
-                  label="Background Gradient From"
-                  value={servicesPage.ctaBgGradientFrom || "#7dd0ae"}
-                  onChange={(value: string) =>
-                    updateServicesPage("ctaBgGradientFrom", value)
-                  }
-                  description="CTA background gradient start"
+                  description="Call button background"
                 />
                 <ColorPicker
-                  label="Background Gradient Via"
-                  value={servicesPage.ctaBgGradientVia || "#53a584"}
+                  label="Call Button Text Color"
+                  value={servicesPage.callButtonTextColor || "#ffffff"}
                   onChange={(value: string) =>
-                    updateServicesPage("ctaBgGradientVia", value)
+                    updateServicesPage("callButtonTextColor", value)
                   }
-                  description="CTA background gradient middle"
+                  description="Call button text color"
                 />
                 <ColorPicker
-                  label="Background Gradient To"
-                  value={servicesPage.ctaBgGradientTo || "#387e62"}
+                  label="Call Button Hover Background"
+                  value={servicesPage.callButtonHoverBgColor || "#1d4ed8"}
                   onChange={(value: string) =>
-                    updateServicesPage("ctaBgGradientTo", value)
+                    updateServicesPage("callButtonHoverBgColor", value)
                   }
-                  description="CTA background gradient end"
-                />
-                <ColorPicker
-                  label="Card Background"
-                  value={servicesPage.ctaCardBgColor || "#ffffff2f"}
-                  onChange={(value: string) =>
-                    updateServicesPage("ctaCardBgColor", value)
-                  }
-                  description="CTA card background color"
+                  description="Call button hover background"
                 />
               </div>
             </div>
           </div>
         )}
-      </div>
-
-      {/* Tips */}
-      <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
-        <h4 className="font-semibold text-yellow-800 mb-2 flex items-center gap-2">
-          💡 Pro Tips
-        </h4>
-        <ul className="text-sm text-yellow-700 space-y-1">
-          <li>• Use high-quality hero images that showcase your services</li>
-          <li>• Keep service category descriptions concise but informative</li>
-          <li>• Ensure good contrast between text and background colors</li>
-          <li>• Test CTA buttons to ensure they stand out and are clickable</li>
-          <li>• Use consistent color schemes that match your brand</li>
-        </ul>
       </div>
     </div>
   );

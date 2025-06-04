@@ -232,6 +232,7 @@ export default function Home() {
       {/* Hero Section using component */}
       <HeroSection
         backgroundImage={home.heroImage || ""}
+        mobileBackgroundImage={home.heroMobileImage || ""}
         title={home.title || "Welcome to our Site"}
         subtitle={home.subtitle2 || "We provide the best services"}
         content={home.content || ""}

@@ -190,6 +190,7 @@ const Header = () => {
           opacity: isScrolled ? "0" : "1",
           overflow: "hidden",
         }}
+        suppressHydrationWarning
       >
         <div className="container mx-auto px-4 h-11">
           <div className="h-full flex items-center justify-between">
@@ -245,6 +246,7 @@ const Header = () => {
         style={{
           background: navBg,
         }}
+        suppressHydrationWarning
       >
         <div className="container mx-auto px-4">
           <nav className="flex items-center justify-between py-3">
@@ -416,6 +418,7 @@ const Header = () => {
               style={{
                 backgroundColor: config.navBar?.mobileMenuBgColor || "#ffffff",
               }}
+              suppressHydrationWarning
             >
               <div className="flex flex-col h-full">
                 {/* Mobile Menu Header */}

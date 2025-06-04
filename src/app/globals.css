@@ -68,8 +68,8 @@
   margin: 24px auto;
   border-radius: 50%;
   border: var(--spinner-thickness, 4px) solid transparent;
-  border-top-color: var(--spinner-color, #66bf9b);
-  border-bottom-color: var(--spinner-color, #66bf9b);
+  border-top-color: var(--spinner-color, #1d4ed8);
+  border-bottom-color: var(--spinner-color, #1d4ed8);
   animation: spin 1.2s linear infinite;
   display: var(--spinner-display, block);
 }

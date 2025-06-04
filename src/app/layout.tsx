@@ -20,16 +20,16 @@ const loadingConfig = localConfig.loadingScreen || {
   backgroundColor: "#FFFFFF",
   logoImage: "TC-TITLE.png",
   logoWidth: 280,
-  logoAlt: "Davis Tree Service",
+  logoAlt: "Taylor's Collision",
   spinner: {
     enabled: true,
-    color: "#66bf9b",
+    color: "#1d4ed8",
     size: 60,
     thickness: 4,
   },
   timing: {
-    minimumDisplayTime: 800,
-    fadeOutDuration: 500,
+    minimumDisplayTime: 2000,
+    fadeOutDuration: 600,
   },
 };
 
@@ -96,7 +96,7 @@ export const generateViewport = () => {
   const browserConfig = localConfig.browser || {};
 
   return {
-    themeColor: browserConfig.themeColor || localConfig.themeColor || "#66bf9b",
+    themeColor: browserConfig.themeColor || localConfig.themeColor || "#1e40af",
   };
 };
 
@@ -115,8 +115,31 @@ export default function RootLayout({
   const htmlClasses = `${spaceGrotesk.variable} ${montserrat.variable} ${inter.variable} ${outfit.variable} scroll-smooth no-js`;
 
   return (
-    <html lang="en" className={htmlClasses}>
-      <head>{/* Minimal head content to avoid hydration issues */}</head>
+    <html lang="en" className={htmlClasses} suppressHydrationWarning>
+      <head>
+        {/* Immediate CSS variables to prevent flash of wrong colors */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            :root {
+              --loading-bg-color: ${loadingConfig.backgroundColor || "#FFFFFF"};
+              --loading-fade-duration: ${
+                loadingConfig.timing?.fadeOutDuration || 600
+              }ms;
+              --spinner-size: ${loadingConfig.spinner?.size || 60}px;
+              --spinner-thickness: ${loadingConfig.spinner?.thickness || 4}px;
+              --spinner-color: ${loadingConfig.spinner?.color || "#1d4ed8"};
+              --spinner-display: ${
+                loadingConfig.spinner?.enabled !== false ? "block" : "none"
+              };
+              --logo-width: ${loadingConfig.logoWidth || 280}px;
+              --theme-color: ${config.themeColor || "#1e40af"};
+              --theme-color-light: ${config.themeColor || "#1e40af"}22;
+            }
+          `,
+          }}
+        />
+      </head>
       <body className="antialiased bg-white font-sans" suppressHydrationWarning>
         {/* Loading overlay */}
         {isLoadingEnabled && (
@@ -179,7 +202,14 @@ export default function RootLayout({
               
               // Handle the loading overlay
               function hideLoadingOverlay() {
-                if (document.readyState === 'complete') {
+                const minimumDisplayTime = ${loadingConfig.timing.minimumDisplayTime};
+                const fadeOutDuration = ${loadingConfig.timing.fadeOutDuration};
+                const startTime = performance.now();
+                
+                function doHide() {
+                  const elapsedTime = performance.now() - startTime;
+                  const remainingTime = Math.max(0, minimumDisplayTime - elapsedTime);
+                  
                   setTimeout(() => {
                     const overlay = document.getElementById('loading-overlay');
                     if (overlay) {
@@ -188,12 +218,44 @@ export default function RootLayout({
                         overlay.style.display = 'none';
                         // Restore scroll position after loading is complete
                         restoreScrollPosition();
-                      }, 500);
+                      }, fadeOutDuration);
                     } else {
                       // If no loading overlay, restore immediately
                       restoreScrollPosition();
                     }
-                  }, 800);
+                  }, remainingTime);
+                }
+                
+                // Wait for both DOM complete and images loaded
+                if (document.readyState === 'complete') {
+                  // Also wait for any images to finish loading
+                  const images = document.images;
+                  let loadedImages = 0;
+                  const totalImages = images.length;
+                  
+                  if (totalImages === 0) {
+                    doHide();
+                    return;
+                  }
+                  
+                  function checkImagesLoaded() {
+                    loadedImages++;
+                    if (loadedImages >= totalImages) {
+                      doHide();
+                    }
+                  }
+                  
+                  // Set up image load listeners
+                  for (let i = 0; i < totalImages; i++) {
+                    if (images[i].complete) {
+                      checkImagesLoaded();
+                    } else {
+                      images[i].addEventListener('load', checkImagesLoaded);
+                      images[i].addEventListener('error', checkImagesLoaded); // Count errors as loaded
+                    }
+                  }
+                } else {
+                  doHide();
                 }
               }
               

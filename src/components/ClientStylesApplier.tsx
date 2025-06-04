@@ -80,7 +80,7 @@ export default function ClientStylesApplier({
 
     try {
       // Extract theme color if available
-      const themeColor = config.themeColor || "#66bf9b"; // Default to green
+      const themeColor = config.themeColor || "#1e40af"; // Default to blue
       const themeColorLight = `${themeColor}22`; // 13% opacity for backgrounds
 
       // Handle mobile detection after hydration
@@ -105,7 +105,7 @@ export default function ClientStylesApplier({
       );
       document.documentElement.style.setProperty(
         "--spinner-color",
-        loadingConfig.spinner?.color || "#66bf9b"
+        loadingConfig.spinner?.color || "#1d4ed8"
       );
       document.documentElement.style.setProperty(
         "--spinner-display",

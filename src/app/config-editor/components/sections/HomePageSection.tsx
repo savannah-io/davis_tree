@@ -178,6 +178,15 @@ export function HomePageSection({
                     icon="📝"
                   />
                 </div>
+                <TextInput
+                  label="Location"
+                  value={homePage.location || ""}
+                  onChange={(value: string) =>
+                    updateHomePage("location", value)
+                  }
+                  placeholder="Duluth, Georgia"
+                  icon="📍"
+                />
                 <ColorPicker
                   label="Title Color"
                   value={homePage.heroTitleColor || "#000000"}
@@ -185,6 +194,14 @@ export function HomePageSection({
                     updateHomePage("heroTitleColor", value)
                   }
                   description="Main title color"
+                />
+                <ColorPicker
+                  label="Location Color"
+                  value={homePage.heroLocationColor || "#e0f2fe"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroLocationColor", value)
+                  }
+                  description="Location text color"
                 />
                 <ColorPicker
                   label="Badge Title Color"
@@ -244,6 +261,16 @@ export function HomePageSection({
                   }
                   placeholder="auto1.png"
                   icon="🖼️"
+                />
+                <TextInput
+                  label="Hero Mobile Image"
+                  value={homePage.heroMobileImage || ""}
+                  onChange={(value: string) =>
+                    updateHomePage("heroMobileImage", value)
+                  }
+                  placeholder="auto-mobile.png"
+                  icon="📱"
+                  description="Separate image optimized for mobile devices"
                 />
               </div>
             </div>
@@ -574,6 +601,154 @@ export function HomePageSection({
               </div>
             </div>
 
+            {/* Schedule Icon Settings */}
+            <div className="bg-indigo-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-indigo-800 mb-4 flex items-center gap-2">
+                🕒 Schedule Icon Settings
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Icon Image"
+                  value={homePage.scheduleSection?.scheduleIconImage || ""}
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleIconImage", value)
+                  }
+                  placeholder="calendar.png"
+                  icon="🖼️"
+                  description="Icon file in /public/images/ folder"
+                />
+                <ColorPicker
+                  label="Icon Background Color"
+                  value={
+                    homePage.scheduleSection?.scheduleIconBgColor || "#3b82f6"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleIconBgColor", value)
+                  }
+                  description="Background color of the icon circle"
+                />
+                <ColorPicker
+                  label="Icon Color"
+                  value={
+                    homePage.scheduleSection?.scheduleIconColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleIconColor", value)
+                  }
+                  description="Color of the icon (if using icon font)"
+                />
+              </div>
+            </div>
+
+            {/* Schedule Content Settings */}
+            <div className="bg-emerald-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-emerald-800 mb-4 flex items-center gap-2">
+                📝 Schedule Content Settings
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <TextInput
+                  label="Booking Title"
+                  value={homePage.scheduleSection?.bookingTitle || ""}
+                  onChange={(value: string) =>
+                    updateScheduleSection("bookingTitle", value)
+                  }
+                  placeholder="Schedule Your Auto Estimate"
+                  icon="📅"
+                />
+                <ColorPicker
+                  label="Booking Title Color"
+                  value={
+                    homePage.scheduleSection?.bookingTitleColor || "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("bookingTitleColor", value)
+                  }
+                  description="Color of the main booking title"
+                />
+                <TextInput
+                  label="Schedule Title Part 1"
+                  value={homePage.scheduleSection?.scheduleTitlePart1 || ""}
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleTitlePart1", value)
+                  }
+                  placeholder="Book your appointment with our "
+                  icon="📝"
+                />
+                <ColorPicker
+                  label="Title Part 1 Color"
+                  value={
+                    homePage.scheduleSection?.scheduleTitlePart1Color ||
+                    "#111827"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleTitlePart1Color", value)
+                  }
+                  description="Color of the first part of the title"
+                />
+                <TextInput
+                  label="Schedule Title Part 2"
+                  value={homePage.scheduleSection?.scheduleTitlePart2 || ""}
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleTitlePart2", value)
+                  }
+                  placeholder="expert technicians"
+                  icon="📝"
+                />
+                <ColorPicker
+                  label="Title Part 2 Color"
+                  value={
+                    homePage.scheduleSection?.scheduleTitlePart2Color ||
+                    "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleTitlePart2Color", value)
+                  }
+                  description="Color of the highlighted part of the title"
+                />
+                <TextInput
+                  label="Schedule Address"
+                  value={homePage.scheduleSection?.scheduleAddress || ""}
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleAddress", value)
+                  }
+                  placeholder="2785 Buford Hwy Ste 101-C, Duluth, GA 30096"
+                  icon="📍"
+                />
+                <ColorPicker
+                  label="Address Color"
+                  value={
+                    homePage.scheduleSection?.scheduleAddressColor || "#6b7280"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleAddressColor", value)
+                  }
+                  description="Color of the address text"
+                />
+                <div className="md:col-span-2">
+                  <TextInput
+                    label="Schedule Content"
+                    value={homePage.scheduleSection?.scheduleContent || ""}
+                    onChange={(value: string) =>
+                      updateScheduleSection("scheduleContent", value)
+                    }
+                    placeholder="We'll get your vehicle back to its best condition with professional collision repair services."
+                    icon="💬"
+                    description="Descriptive text about the scheduling process"
+                  />
+                </div>
+                <ColorPicker
+                  label="Content Color"
+                  value={
+                    homePage.scheduleSection?.scheduleContentColor || "#6b7280"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleContentColor", value)
+                  }
+                  description="Color of the content description text"
+                />
+              </div>
+            </div>
+
             {/* Calendar Settings */}
             <div className="bg-blue-50 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2">
@@ -782,6 +957,378 @@ export function HomePageSection({
             </div>
 
             {/* Guarantee Items */}
+            <div className="bg-blue-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2">
+                🛡️ Guarantee Items
+              </h3>
+
+              {/* Item 1 */}
+              <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-gray-800 mb-3">Item 1</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <TextInput
+                    label="Icon 1"
+                    value={homePage.guaranteeSection?.guaranteeIcon1 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIcon1", value)
+                    }
+                    placeholder="shield.png"
+                    icon="🖼️"
+                  />
+                  <TextInput
+                    label="Title 1"
+                    value={homePage.guaranteeSection?.guaranteeTitle1 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitle1", value)
+                    }
+                    placeholder="Lifetime Warranty"
+                    icon="📝"
+                  />
+                  <TextInput
+                    label="Subtitle 1"
+                    value={homePage.guaranteeSection?.guaranteeSubtitle1 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeSubtitle1", value)
+                    }
+                    placeholder="On All Services"
+                    icon="📝"
+                  />
+                  <ColorPicker
+                    label="Icon Background 1"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBgColor1 ||
+                      "#ffffff"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBgColor1", value)
+                    }
+                    description="Icon background color"
+                  />
+                  <ColorPicker
+                    label="Icon Border 1"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBorderColor1 ||
+                      "#dbeafe"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBorderColor1", value)
+                    }
+                    description="Icon border color"
+                  />
+                  <ColorPicker
+                    label="Title Color 1"
+                    value={
+                      homePage.guaranteeSection?.guaranteeTitleTextColor1 ||
+                      "#111827"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitleTextColor1", value)
+                    }
+                    description="Title text color"
+                  />
+                  <ColorPicker
+                    label="Subtitle Color 1"
+                    value={
+                      homePage.guaranteeSection?.guaranteeSubtitleTextColor1 ||
+                      "#6b7280"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection(
+                        "guaranteeSubtitleTextColor1",
+                        value
+                      )
+                    }
+                    description="Subtitle text color"
+                  />
+                </div>
+              </div>
+
+              {/* Item 2 */}
+              <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-gray-800 mb-3">Item 2</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <TextInput
+                    label="Icon 2"
+                    value={homePage.guaranteeSection?.guaranteeIcon2 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIcon2", value)
+                    }
+                    placeholder="estimate.png"
+                    icon="🖼️"
+                  />
+                  <TextInput
+                    label="Title 2"
+                    value={homePage.guaranteeSection?.guaranteeTitle2 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitle2", value)
+                    }
+                    placeholder="Free Estimates"
+                    icon="📝"
+                  />
+                  <TextInput
+                    label="Subtitle 2"
+                    value={homePage.guaranteeSection?.guaranteeSubtitle2 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeSubtitle2", value)
+                    }
+                    placeholder="Quick & Accurate"
+                    icon="📝"
+                  />
+                  <ColorPicker
+                    label="Icon Background 2"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBgColor2 ||
+                      "#ffffff"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBgColor2", value)
+                    }
+                    description="Icon background color"
+                  />
+                  <ColorPicker
+                    label="Icon Border 2"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBorderColor2 ||
+                      "#dbeafe"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBorderColor2", value)
+                    }
+                    description="Icon border color"
+                  />
+                  <ColorPicker
+                    label="Title Color 2"
+                    value={
+                      homePage.guaranteeSection?.guaranteeTitleTextColor2 ||
+                      "#111827"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitleTextColor2", value)
+                    }
+                    description="Title text color"
+                  />
+                  <ColorPicker
+                    label="Subtitle Color 2"
+                    value={
+                      homePage.guaranteeSection?.guaranteeSubtitleTextColor2 ||
+                      "#6b7280"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection(
+                        "guaranteeSubtitleTextColor2",
+                        value
+                      )
+                    }
+                    description="Subtitle text color"
+                  />
+                </div>
+              </div>
+
+              {/* Center Logo */}
+              <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-gray-800 mb-3">
+                  Center Logo
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <TextInput
+                    label="Center Logo"
+                    value={homePage.guaranteeSection?.guaranteeCenterLogo || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeCenterLogo", value)
+                    }
+                    placeholder="ppg-logo.png"
+                    icon="🖼️"
+                  />
+                  <ColorPicker
+                    label="Center Background"
+                    value={
+                      homePage.guaranteeSection?.guaranteeCenterBgColor ||
+                      "#ffffff"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeCenterBgColor", value)
+                    }
+                    description="Center logo background"
+                  />
+                  <ColorPicker
+                    label="Center Border"
+                    value={
+                      homePage.guaranteeSection?.guaranteeCenterBorderColor ||
+                      "#dbeafe"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection(
+                        "guaranteeCenterBorderColor",
+                        value
+                      )
+                    }
+                    description="Center logo border"
+                  />
+                </div>
+              </div>
+
+              {/* Item 4 */}
+              <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-gray-800 mb-3">Item 4</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <TextInput
+                    label="Icon 4"
+                    value={homePage.guaranteeSection?.guaranteeIcon4 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIcon4", value)
+                    }
+                    placeholder="insurance.png"
+                    icon="🖼️"
+                  />
+                  <TextInput
+                    label="Title 4"
+                    value={homePage.guaranteeSection?.guaranteeTitle4 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitle4", value)
+                    }
+                    placeholder="Insurance Approved"
+                    icon="📝"
+                  />
+                  <TextInput
+                    label="Subtitle 4"
+                    value={homePage.guaranteeSection?.guaranteeSubtitle4 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeSubtitle4", value)
+                    }
+                    placeholder="All Major & Minor Companies"
+                    icon="📝"
+                  />
+                  <ColorPicker
+                    label="Icon Background 4"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBgColor4 ||
+                      "#ffffff"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBgColor4", value)
+                    }
+                    description="Icon background color"
+                  />
+                  <ColorPicker
+                    label="Icon Border 4"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBorderColor4 ||
+                      "#dbeafe"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBorderColor4", value)
+                    }
+                    description="Icon border color"
+                  />
+                  <ColorPicker
+                    label="Title Color 4"
+                    value={
+                      homePage.guaranteeSection?.guaranteeTitleTextColor4 ||
+                      "#111827"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitleTextColor4", value)
+                    }
+                    description="Title text color"
+                  />
+                  <ColorPicker
+                    label="Subtitle Color 4"
+                    value={
+                      homePage.guaranteeSection?.guaranteeSubtitleTextColor4 ||
+                      "#6b7280"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection(
+                        "guaranteeSubtitleTextColor4",
+                        value
+                      )
+                    }
+                    description="Subtitle text color"
+                  />
+                </div>
+              </div>
+
+              {/* Item 5 */}
+              <div className="border border-gray-200 rounded-lg p-4 mb-4">
+                <h4 className="font-semibold text-gray-800 mb-3">Item 5</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <TextInput
+                    label="Icon 5"
+                    value={homePage.guaranteeSection?.guaranteeIcon5 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIcon5", value)
+                    }
+                    placeholder="tow-truck.png"
+                    icon="🖼️"
+                  />
+                  <TextInput
+                    label="Title 5"
+                    value={homePage.guaranteeSection?.guaranteeTitle5 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitle5", value)
+                    }
+                    placeholder="Towing Service"
+                    icon="📝"
+                  />
+                  <TextInput
+                    label="Subtitle 5"
+                    value={homePage.guaranteeSection?.guaranteeSubtitle5 || ""}
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeSubtitle5", value)
+                    }
+                    placeholder="24/7 Available"
+                    icon="📝"
+                  />
+                  <ColorPicker
+                    label="Icon Background 5"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBgColor5 ||
+                      "#ffffff"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBgColor5", value)
+                    }
+                    description="Icon background color"
+                  />
+                  <ColorPicker
+                    label="Icon Border 5"
+                    value={
+                      homePage.guaranteeSection?.guaranteeIconBorderColor5 ||
+                      "#dbeafe"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeIconBorderColor5", value)
+                    }
+                    description="Icon border color"
+                  />
+                  <ColorPicker
+                    label="Title Color 5"
+                    value={
+                      homePage.guaranteeSection?.guaranteeTitleTextColor5 ||
+                      "#111827"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection("guaranteeTitleTextColor5", value)
+                    }
+                    description="Title text color"
+                  />
+                  <ColorPicker
+                    label="Subtitle Color 5"
+                    value={
+                      homePage.guaranteeSection?.guaranteeSubtitleTextColor5 ||
+                      "#6b7280"
+                    }
+                    onChange={(value: string) =>
+                      updateGuaranteeSection(
+                        "guaranteeSubtitleTextColor5",
+                        value
+                      )
+                    }
+                    description="Subtitle text color"
+                  />
+                </div>
+              </div>
+            </div>
             <div className="bg-emerald-50 rounded-xl p-6">
               <h3 className="text-lg font-semibold text-emerald-800 mb-4 flex items-center gap-2">
                 🎯 Guarantee Items
@@ -877,6 +1424,252 @@ export function HomePageSection({
                   }
                   placeholder="Explore Our Services"
                   icon="🔘"
+                />
+                <TextInput
+                  label="Button URL"
+                  value={homePage.servicesSection?.servicesButtonUrl || ""}
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesButtonUrl", value)
+                  }
+                  placeholder="/services"
+                  icon="🔗"
+                />
+                <div className="md:col-span-2">
+                  <TextInput
+                    label="Services Description"
+                    value={homePage.servicesSection?.servicesDescription || ""}
+                    onChange={(value: string) =>
+                      updateServicesSection("servicesDescription", value)
+                    }
+                    placeholder="We specialize in comprehensive auto body repair services..."
+                    icon="📝"
+                    description="Description text for the services section"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Services Text Colors */}
+            <div className="bg-pink-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-pink-800 mb-4 flex items-center gap-2">
+                🎨 Services Text Colors
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Badge Background"
+                  value={
+                    homePage.servicesSection?.servicesBadgeColor || "#dbeafe6b"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesBadgeColor", value)
+                  }
+                  description="Badge background color"
+                />
+                <ColorPicker
+                  label="Badge Text Color"
+                  value={
+                    homePage.servicesSection?.servicesBadgeTextColor ||
+                    "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesBadgeTextColor", value)
+                  }
+                  description="Badge text color"
+                />
+                <ColorPicker
+                  label="Title Color"
+                  value={
+                    homePage.servicesSection?.servicesTitleColor || "#111827"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesTitleColor", value)
+                  }
+                  description="Main title color"
+                />
+                <ColorPicker
+                  label="Highlight Color"
+                  value={
+                    homePage.servicesSection?.servicesHighlightColor ||
+                    "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesHighlightColor", value)
+                  }
+                  description="Highlight text color"
+                />
+                <ColorPicker
+                  label="Highlight Underline"
+                  value={
+                    homePage.servicesSection?.servicesHighlightUnderlineColor ||
+                    "#3b82f642"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "servicesHighlightUnderlineColor",
+                      value
+                    )
+                  }
+                  description="Underline decoration color"
+                />
+                <ColorPicker
+                  label="Description Color"
+                  value={
+                    homePage.servicesSection?.servicesDescriptionColor ||
+                    "#6b7280"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesDescriptionColor", value)
+                  }
+                  description="Description text color"
+                />
+                <ColorPicker
+                  label="Button Text Color"
+                  value={
+                    homePage.servicesSection?.servicesButtonTextColor ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesButtonTextColor", value)
+                  }
+                  description="Button text color"
+                />
+              </div>
+            </div>
+
+            {/* Service Cards */}
+            <div className="bg-indigo-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-indigo-800 mb-4 flex items-center gap-2">
+                📋 Service Card Styling
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Card Background"
+                  value={
+                    homePage.servicesSection?.serviceReelCardBgColor ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelCardBgColor", value)
+                  }
+                  description="Service card background"
+                />
+                <ColorPicker
+                  label="Card Border"
+                  value={
+                    homePage.servicesSection?.serviceReelCardBorderColor ||
+                    "#f3f4f680"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelCardBorderColor", value)
+                  }
+                  description="Service card border"
+                />
+                <ColorPicker
+                  label="Card Hover Shadow"
+                  value={
+                    homePage.servicesSection?.serviceReelCardHoverShadowColor ||
+                    "rgba(0, 0, 0, 0.08)"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "serviceReelCardHoverShadowColor",
+                      value
+                    )
+                  }
+                  description="Card hover shadow color"
+                />
+                <ColorPicker
+                  label="Icon Color"
+                  value={
+                    homePage.servicesSection?.serviceReelIconColor || "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelIconColor", value)
+                  }
+                  description="Service card icon color"
+                />
+                <ColorPicker
+                  label="Title Color"
+                  value={
+                    homePage.servicesSection?.serviceReelTitleColor || "#111827"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelTitleColor", value)
+                  }
+                  description="Service card title color"
+                />
+                <ColorPicker
+                  label="Title Hover Color"
+                  value={
+                    homePage.servicesSection?.serviceReelTitleHoverColor ||
+                    "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelTitleHoverColor", value)
+                  }
+                  description="Title hover color"
+                />
+                <ColorPicker
+                  label="Description Color"
+                  value={
+                    homePage.servicesSection?.serviceReelDescriptionColor ||
+                    "#6b7280"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelDescriptionColor", value)
+                  }
+                  description="Card description color"
+                />
+                <ColorPicker
+                  label="Description Hover"
+                  value={
+                    homePage.servicesSection
+                      ?.serviceReelDescriptionHoverColor || "#374151"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "serviceReelDescriptionHoverColor",
+                      value
+                    )
+                  }
+                  description="Description hover color"
+                />
+              </div>
+            </div>
+
+            {/* Mobile Indicators */}
+            <div className="bg-orange-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-orange-800 mb-4 flex items-center gap-2">
+                📱 Mobile Indicators
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Active Indicator"
+                  value={
+                    homePage.servicesSection?.serviceReelMobileIndicatorColor ||
+                    "#1e40af"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "serviceReelMobileIndicatorColor",
+                      value
+                    )
+                  }
+                  description="Active mobile indicator color"
+                />
+                <ColorPicker
+                  label="Inactive Indicator"
+                  value={
+                    homePage.servicesSection?.serviceReelMobileInactiveColor ||
+                    "#e0e0e0"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection(
+                      "serviceReelMobileInactiveColor",
+                      value
+                    )
+                  }
+                  description="Inactive mobile indicator color"
                 />
               </div>
             </div>
@@ -1004,6 +1797,208 @@ export function HomePageSection({
                   }
                   placeholder="View All Reviews"
                   icon="🔘"
+                />
+                <TextInput
+                  label="Subtitle"
+                  value={homePage.reviewsSection?.reviewsSubtitle || ""}
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsSubtitle", value)
+                  }
+                  placeholder="We're committed to excellence"
+                  icon="📝"
+                />
+              </div>
+            </div>
+
+            {/* Review Text Colors */}
+            <div className="bg-teal-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-teal-800 mb-4 flex items-center gap-2">
+                🎨 Review Text Colors
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Badge Background"
+                  value={
+                    homePage.reviewsSection?.reviewsBadgeColor ||
+                    "rgba(255, 255, 255, 0.1)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsBadgeColor", value)
+                  }
+                  description="Badge background color"
+                />
+                <ColorPicker
+                  label="Badge Text Color"
+                  value={
+                    homePage.reviewsSection?.reviewsBadgeTextColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsBadgeTextColor", value)
+                  }
+                  description="Badge text color"
+                />
+                <ColorPicker
+                  label="Title Color"
+                  value={
+                    homePage.reviewsSection?.reviewsTitleColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsTitleColor", value)
+                  }
+                  description="Main title color"
+                />
+                <ColorPicker
+                  label="Highlight Color"
+                  value={
+                    homePage.reviewsSection?.reviewsHighlightColor || "#93c5fd"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsHighlightColor", value)
+                  }
+                  description="Highlight text color"
+                />
+                <ColorPicker
+                  label="Subtitle Color"
+                  value={
+                    homePage.reviewsSection?.reviewsSubtitleColor || "#e0f2fe"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsSubtitleColor", value)
+                  }
+                  description="Subtitle text color"
+                />
+              </div>
+            </div>
+
+            {/* Review Cards */}
+            <div className="bg-slate-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
+                💬 Review Card Styling
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Card Background"
+                  value={
+                    homePage.reviewsSection?.reviewCardBgColor ||
+                    "rgba(255, 255, 255, 0.1)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewCardBgColor", value)
+                  }
+                  description="Review card background"
+                />
+                <ColorPicker
+                  label="Card Border"
+                  value={
+                    homePage.reviewsSection?.reviewCardBorderColor ||
+                    "rgba(255, 255, 255, 0.2)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewCardBorderColor", value)
+                  }
+                  description="Review card border"
+                />
+                <ColorPicker
+                  label="Card Hover Border"
+                  value={
+                    homePage.reviewsSection?.reviewCardHoverBorderColor ||
+                    "rgba(255, 255, 255, 0.3)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewCardHoverBorderColor", value)
+                  }
+                  description="Card hover border color"
+                />
+                <ColorPicker
+                  label="Review Text Color"
+                  value={
+                    homePage.reviewsSection?.reviewTextColor ||
+                    "rgba(255, 255, 255, 0.9)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewTextColor", value)
+                  }
+                  description="Review text color"
+                />
+                <ColorPicker
+                  label="Author Color"
+                  value={
+                    homePage.reviewsSection?.reviewAuthorColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewAuthorColor", value)
+                  }
+                  description="Author name color"
+                />
+                <ColorPicker
+                  label="Verified Color"
+                  value={
+                    homePage.reviewsSection?.reviewVerifiedColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewVerifiedColor", value)
+                  }
+                  description="Verified text color"
+                />
+                <ColorPicker
+                  label="Star Color"
+                  value={homePage.reviewsSection?.reviewStarColor || "#fbbf24"}
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewStarColor", value)
+                  }
+                  description="Star rating color"
+                />
+              </div>
+            </div>
+
+            {/* View All Button */}
+            <div className="bg-lime-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-lime-800 mb-4 flex items-center gap-2">
+                🔘 View All Button
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Button Background"
+                  value={
+                    homePage.reviewsSection?.viewAllButtonBgColor ||
+                    "rgba(255, 255, 255, 0.1)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("viewAllButtonBgColor", value)
+                  }
+                  description="Button background color"
+                />
+                <ColorPicker
+                  label="Button Hover BG"
+                  value={
+                    homePage.reviewsSection?.viewAllButtonHoverBgColor ||
+                    "rgba(255, 255, 255, 0.2)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("viewAllButtonHoverBgColor", value)
+                  }
+                  description="Button hover background"
+                />
+                <ColorPicker
+                  label="Button Text Color"
+                  value={
+                    homePage.reviewsSection?.viewAllButtonTextColor || "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("viewAllButtonTextColor", value)
+                  }
+                  description="Button text color"
+                />
+                <ColorPicker
+                  label="Button Border"
+                  value={
+                    homePage.reviewsSection?.viewAllButtonBorderColor ||
+                    "rgba(255, 255, 255, 0.2)"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("viewAllButtonBorderColor", value)
+                  }
+                  description="Button border color"
                 />
               </div>
             </div>

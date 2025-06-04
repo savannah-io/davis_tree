@@ -905,7 +905,7 @@ const localConfig: LocalConfig = {
     "terms": "Our terms of service text here.",
     "privacy": "Our privacy policy text here."
   },
-  "description": "Premier auto body shop in Savannah, GA - Expert collision repair",
+  "description": "Premier auto body shop in Duluth, GA - Expert collision repair",
   "contactInfo": {
     "address": "2785 Buford Hwy Ste 101-C, Duluth, GA 30096",
     "phone": "(770) 495-0050",
