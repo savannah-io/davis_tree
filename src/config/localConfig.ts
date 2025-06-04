@@ -1,5 +1,5 @@
 // Define the type for the localConfig object
-import { SiteConfig } from './configTypes';
+import { SiteConfig } from "./configTypes";
 
 // Export the LocalConfig interface as an alias for backward compatibility
 export type LocalConfig = SiteConfig;
@@ -133,23 +133,23 @@ const localConfig: LocalConfig = {
       heroContactButtonHoverTextColor: "#000000",
       heroContactButtonHoverBorderColor: "#000000",
       heroCard1Text: "*Free Estimates",
-      heroBox1BgColor: "#66bf9b1f",
+      heroBox1BgColor: "#092a41",
       heroBox1TextColor: "#ffffff",
-      heroBox1BorderColor: "#66bf9b",
-      heroBox1IconBgColor: "#7fd1b6",
-      heroBox1IconColor: "#000000",
+      heroBox1BorderColor: "#6b7280",
+      heroBox1IconBgColor: "#0b5073",
+      heroBox1IconColor: "#ffffff",
       heroCard2Text: "Licensed",
-      heroBox2BgColor: "#66bf9b1f",
+      heroBox2BgColor: "#092a41",
       heroBox2TextColor: "#ffffff",
-      heroBox2BorderColor: "#66bf9b",
-      heroBox2IconBgColor: "#7fd1b6",
-      heroBox2IconColor: "#000000",
+      heroBox2BorderColor: "#6b7280",
+      heroBox2IconBgColor: "#0b5073",
+      heroBox2IconColor: "#ffffff",
       heroCard3Text: "Fast Removal",
-      heroBox3BgColor: "#66bf9b1f",
+      heroBox3BgColor: "#092a41",
       heroBox3TextColor: "#ffffff",
-      heroBox3BorderColor: "#66bf9b",
-      heroBox3IconBgColor: "#7fd1b6",
-      heroBox3IconColor: "#000000",
+      heroBox3BorderColor: "#6b7280",
+      heroBox3IconBgColor: "#0b5073",
+      heroBox3IconColor: "#ffffff",
       scheduleSection: {
         scheduleSectionTitle: "REQUEST A FREE ESTIMATE BELOW",
         scheduleSectionTitleColor: "#53a584",
