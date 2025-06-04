@@ -34,18 +34,42 @@ print_error() {
 check_auth() {
     print_status "Checking GitHub authentication..."
     
+    # Get current git user
+    CURRENT_GIT_USER=$(git config user.name)
+    CURRENT_GIT_EMAIL=$(git config user.email)
+    
+    print_status "Current Git user: $CURRENT_GIT_USER ($CURRENT_GIT_EMAIL)"
+    
+    # Get the repository URL to show which account we need
+    REPO_URL=$(git remote get-url origin)
+    print_status "Repository: $REPO_URL"
+    
     # Try a simple fetch to test authentication
+    print_status "Testing authentication..."
     if git fetch origin --dry-run 2>/dev/null; then
         print_success "GitHub authentication is working!"
         return 0
     else
         print_error "GitHub authentication failed!"
-        print_status "Solutions:"
-        echo "  1. Open GitHub Desktop and sign in"
-        echo "  2. Run: git config --global credential.helper manager-core"
-        echo "  3. Or set up a personal access token"
+        print_status "Common causes and solutions:"
         echo ""
-        echo "After fixing authentication, run the script again."
+        echo "🔑 AUTHENTICATION ISSUE DETECTED:"
+        echo "   Your git is configured for a different GitHub account"
+        echo "   Repository owner: savannah-io"  
+        echo "   Your current account: $(git remote get-url origin | grep -o 'github.com/[^/]*' | cut -d'/' -f2 || echo 'unknown')"
+        echo ""
+        echo "📋 QUICK FIXES:"
+        echo "   1. Open GitHub Desktop → File → Options → Accounts"
+        echo "      Sign out and sign in with the correct account"
+        echo ""
+        echo "   2. Or run these commands:"
+        echo "      git config --global credential.helper manager-core"
+        echo "      git push origin shared-dev"
+        echo "      (This will prompt for correct credentials)"
+        echo ""
+        echo "   3. If you're a collaborator on savannah-io/davis_tree:"
+        echo "      Make sure you have push access to the repository"
+        echo ""
         return 1
     fi
 }
@@ -257,6 +281,33 @@ show_status() {
     fi
 }
 
+# Fix authentication function
+fix_auth() {
+    print_status "Attempting to fix GitHub authentication..."
+    
+    print_status "Setting up credential helper..."
+    git config --global credential.helper manager-core
+    
+    print_status "Clearing cached credentials..."
+    git config --global --unset credential.helper 2>/dev/null || true
+    git config --global credential.helper manager-core
+    
+    print_status "Testing authentication with manual push..."
+    echo ""
+    print_warning "You will be prompted to enter your GitHub credentials"
+    print_status "Make sure to use the account that has access to savannah-io/davis_tree"
+    echo ""
+    
+    if git push origin shared-dev; then
+        print_success "Authentication fixed! You can now use './collaborate.sh push'"
+    else
+        print_error "Still having authentication issues."
+        print_status "Please:"
+        echo "  1. Open GitHub Desktop and sign in with the correct account"
+        echo "  2. Or check if you have access to the savannah-io/davis_tree repository"
+    fi
+}
+
 # Main script logic
 case "$1" in
     "setup")
@@ -271,21 +322,28 @@ case "$1" in
     "status"|"")
         show_status
         ;;
+    "fix-auth")
+        fix_auth
+        ;;
     *)
         echo "Davis Tree Collaboration Script"
         echo ""
         echo "Usage: ./collaborate.sh [command]"
         echo ""
         echo "Commands:"
-        echo "  setup  - Set up shared collaboration branch (run once)"
-        echo "  push   - Commit and share your changes with partner"
-        echo "  pull   - Get partner's latest changes"
-        echo "  status - Show current project status"
+        echo "  setup    - Set up shared collaboration branch (run once)"
+        echo "  push     - Commit and share your changes with partner"
+        echo "  pull     - Get partner's latest changes"
+        echo "  status   - Show current project status"
+        echo "  fix-auth - Fix GitHub authentication issues"
         echo ""
         echo "Quick workflow:"
         echo "  1. Run './collaborate.sh setup' (first time only)"
         echo "  2. Work on your changes"
         echo "  3. Run './collaborate.sh push' to share"
         echo "  4. Partner runs './collaborate.sh pull' to get changes"
+        echo ""
+        echo "🔧 If you get authentication errors:"
+        echo "     ./collaborate.sh fix-auth"
         ;;
 esac 
