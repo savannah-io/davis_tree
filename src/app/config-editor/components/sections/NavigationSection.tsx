@@ -168,6 +168,76 @@ export function NavigationSection({
         </div>
       </div>
 
+      {/* Site Title Gradients */}
+      <div className="bg-purple-50 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+          🎨 Site Title Gradients
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ColorPicker
+            label="Site Title Gradient From"
+            value={config.navBar?.siteTitleGradientFrom || "#367658"}
+            onChange={(value) => updateNavBar("siteTitleGradientFrom", value)}
+            description="Site title gradient start color"
+          />
+          <ColorPicker
+            label="Site Title Gradient To"
+            value={config.navBar?.siteTitleGradientTo || "#0c2217"}
+            onChange={(value) => updateNavBar("siteTitleGradientTo", value)}
+            description="Site title gradient end color"
+          />
+        </div>
+      </div>
+
+      {/* Mobile Navigation */}
+      <div className="bg-orange-50 rounded-xl p-6">
+        <h3 className="text-lg font-semibold text-orange-800 mb-4 flex items-center gap-2">
+          📱 Mobile Navigation
+        </h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <ColorPicker
+            label="Hamburger Icon Color"
+            value={config.navBar?.hamburgerIconColor || "#387e62"}
+            onChange={(value) => updateNavBar("hamburgerIconColor", value)}
+            description="Mobile menu hamburger icon"
+          />
+          <ColorPicker
+            label="Hamburger Hover Background"
+            value={config.navBar?.hamburgerIconHoverBgColor || "#66bf9b20"}
+            onChange={(value) =>
+              updateNavBar("hamburgerIconHoverBgColor", value)
+            }
+            description="Hamburger icon hover background"
+          />
+          <ColorPicker
+            label="Mobile Menu Background"
+            value={config.navBar?.mobileMenuBgColor || "#ffffff"}
+            onChange={(value) => updateNavBar("mobileMenuBgColor", value)}
+            description="Mobile menu background color"
+          />
+          <ColorPicker
+            label="Mobile Nav Text Color"
+            value={config.navBar?.mobileNavTextColor || "#111827"}
+            onChange={(value) => updateNavBar("mobileNavTextColor", value)}
+            description="Mobile navigation text color"
+          />
+          <ColorPicker
+            label="Mobile Active Tab Background"
+            value={config.navBar?.mobileActiveTabBgColor || "#66bf9b20"}
+            onChange={(value) => updateNavBar("mobileActiveTabBgColor", value)}
+            description="Mobile active tab background"
+          />
+          <ColorPicker
+            label="Mobile Active Tab Text"
+            value={config.navBar?.mobileActiveTabTextColor || "#387e62"}
+            onChange={(value) =>
+              updateNavBar("mobileActiveTabTextColor", value)
+            }
+            description="Mobile active tab text color"
+          />
+        </div>
+      </div>
+
       {/* Schedule Button */}
       <div className="bg-green-50 rounded-xl p-6">
         <h3 className="text-lg font-semibold text-green-800 mb-4 flex items-center gap-2">

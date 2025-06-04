@@ -194,26 +194,15 @@ export function HomePageSection({
                   }
                   description="Badge text color"
                 />
-              </div>
-            </div>
-
-            {/* Hero Content */}
-            <div className="bg-blue-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-blue-800 mb-4 flex items-center gap-2">
-                📝 Hero Content
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="md:col-span-2">
-                  <TextInput
-                    label="Subtitle"
-                    value={homePage.subtitle2 || ""}
-                    onChange={(value: string) =>
-                      updateHomePage("subtitle2", value)
-                    }
-                    placeholder="No job is too big or too small—our team is equipped to handle it all!"
-                    icon="💬"
-                  />
-                </div>
+                <TextInput
+                  label="Subtitle"
+                  value={homePage.subtitle2 || ""}
+                  onChange={(value: string) =>
+                    updateHomePage("subtitle2", value)
+                  }
+                  placeholder="Quality service description"
+                  icon="📄"
+                />
                 <ColorPicker
                   label="Subtitle Color"
                   value={homePage.heroSubtitleColor || "#ffffff"}
@@ -222,13 +211,38 @@ export function HomePageSection({
                   }
                   description="Subtitle text color"
                 />
+              </div>
+            </div>
+
+            {/* Hero Background Gradients */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🎨 Hero Background Gradients
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Gradient Top Color"
+                  value={homePage.heroGradientTop || "#66bf9b"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroGradientTop", value)
+                  }
+                  description="Top gradient color"
+                />
+                <ColorPicker
+                  label="Gradient Bottom Color"
+                  value={homePage.heroGradientBottom || "#66bf9b"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroGradientBottom", value)
+                  }
+                  description="Bottom gradient color"
+                />
                 <TextInput
                   label="Hero Image"
                   value={homePage.heroImage || ""}
                   onChange={(value: string) =>
                     updateHomePage("heroImage", value)
                   }
-                  placeholder="davis1.png"
+                  placeholder="auto1.png"
                   icon="🖼️"
                 />
               </div>
@@ -242,7 +256,7 @@ export function HomePageSection({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <TextInput
                   label="Schedule Button Text"
-                  value={homePage.scheduleButtonText || ""}
+                  value={homePage.scheduleButtonText || "Schedule Now"}
                   onChange={(value: string) =>
                     updateHomePage("scheduleButtonText", value)
                   }
@@ -257,9 +271,17 @@ export function HomePageSection({
                   }
                   description="Schedule button background"
                 />
+                <ColorPicker
+                  label="Schedule Button Text"
+                  value={homePage.heroScheduleButtonTextColor || "#000000"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroScheduleButtonTextColor", value)
+                  }
+                  description="Schedule button text color"
+                />
                 <TextInput
                   label="Contact Button Text"
-                  value={homePage.contactButtonText || ""}
+                  value={homePage.contactButtonText || "Contact Us"}
                   onChange={(value: string) =>
                     updateHomePage("contactButtonText", value)
                   }
@@ -274,25 +296,45 @@ export function HomePageSection({
                   }
                   description="Contact button background"
                 />
+                <ColorPicker
+                  label="Contact Button Text"
+                  value={homePage.heroContactButtonTextColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroContactButtonTextColor", value)
+                  }
+                  description="Contact button text color"
+                />
+                <ColorPicker
+                  label="Contact Button Border"
+                  value={homePage.heroContactButtonBorderColor || "#ffffff"}
+                  onChange={(value: string) =>
+                    updateHomePage("heroContactButtonBorderColor", value)
+                  }
+                  description="Contact button border color"
+                />
               </div>
             </div>
 
-            {/* Hero Cards */}
-            <div className="bg-purple-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
-                🃏 Hero Cards
+            {/* Hero Cards/Boxes */}
+            <div className="bg-yellow-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-yellow-800 mb-4 flex items-center gap-2">
+                🎴 Hero Feature Cards
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="space-y-2">
-                  <h4 className="font-medium text-purple-700">Card 1</h4>
+
+              {/* Card 1 */}
+              <div className="mb-6 p-4 bg-white rounded-lg border border-yellow-200">
+                <h4 className="font-semibold text-yellow-700 mb-3">
+                  Card 1 Settings
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <TextInput
-                    label="Text"
-                    value={homePage.heroCard1Text || ""}
+                    label="Card 1 Text"
+                    value={homePage.heroCard1Text || "*Free Estimates"}
                     onChange={(value: string) =>
                       updateHomePage("heroCard1Text", value)
                     }
                     placeholder="*Free Estimates"
-                    icon="1️⃣"
+                    icon="💬"
                   />
                   <ColorPicker
                     label="Background"
@@ -302,17 +344,55 @@ export function HomePageSection({
                     }
                     description="Card 1 background"
                   />
+                  <ColorPicker
+                    label="Text Color"
+                    value={homePage.heroBox1TextColor || "#ffffff"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox1TextColor", value)
+                    }
+                    description="Card 1 text color"
+                  />
+                  <ColorPicker
+                    label="Border Color"
+                    value={homePage.heroBox1BorderColor || "#66bf9b"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox1BorderColor", value)
+                    }
+                    description="Card 1 border"
+                  />
+                  <ColorPicker
+                    label="Icon Background"
+                    value={homePage.heroBox1IconBgColor || "#7fd1b6"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox1IconBgColor", value)
+                    }
+                    description="Icon background"
+                  />
+                  <ColorPicker
+                    label="Icon Color"
+                    value={homePage.heroBox1IconColor || "#000000"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox1IconColor", value)
+                    }
+                    description="Icon color"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-purple-700">Card 2</h4>
+              </div>
+
+              {/* Card 2 */}
+              <div className="mb-6 p-4 bg-white rounded-lg border border-yellow-200">
+                <h4 className="font-semibold text-yellow-700 mb-3">
+                  Card 2 Settings
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <TextInput
-                    label="Text"
-                    value={homePage.heroCard2Text || ""}
+                    label="Card 2 Text"
+                    value={homePage.heroCard2Text || "Licensed"}
                     onChange={(value: string) =>
                       updateHomePage("heroCard2Text", value)
                     }
                     placeholder="Licensed"
-                    icon="2️⃣"
+                    icon="💬"
                   />
                   <ColorPicker
                     label="Background"
@@ -322,17 +402,55 @@ export function HomePageSection({
                     }
                     description="Card 2 background"
                   />
+                  <ColorPicker
+                    label="Text Color"
+                    value={homePage.heroBox2TextColor || "#ffffff"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox2TextColor", value)
+                    }
+                    description="Card 2 text color"
+                  />
+                  <ColorPicker
+                    label="Border Color"
+                    value={homePage.heroBox2BorderColor || "#66bf9b"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox2BorderColor", value)
+                    }
+                    description="Card 2 border"
+                  />
+                  <ColorPicker
+                    label="Icon Background"
+                    value={homePage.heroBox2IconBgColor || "#7fd1b6"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox2IconBgColor", value)
+                    }
+                    description="Icon background"
+                  />
+                  <ColorPicker
+                    label="Icon Color"
+                    value={homePage.heroBox2IconColor || "#000000"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox2IconColor", value)
+                    }
+                    description="Icon color"
+                  />
                 </div>
-                <div className="space-y-2">
-                  <h4 className="font-medium text-purple-700">Card 3</h4>
+              </div>
+
+              {/* Card 3 */}
+              <div className="p-4 bg-white rounded-lg border border-yellow-200">
+                <h4 className="font-semibold text-yellow-700 mb-3">
+                  Card 3 Settings
+                </h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <TextInput
-                    label="Text"
-                    value={homePage.heroCard3Text || ""}
+                    label="Card 3 Text"
+                    value={homePage.heroCard3Text || "Fast Removal"}
                     onChange={(value: string) =>
                       updateHomePage("heroCard3Text", value)
                     }
                     placeholder="Fast Removal"
-                    icon="3️⃣"
+                    icon="💬"
                   />
                   <ColorPicker
                     label="Background"
@@ -341,6 +459,38 @@ export function HomePageSection({
                       updateHomePage("heroBox3BgColor", value)
                     }
                     description="Card 3 background"
+                  />
+                  <ColorPicker
+                    label="Text Color"
+                    value={homePage.heroBox3TextColor || "#ffffff"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox3TextColor", value)
+                    }
+                    description="Card 3 text color"
+                  />
+                  <ColorPicker
+                    label="Border Color"
+                    value={homePage.heroBox3BorderColor || "#66bf9b"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox3BorderColor", value)
+                    }
+                    description="Card 3 border"
+                  />
+                  <ColorPicker
+                    label="Icon Background"
+                    value={homePage.heroBox3IconBgColor || "#7fd1b6"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox3IconBgColor", value)
+                    }
+                    description="Icon background"
+                  />
+                  <ColorPicker
+                    label="Icon Color"
+                    value={homePage.heroBox3IconColor || "#000000"}
+                    onChange={(value: string) =>
+                      updateHomePage("heroBox3IconColor", value)
+                    }
+                    description="Icon color"
                   />
                 </div>
               </div>
@@ -414,6 +564,38 @@ export function HomePageSection({
                   }
                   description="Calendar border color"
                 />
+                <ColorPicker
+                  label="Calendar Accent"
+                  value={
+                    homePage.scheduleSection?.calendarAccentColor || "#7dae99"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("calendarAccentColor", value)
+                  }
+                  description="Calendar accent color"
+                />
+                <ColorPicker
+                  label="Ripple Start Color"
+                  value={
+                    homePage.scheduleSection?.calendarRippleStartColor ||
+                    "#9ddac0"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("calendarRippleStartColor", value)
+                  }
+                  description="Calendar ripple start color"
+                />
+                <ColorPicker
+                  label="Ripple End Color"
+                  value={
+                    homePage.scheduleSection?.calendarRippleEndColor ||
+                    "#a3d8c3"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("calendarRippleEndColor", value)
+                  }
+                  description="Calendar ripple end color"
+                />
                 <TextInput
                   label="Calendar Month"
                   value={homePage.scheduleSection?.calendarMonth || ""}
@@ -431,6 +613,61 @@ export function HomePageSection({
                   }
                   placeholder="2024"
                   icon="📅"
+                />
+              </div>
+            </div>
+
+            {/* Schedule Background Gradients */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🎨 Schedule Background Gradients
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Gradient Top Color"
+                  value={
+                    homePage.scheduleSection?.scheduleGradientTop || "#ceffec"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleGradientTop", value)
+                  }
+                  description="Schedule section gradient top"
+                />
+                <ColorPicker
+                  label="Gradient Bottom Color"
+                  value={
+                    homePage.scheduleSection?.scheduleGradientBottom ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleGradientBottom", value)
+                  }
+                  description="Schedule section gradient bottom"
+                />
+                <ColorPicker
+                  label="Section Badge Background"
+                  value={
+                    homePage.scheduleSection?.scheduleSectionBadgeColor ||
+                    "#f5d6d636"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection("scheduleSectionBadgeColor", value)
+                  }
+                  description="Badge background color"
+                />
+                <ColorPicker
+                  label="Section Badge Text"
+                  value={
+                    homePage.scheduleSection?.scheduleSectionBadgeTextColor ||
+                    "#387e62"
+                  }
+                  onChange={(value: string) =>
+                    updateScheduleSection(
+                      "scheduleSectionBadgeTextColor",
+                      value
+                    )
+                  }
+                  description="Badge text color"
                 />
               </div>
             </div>
@@ -464,6 +701,48 @@ export function HomePageSection({
                     updateGuaranteeSection("guaranteeBadgeColor", value)
                   }
                   description="Badge background color"
+                />
+              </div>
+            </div>
+
+            {/* Guarantee Background Gradients */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🎨 Guarantee Background Gradients
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Background Gradient Top"
+                  value={
+                    homePage.guaranteeSection?.guaranteeBgGradientTop ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateGuaranteeSection("guaranteeBgGradientTop", value)
+                  }
+                  description="Guarantee section gradient top"
+                />
+                <ColorPicker
+                  label="Background Gradient Bottom"
+                  value={
+                    homePage.guaranteeSection?.guaranteeBgGradientBottom ||
+                    "#f0f9ff"
+                  }
+                  onChange={(value: string) =>
+                    updateGuaranteeSection("guaranteeBgGradientBottom", value)
+                  }
+                  description="Guarantee section gradient bottom"
+                />
+                <ColorPicker
+                  label="Badge Text Color"
+                  value={
+                    homePage.guaranteeSection?.guaranteeBadgeTextColor ||
+                    "#000000"
+                  }
+                  onChange={(value: string) =>
+                    updateGuaranteeSection("guaranteeBadgeTextColor", value)
+                  }
+                  description="Badge text color"
                 />
               </div>
             </div>
@@ -567,6 +846,59 @@ export function HomePageSection({
                 />
               </div>
             </div>
+
+            {/* Services Button Gradients */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🎨 Services Button Gradients
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <ColorPicker
+                  label="Button Start Color"
+                  value={
+                    homePage.servicesSection?.servicesButtonStartColor ||
+                    "#387e62"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesButtonStartColor", value)
+                  }
+                  description="Button gradient start"
+                />
+                <ColorPicker
+                  label="Button End Color"
+                  value={
+                    homePage.servicesSection?.servicesButtonEndColor ||
+                    "#387e62"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("servicesButtonEndColor", value)
+                  }
+                  description="Button gradient end"
+                />
+                <ColorPicker
+                  label="Gradient From Color"
+                  value={
+                    homePage.servicesSection?.serviceReelGradientFromColor ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelGradientFromColor", value)
+                  }
+                  description="Service reel gradient from"
+                />
+                <ColorPicker
+                  label="Gradient To Color"
+                  value={
+                    homePage.servicesSection?.serviceReelGradientToColor ||
+                    "#ffffff"
+                  }
+                  onChange={(value: string) =>
+                    updateServicesSection("serviceReelGradientToColor", value)
+                  }
+                  description="Service reel gradient to"
+                />
+              </div>
+            </div>
           </div>
         )}
 
@@ -617,10 +949,10 @@ export function HomePageSection({
               </div>
             </div>
 
-            {/* Review Colors */}
-            <div className="bg-amber-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-amber-800 mb-4 flex items-center gap-2">
-                🎨 Review Section Colors
+            {/* Review Background Gradients */}
+            <div className="bg-purple-50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-purple-800 mb-4 flex items-center gap-2">
+                🎨 Review Background Gradients
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <ColorPicker
@@ -632,6 +964,16 @@ export function HomePageSection({
                     updateReviewsSection("reviewsBgStartColor", value)
                   }
                   description="Gradient start color"
+                />
+                <ColorPicker
+                  label="Background Middle"
+                  value={
+                    homePage.reviewsSection?.reviewsBgMiddleColor || "#66bf9b"
+                  }
+                  onChange={(value: string) =>
+                    updateReviewsSection("reviewsBgMiddleColor", value)
+                  }
+                  description="Gradient middle color"
                 />
                 <ColorPicker
                   label="Background End"
