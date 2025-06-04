@@ -1,8 +1,5 @@
 // Define the type for the localConfig object
-//supapass:RemovalTreeDavis321!
-// Link For Hex Colors: https://www.color-hex.com/
-
-import { SiteConfig } from "./configFixTypes";
+import { SiteConfig } from "./configTypes";
 
 // Export the LocalConfig interface as an alias for backward compatibility
 export type LocalConfig = SiteConfig;

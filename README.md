@@ -6,6 +6,7 @@
 - **Local Config File**: `src/config/localConfig.ts`
 - **Live Site**: http://localhost:3000
 - **Color Hex Finder**: https://www.color-hex.com/color-palette/1294
+- **Backup Delete Script**: node scripts/fix-config-types.js
 
 ## 📋 Setup Instructions
 
