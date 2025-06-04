@@ -145,12 +145,38 @@ export default function RootLayout({
           </ConfigProvider>
         </div>
 
-        {/* Minimal script for loading overlay only */}
+        {/* Script for loading overlay and scroll position preservation */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
           try {
             if (typeof window !== 'undefined') {
+              // Scroll position preservation
+              const SCROLL_KEY = 'davis_tree_scroll_position';
+              
+              // Save scroll position before page unloads
+              function saveScrollPosition() {
+                const scrollY = window.scrollY || window.pageYOffset;
+                const scrollX = window.scrollX || window.pageXOffset;
+                localStorage.setItem(SCROLL_KEY, JSON.stringify({ x: scrollX, y: scrollY }));
+              }
+              
+              // Restore scroll position after page loads
+              function restoreScrollPosition() {
+                try {
+                  const savedPosition = localStorage.getItem(SCROLL_KEY);
+                  if (savedPosition) {
+                    const position = JSON.parse(savedPosition);
+                    // Use requestAnimationFrame to ensure DOM is ready
+                    requestAnimationFrame(() => {
+                      window.scrollTo(position.x, position.y);
+                    });
+                  }
+                } catch (e) {
+                  console.warn('Could not restore scroll position:', e);
+                }
+              }
+              
               // Handle the loading overlay
               function hideLoadingOverlay() {
                 if (document.readyState === 'complete') {
@@ -160,11 +186,26 @@ export default function RootLayout({
                       overlay.classList.add('hidden');
                       setTimeout(() => {
                         overlay.style.display = 'none';
+                        // Restore scroll position after loading is complete
+                        restoreScrollPosition();
                       }, 500);
+                    } else {
+                      // If no loading overlay, restore immediately
+                      restoreScrollPosition();
                     }
                   }, 800);
                 }
               }
+              
+              // Save scroll position on page unload
+              window.addEventListener('beforeunload', saveScrollPosition);
+              
+              // Also save periodically while scrolling (debounced)
+              let scrollTimeout;
+              window.addEventListener('scroll', () => {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(saveScrollPosition, 100);
+              });
               
               if (document.readyState === 'complete') {
                 hideLoadingOverlay();
