@@ -30,6 +30,9 @@ interface HeroSectionProps {
   contactButtonColor?: string;
   contactButtonTextColor?: string;
   heroContactButtonBorderColor?: string;
+  heroContactButtonHoverColor?: string;
+  heroContactButtonHoverTextColor?: string;
+  heroContactButtonHoverBorderColor?: string;
   heroCard1Text?: string;
   heroCard2Text?: string;
   heroCard3Text?: string;
@@ -76,6 +79,9 @@ export default function HeroSection({
   contactButtonColor = "#ffffff",
   contactButtonTextColor = "#4fc917",
   heroContactButtonBorderColor = "#ffffff",
+  heroContactButtonHoverColor = "#4fc917",
+  heroContactButtonHoverTextColor = "#ffffff",
+  heroContactButtonHoverBorderColor = "#4fc917",
   heroCard1Text = "Hero Card 1",
   heroCard2Text = "Hero Card 2",
   heroCard3Text = "Hero Card 3",
@@ -373,9 +379,13 @@ export default function HeroSection({
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#5cbe1a";
-                e.currentTarget.style.color = "#ffffff";
-                e.currentTarget.style.border = `2px solid #1787c9`;
+                e.currentTarget.style.background =
+                  heroContactButtonHoverColor || "#4fc917";
+                e.currentTarget.style.color =
+                  heroContactButtonHoverTextColor || "#ffffff";
+                e.currentTarget.style.border = `2px solid ${
+                  heroContactButtonHoverBorderColor || "#4fc917"
+                }`;
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = contactButtonColor;

@@ -253,6 +253,15 @@ export default function Home() {
         heroContactButtonBorderColor={
           home.heroContactButtonBorderColor || "#ffffff"
         }
+        heroContactButtonHoverColor={
+          home.heroContactButtonHoverColor || "#4fc917"
+        }
+        heroContactButtonHoverTextColor={
+          home.heroContactButtonHoverTextColor || "#ffffff"
+        }
+        heroContactButtonHoverBorderColor={
+          home.heroContactButtonHoverBorderColor || "#4fc917"
+        }
         heroCard1Text={home.heroCard1Text || "Hero Card 1"}
         heroCard2Text={home.heroCard2Text || "Hero Card 2"}
         heroCard3Text={home.heroCard3Text || "Hero Card 3"}
