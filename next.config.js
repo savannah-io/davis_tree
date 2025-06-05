@@ -1,29 +1,39 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'standalone',
+  output: "standalone",
   reactStrictMode: true,
   swcMinify: true,
+
+  // Enhanced build configuration for better error handling
+  typescript: {
+    // Don't fail build on type errors in production (for emergency deployments)
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    // Don't fail build on lint errors in production (for emergency deployments)
+    ignoreDuringBuilds: false,
+  },
   images: {
-    domains: ['tailwindui.com', 'images.unsplash.com', 'taylorcollision.com'],
+    domains: ["tailwindui.com", "images.unsplash.com", "taylorcollision.com"],
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'taylorscollision.supabase.co',
-        port: '',
-        pathname: '/storage/v1/object/public/**',
+        protocol: "https",
+        hostname: "taylorscollision.supabase.co",
+        port: "",
+        pathname: "/storage/v1/object/public/**",
       },
       {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
-        port: '',
-        pathname: '/**',
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
   // Enable experimental features needed for dynamic imports
   experimental: {
     serverComponentsExternalPackages: [],
-    esmExternals: 'loose',
+    esmExternals: "loose",
   },
   // Add this to ensure static files are properly handled
   webpack: (config, { isServer }) => {
@@ -35,7 +45,7 @@ const nextConfig = {
         path: false,
       };
     }
-    
+
     return config;
   },
 };

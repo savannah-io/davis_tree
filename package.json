@@ -1,12 +1,16 @@
 {
   "name": "davis_tree",
   "version": "1.0.0",
+  "private": true,
   "description": "Davis Tree Template Site",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "build:check": "next build --no-lint && echo '✅ Build successful!'",
+    "pre-deploy": "npm run lint && npm run build:check",
+    "type-check": "tsc --noEmit",
     "upload-images": "ts-node -P tsconfig.json scripts/upload_review_images.ts",
     "supabase:migration": "supabase db push",
     "post-publish": "node scripts/fix-config-types.js",
