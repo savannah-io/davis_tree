@@ -905,7 +905,7 @@ const localConfig: LocalConfig = {
     "terms": "Our terms of service text here.",
     "privacy": "Our privacy policy text here."
   },
-  "description": "A trusted Savannah auto body shop dedicated to excellence in collision repair and customer service.",
+  "description": "Expert auto body shop in Savannah, GA",
   "contactInfo": {
     "address": "2785 Buford Hwy Ste 101-C, Duluth, GA 30096",
     "phone": "(770) 495-0050",

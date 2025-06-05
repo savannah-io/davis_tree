@@ -905,7 +905,7 @@ const localConfig: LocalConfig = {
     "terms": "Our terms of service text here.",
     "privacy": "Our privacy policy text here."
   },
-  "description": "A trusted Savannah auto body shop dedicated to excellence in collision repair and customer service.",
+  "description": "Premier auto body shop in Savannah, GA - Expert collision repair",
   "contactInfo": {
     "address": "2785 Buford Hwy Ste 101-C, Duluth, GA 30096",
     "phone": "(770) 495-0050",
@@ -942,7 +942,7 @@ const localConfig: LocalConfig = {
   "showJoinTeamButton": true,
   "joinTeamText": "Join the Team",
   "joinTeamLink": "/careers",
-  "copyright": "© 2025 Auto-Template. All rights reserved.",
+  "copyright": "© 2025 Taylor's Collision. All rights reserved.",
   "footerStyle": {
     "backgroundColor": "#ffffff",
     "gradientFromColor": "#dbeafe",
@@ -969,7 +969,7 @@ const localConfig: LocalConfig = {
   "schedulingButtonText": "Schedule Now",
   "themeColor": "#1e40af",
   "themeLink": "",
-  "companyName": "Auto-Template"
+  "companyName": "Taylor's Collision"
 };
 
 export default localConfig;
