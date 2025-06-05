@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   InfoBarSection,
@@ -143,7 +143,7 @@ const configSections: ConfigSection[] = [
   },
 ];
 
-export default function ConfigEditorComponent() {
+function ConfigEditorContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [config, setConfig] = useState<any>(null);
@@ -467,5 +467,23 @@ export default function ConfigEditorComponent() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrapper component with Suspense boundary
+export default function ConfigEditorComponent() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          <span className="ml-3 text-lg text-gray-600">
+            Loading configuration...
+          </span>
+        </div>
+      }
+    >
+      <ConfigEditorContent />
+    </Suspense>
   );
 }

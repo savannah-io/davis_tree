@@ -1,5 +1,8 @@
-import { google } from 'googleapis';
-import { NextResponse } from 'next/server';
+import { google } from "googleapis";
+import { NextResponse } from "next/server";
+
+// Force dynamic rendering for this route
+export const dynamic = "force-dynamic";
 
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
@@ -10,10 +13,10 @@ const oauth2Client = new google.auth.OAuth2(
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const code = searchParams.get('code');
+    const code = searchParams.get("code");
 
     if (!code) {
-      return NextResponse.json({ error: 'No code provided' }, { status: 400 });
+      return NextResponse.json({ error: "No code provided" }, { status: 400 });
     }
 
     const { tokens } = await oauth2Client.getToken(code);
@@ -23,19 +26,23 @@ export async function GET(request: Request) {
     if (tokens.refresh_token) {
       // In a production environment, you'd want to store this securely
       // For now, we'll just return it to be manually added to .env
-      return NextResponse.json({ 
+      return NextResponse.json({
         success: true,
         refresh_token: tokens.refresh_token,
-        message: 'Please add this refresh token to your .env file as GOOGLE_REFRESH_TOKEN'
+        message:
+          "Please add this refresh token to your .env file as GOOGLE_REFRESH_TOKEN",
       });
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('OAuth callback error:', error);
-    return NextResponse.json({ 
-      error: 'Failed to authenticate',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+    console.error("OAuth callback error:", error);
+    return NextResponse.json(
+      {
+        error: "Failed to authenticate",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
+      { status: 500 }
+    );
   }
-} 
+}
