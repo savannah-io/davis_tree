@@ -21,29 +21,37 @@ interface PolicyModalProps {
   TermsOfServiceModal: React.FC;
 }
 
-// Safely import the policy modals, with fallbacks
-let policyModals: PolicyModalProps | null = null;
-try {
-  const { usePrivacyPolicy, useTermsOfService } = require("../../PolicyModals");
-  policyModals = {
-    openPrivacyPolicy: usePrivacyPolicy().openPrivacyPolicy,
-    PrivacyPolicyModal: usePrivacyPolicy().PrivacyPolicyModal,
-    openTermsOfService: useTermsOfService().openTermsOfService,
-    TermsOfServiceModal: useTermsOfService().TermsOfServiceModal,
-  };
-} catch (error) {
-  console.warn("Policy modals not available:", error);
-  // Create dummy functions and components as fallbacks
-  policyModals = {
-    openPrivacyPolicy: () => console.log("Privacy policy modal not available"),
-    PrivacyPolicyModal: () => null,
-    openTermsOfService: () =>
-      console.log("Terms of service modal not available"),
-    TermsOfServiceModal: () => null,
-  };
-}
+// Policy modal hooks (moved inside component to fix React hooks rules)
 
 export default function Footer() {
+  // Policy modal hooks (properly inside component)
+  let policyModals: PolicyModalProps | null = null;
+  try {
+    const {
+      usePrivacyPolicy,
+      useTermsOfService,
+    } = require("../../PolicyModals");
+    const privacyPolicyHook = usePrivacyPolicy();
+    const termsOfServiceHook = useTermsOfService();
+    policyModals = {
+      openPrivacyPolicy: privacyPolicyHook.openPrivacyPolicy,
+      PrivacyPolicyModal: privacyPolicyHook.PrivacyPolicyModal,
+      openTermsOfService: termsOfServiceHook.openTermsOfService,
+      TermsOfServiceModal: termsOfServiceHook.TermsOfServiceModal,
+    };
+  } catch (error) {
+    console.warn("Policy modals not available:", error);
+    // Create dummy functions and components as fallbacks
+    policyModals = {
+      openPrivacyPolicy: () =>
+        console.log("Privacy policy modal not available"),
+      PrivacyPolicyModal: () => null,
+      openTermsOfService: () =>
+        console.log("Terms of service modal not available"),
+      TermsOfServiceModal: () => null,
+    };
+  }
+
   // Destructure with fallback for safety
   const {
     openPrivacyPolicy,

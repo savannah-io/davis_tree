@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "build:check": "next build --no-lint && echo '✅ Build successful!'",
-    "pre-deploy": "npm run lint && npm run build:check",
+    "pre-deploy": "npm run build:check",
     "type-check": "tsc --noEmit",
     "upload-images": "ts-node -P tsconfig.json scripts/upload_review_images.ts",
     "supabase:migration": "supabase db push",

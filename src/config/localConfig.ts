@@ -8,7 +8,7 @@ const localConfig: LocalConfig = {
   "showLogo": true,
   "infoBar": {
     "backgroundColor": "#1e40af",
-    "phone": "(770) 495-0050",
+    "phone": "(770) 495-0059",
     "address": "2785 Buford Hwy Ste 101-C, Duluth, GA 30096",
     "hours": "Mon-Fri: 8:30 AM - 6:00 PM",
     "textColor": "#ffffff",
