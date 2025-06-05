@@ -16,8 +16,8 @@ import localConfig from "@/config/localConfig";
 
 export default function Contact() {
   // Get contact config and services config for CTA section
-  const contactConfig = localConfig.pages.Contact;
-  const servicesConfig = localConfig.pages.Services;
+  const contactConfig = localConfig.pages?.Contact || {};
+  const servicesConfig = localConfig.pages?.Services || {};
 
   const [formData, setFormData] = useState({
     name: "",
@@ -218,7 +218,7 @@ export default function Contact() {
                 className="text-xl leading-relaxed max-w-2xl mx-auto"
                 style={{ color: contactConfig.heroSubtitleColor }}
               >
-                {contactConfig.subtitle.split("We're here to help.")[0]}
+                {contactConfig.subtitle?.split("We're here to help.")[0] || ""}
                 <span className="relative inline-block">
                   <span className="relative z-10">
                     We&apos;re here to help.

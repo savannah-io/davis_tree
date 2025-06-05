@@ -37,20 +37,20 @@ interface FormData {
 }
 
 export default function CareersPage() {
-  // Get careers config
-  const careersConfig = localConfig.pages.Careers;
+  // Get careers config with fallbacks
+  const careersConfig = localConfig.pages?.Careers || {};
   const [isMobile, setIsMobile] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
   useEffect(() => {
     // Get the mobile overlay config
-    const overlayConfig = localConfig.pages.Careers.mobileOverlay;
+    const overlayConfig = localConfig.pages?.Careers?.mobileOverlay;
 
     // Set fixed breakpoint to match cursor
     const mobileBreakpoint = 663;
 
     // Check if the overlay is enabled in the config
-    if (!overlayConfig.enabled) {
+    if (!overlayConfig?.enabled) {
       setIsMobile(false);
       setHasLoaded(true);
       return;
@@ -295,10 +295,14 @@ export default function CareersPage() {
       {/* Mobile Overlay - only shown on mobile devices after component has loaded on client */}
       {hasLoaded && isMobile && (
         <MobileOverlay
-          title={localConfig.pages.Careers.mobileOverlay.title}
-          message={localConfig.pages.Careers.mobileOverlay.message}
-          buttonText={localConfig.pages.Careers.mobileOverlay.buttonText}
-          buttonLink={localConfig.pages.Careers.mobileOverlay.buttonLink}
+          title={localConfig.pages?.Careers?.mobileOverlay?.title || ""}
+          message={localConfig.pages?.Careers?.mobileOverlay?.message || ""}
+          buttonText={
+            localConfig.pages?.Careers?.mobileOverlay?.buttonText || ""
+          }
+          buttonLink={
+            localConfig.pages?.Careers?.mobileOverlay?.buttonLink || ""
+          }
         />
       )}
 
